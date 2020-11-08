@@ -1,8 +1,11 @@
 # Windows configuration
 window:
   dimensions:
-    columns: 150 
-    lines: 50 
+    columns: 207 
+    lines: 58
+  position:
+    x: 20
+    y: 20
   padding:
     x: 10
     y: 10

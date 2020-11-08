@@ -1,20 +1,22 @@
+let g:polygot_disabled = ['markdown']
 set history=500
 set nocompatible
-set relativenumber
+set number
 set shortmess+=I
 " Set to auto read when a file is changed from the outside
 set autoread
+set noshowmode
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 
 imap ,, <C-y>,
+map <C-n> :NERDTreeToggle<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
 " Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
 
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
@@ -25,13 +27,8 @@ set mouse+=a
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 
-noremap ( ()<Esc>i
 inoremap { {}<Esc>i
 inoremap {<CR> {<CR>}<Esc>O
-inoremap [ []<Esc>i
-inoremap < <><Esc>i
-inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -79,11 +76,11 @@ set mat=2
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
-set tm=500
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+"set foldcolumn=1
+
+"set signcolumn=no
 
 " Enable syntax highlighting
 syntax enable 
@@ -160,6 +157,10 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
+" coloring statusline
+if !has('gui_running')
+  set t_Co=256
+endif
 
 
 
