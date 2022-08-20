@@ -8,7 +8,7 @@ set noswapfile
 
 set ruler
 set number
-set relativenumber
+"set relativenumber
 set numberwidth=3
 set wrap
 set ignorecase
@@ -52,7 +52,7 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 " default the statusline to green when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
-set statusline=%f                           " file name
+set statusline=\ \ %f\ \                            " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
@@ -103,6 +103,7 @@ nnoremap <space> viwy
 nnoremap <c-u> viwU
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ez :vsplit $HOME/.zshrc<cr>
 nnoremap <leader>rs :source $MYVIMRC<cr>
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel

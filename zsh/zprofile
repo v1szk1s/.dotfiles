@@ -1,0 +1,7 @@
+export VISUAL="vim"
+export EDITOR="Vim"
+export DOTFILES="/Users/hulu/dotfiles/"
+export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:~/dotfiles/bin
+export kabinet='h142508@linux.inf.u-szeged.hu'
+export tanszek='/Volumes/Common/team/columbus/exchange/aattila/'
+eval "$(/opt/homebrew/bin/brew shellenv)"
