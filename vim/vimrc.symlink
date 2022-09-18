@@ -81,8 +81,14 @@ filetype plugin on
 """"""""""""
 " Mappings:
 """"""""""""
+ab sqrt √
+ab tic ✓
+nnoremap <leader>r :! ./run<cr>
 nnoremap <leader><leader> :vsp<cr>
 nnoremap <leader>l :call ToggleList()<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>f :%s/
 
 " moving between splits
 nnoremap <C-j> <C-W>j
@@ -110,10 +116,12 @@ nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>h :nohl<cr>
 
 inoremap { {}<esc>i
-inoremap ( ()<esc>i
-inoremap [ []<esc>i
+"inoremap ( ()<esc>i
+"inoremap [ []<esc>i
 "inoremap " ""<esc>i
 "inoremap ' ''<esc>i
+
+vnoremap . :normal .<cr>
 
 
 nnoremap <leader>bn :bNext<cr>
@@ -124,7 +132,7 @@ inoremap {<cr> {<cr>}<esc>O
 inoremap jk <esc>
 
 "nerdtree mapping:
-nnoremap <c-t> :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 
 """"""""""
@@ -144,8 +152,10 @@ au FileType * execute 'setlocal dict+=~/.vim/words/'.&filetype.'.txt'
 """"""""""
 
 call plug#begin()
+  Plug 'bfrg/vim-cpp-modern'
   Plug 'preservim/nerdtree'
   Plug 'vim-scripts/AutoComplPop'
+  Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
 """""""""""""

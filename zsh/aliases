@@ -1,21 +1,24 @@
-alias xampp=' sudo /opt/lampp/lampp' 
-alias gs='git status'
-alias gl='git --no-pager log --all --graph --decorate --oneline'
-alias up='cd ..'
-alias py='python3'
-alias python='python3'
-
-alias arm='env /usr/bin/arch -arm64 /bin/zsh'
-alias intel='env /usr/bin/arch -x86_64 /bin/zsh'
-alias ibrew='/usr/local/Homebrew/bin/brew'
-alias sshtokabinet='ssh h142508@linux.inf.u-szeged.hu'
-alias studmount='sshfs h142508@linux.inf.u-szeged.hu:/home/h142508 /Users/hulu/stud'
-alias gepmount='sshfs v1szk1s@192.168.1.67:/home/v1szk1s /Users/hulu/v1szk1s'
-alias studumount='umount -f /Users/hulu/stud'
-alias gepumount='umount -f /Users/hulu/v1szk1s'
-alias t='/Applications/kitty.app/Contents/MacOS/kitty &'
-alias l='ls -laG'
-alias ls='ls -G'
-alias ts='tmux new -s'
-alias lst='tmux list-sessions'
-alias ta='tmux attach -t'
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mkd="mkdir -pv" \
+	l="ls -lG" \
+	ll="ls -laG" \
+	ls="ls -G" \
+	grep="grep --color=auto" \
+	gs="git status" \
+	gl="git --no-pager log --all --graph --decorate --oneline" \
+	up="cd .." \
+	py="python3" \
+	python="python3" \
+	alias arm="env /usr/bin/arch -arm64 /bin/zsh" \
+	intel="env /usr/bin/arch -x86_64 /bin/zsh" \
+	sshtokabinet="ssh h142508@linux.inf.u-szeged.hu" \
+	studmount="sshfs h142508@linux.inf.u-szeged.hu:/home/h142508 /Users/hulu/stud" \
+	gepmount="sshfs v1szk1s@192.168.1.67:/home/v1szk1s /Users/hulu/v1szk1s" \
+	studumount="umount -f /Users/hulu/stud" \
+	gepumount="umount -f /Users/hulu/v1szk1s" \
+	ts="tmux new -s" \
+	lst="tmux list-sessions" \
+	ta="tmux attach -t" \

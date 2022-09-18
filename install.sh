@@ -47,18 +47,21 @@ for file in $(get_linkables); do
         fi
 done
 
+cp -r $DOTFILES/vim/* $HOME/.vim
+
 }
 
+setup_symlinks
 
-case "$1" in
-		link)
-			setup_symlinks
-			;;
-		*)
-			echo -e $"\nUsage: $(basename "$0") {link}\n"
-			exit 1
-			;;
-esac
+#case "$1" in
+#		link)
+#			setup_symlinks
+#			;;
+#		*)
+#			echo -e $"\nUsage: $(basename "$0") {link}\n"
+#			exit 1
+#			;;
+#esac
 
 echo -e
 success "Done."
