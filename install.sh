@@ -46,7 +46,7 @@ for file in $(get_linkables); do
             ln -s "$file" "$target"
         fi
 done
-
+mkdir -p $HOME/.vim
 cp -r $DOTFILES/vim/* $HOME/.vim
 
 }
