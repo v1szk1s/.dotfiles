@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $# -lt 1 ]]; then
+	/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text &
+	exit
+fi
+
+/Applications/Sublime\ Text.app/Contents/MacOS/sublime_text $1 &

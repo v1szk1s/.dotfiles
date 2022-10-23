@@ -10,7 +10,7 @@ set ruler
 set number
 "set relativenumber
 set numberwidth=3
-set wrap
+set nowrap
 set ignorecase
 
 set hlsearch
@@ -81,8 +81,10 @@ filetype plugin on
 """"""""""""
 " Mappings:
 """"""""""""
+" abbrevs
 ab sqrt √
 ab tic ✓
+ab sup2 ²
 nnoremap <leader>r :! ./run<cr>
 nnoremap <leader><leader> :vsp<cr>
 nnoremap <leader>l :call ToggleList()<cr>
