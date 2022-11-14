@@ -9,8 +9,8 @@ alias \
 	ls="ls -G" \
 	grep="grep --color=auto" \
 	gs="git status" \
-	gl="git --no-pager log --all --graph --decorate --oneline" \
-	gll="git --no-pager log --all --graph --decorate" \
+	gl="git log --graph --all --format=\"%an %Cblue\"%s" \
+	gll="git log --all --graph --decorate" \
 	up="cd .." \
 	py="python3" \
 	python="python3" \

@@ -29,6 +29,8 @@ set wildmenu
 set autoindent
 set noexpandtab
 set tabstop=4
+set shiftwidth=4
+set expandtab
 
 
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
@@ -85,6 +87,7 @@ filetype plugin on
 ab sqrt √
 ab tic ✓
 ab sup2 ²
+nnoremap 0 ^
 nnoremap <leader>r :! ./run<cr>
 nnoremap <leader><leader> :vsp<cr>
 nnoremap <leader>l :call ToggleList()<cr>
