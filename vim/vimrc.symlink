@@ -1,5 +1,5 @@
 set history=500
-let mapleader = ","
+let mapleader = " "
 
 " Basic settings
 set nocompatible
@@ -7,7 +7,7 @@ set nocompatible
 set noswapfile
 
 set ruler
-set number
+set relativenumber
 "set relativenumber
 set numberwidth=3
 set nowrap
@@ -75,6 +75,7 @@ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 "
 "nerdtree
 let NERDTreeShowHidden=1
+au vimenter * if !argc() | NERDTree | endif
 
 syntax enable
 colo monokai
@@ -87,13 +88,24 @@ filetype plugin on
 ab sqrt √
 ab tic ✓
 ab sup2 ²
-nnoremap 0 ^
-nnoremap <leader>r :! ./run<cr>
-nnoremap <leader><leader> :vsp<cr>
-nnoremap <leader>l :call ToggleList()<cr>
+""""""""""
+" Bindings:
+"""""""""
+" nnoremap 0 ^
+" nnoremap <leader>r :! ./run<cr>
+
+nnoremap <leader>f :GFiles<cr>
+nnoremap gp gT
+nnoremap <leader><leader> <C-W>_
+nnoremap <leader>s :vsp<cr>
+nnoremap <leader>k :call ToggleList()<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
-nnoremap <leader>f :%s/
+nnoremap <leader>re :%s/
+nnoremap <leader>n :call ToggleNumber()<cr>
+nnoremap <leader>p :call ToggleWrap()<cr>
+nnoremap <leader>l :vertical resize +7<CR>
+nnoremap <leader>h :vertical resize -7<CR>
 
 " moving between splits
 nnoremap <C-j> <C-W>j
@@ -111,14 +123,13 @@ nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 nnoremap <space> viwy
 
 "uppercase a word
-nnoremap <c-u> viwU
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ez :vsplit $HOME/.zshrc<cr>
 nnoremap <leader>rs :source $MYVIMRC<cr>
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
-nnoremap <leader>h :nohl<cr>
+" nnoremap <leader>h :nohl<cr>
 
 inoremap { {}<esc>i
 "inoremap ( ()<esc>i
@@ -128,8 +139,10 @@ inoremap { {}<esc>i
 
 vnoremap . :normal .<cr>
 
-
+" Buffers
 nnoremap <leader>bn :bNext<cr>
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bd :bdelete<cr>
 
 
 inoremap {<cr> {<cr>}<esc>O
@@ -137,7 +150,7 @@ inoremap {<cr> {<cr>}<esc>O
 inoremap jk <esc>
 
 "nerdtree mapping:
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <C-n> :NERDTreeToggle<cr>
 
 
 """"""""""
@@ -146,21 +159,21 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 """""""""
 "autocmd FileType python nnoremap <buffer> <leader>c I#<esc>
 au FileType * execute 'setlocal dict+=~/.vim/words/'.&filetype.'.txt'
+au BufRead,BufNewFile *.ejs setfiletype html
 
 "autocmd FileType vim nnoremap <buffer> <leader>c I"<esc>
 
 
 
-""""""""""
 " Plugins
-"
-""""""""""
 
 call plug#begin()
-  Plug 'bfrg/vim-cpp-modern'
-  Plug 'preservim/nerdtree'
-  Plug 'vim-scripts/AutoComplPop'
-  Plug 'jelera/vim-javascript-syntax'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'bfrg/vim-cpp-modern'
+    Plug 'preservim/nerdtree'
+    Plug 'vim-scripts/AutoComplPop'
+    Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
 """""""""""""
@@ -171,5 +184,22 @@ call plug#end()
 :    set nolist
 :  else
 :    set list
+:  endif
+:endfunction
+
+
+:function ToggleNumber()
+:  if &relativenumber == 1
+:    set norelativenumber
+:  else
+:    set relativenumber
+:  endif
+:endfunction
+
+:function ToggleWrap()
+:  if &wrap == 1
+:    set nowrap
+:  else
+:    set wrap
 :  endif
 :endfunction
