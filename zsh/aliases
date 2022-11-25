@@ -4,9 +4,9 @@ alias \
 	mv="mv -iv" \
 	rm="rm -vI" \
 	mkd="mkdir -pv" \
-	l="ls -lG" \
-	ll="ls -laG" \
-	ls="ls -G" \
+	l="ls -l --color=auto" \
+	ll="ls -la --color=auto" \
+	ls="ls --color=auto" \
 	grep="grep --color=auto" \
 	gs="git status" \
 	gl="git log --graph --all --format=\"%an %Cblue\"%s" \
