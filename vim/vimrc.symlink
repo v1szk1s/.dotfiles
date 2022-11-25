@@ -7,6 +7,7 @@ set nocompatible
 set noswapfile
 
 set ruler
+set number
 set relativenumber
 "set relativenumber
 set numberwidth=3
@@ -93,7 +94,8 @@ ab sup2 ²
 """""""""
 " nnoremap 0 ^
 " nnoremap <leader>r :! ./run<cr>
-
+nnoremap <leader>u viwU
+nnoremap <C-j> <C-e>
 nnoremap <leader>f :GFiles<cr>
 nnoremap gp gT
 nnoremap <leader><leader> <C-W>_
@@ -120,7 +122,6 @@ nnoremap <leader>tc :tabclose<cr>
 
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 
-nnoremap <space> viwy
 
 "uppercase a word
 
@@ -131,7 +132,7 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 " nnoremap <leader>h :nohl<cr>
 
-inoremap { {}<esc>i
+" inoremap { {}<esc>i
 "inoremap ( ()<esc>i
 "inoremap [ []<esc>i
 "inoremap " ""<esc>i
@@ -146,6 +147,7 @@ nnoremap <leader>bd :bdelete<cr>
 
 
 inoremap {<cr> {<cr>}<esc>O
+inoremap (<cr> (<cr>)<esc>O
 
 inoremap jk <esc>
 
@@ -191,8 +193,10 @@ call plug#end()
 :function ToggleNumber()
 :  if &relativenumber == 1
 :    set norelativenumber
+:    set nonumber
 :  else
 :    set relativenumber
+:    set number
 :  endif
 :endfunction
 
