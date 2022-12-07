@@ -1,26 +1,30 @@
-alias \
-	q="exit" \
-	cp="cp -iv" \
-	mv="mv -iv" \
-	rm="rm -vI" \
-	mkd="mkdir -pv" \
-	l="ls -l --color=auto" \
-	ll="ls -la --color=auto" \
-	ls="ls --color=auto" \
-	grep="grep --color=auto" \
-	gs="git status" \
-	gl="git log --graph --all --format=\"%an %Cblue\"%s" \
-	gll="git log --all --graph --decorate" \
-	up="cd .." \
-	py="python3" \
-	python="python3" \
-	alias arm="env /usr/bin/arch -arm64 /bin/zsh" \
-	intel="env /usr/bin/arch -x86_64 /bin/zsh" \
-	sshtokabinet="ssh h142508@linux.inf.u-szeged.hu" \
-	studmount="sshfs h142508@linux.inf.u-szeged.hu:/home/h142508 /Users/hulu/stud" \
-	gepmount="sshfs v1szk1s@192.168.1.67:/home/v1szk1s /Users/hulu/v1szk1s" \
-	studumount="umount -f /Users/hulu/stud" \
-	gepumount="umount -f /Users/hulu/v1szk1s" \
-	ts="tmux new -s" \
-	lst="tmux list-sessions" \
-	ta="tmux attach -t" \
+alias q="exit" 
+alias cp="cp -iv" 
+alias mv="mv -iv" 
+alias rm="rm -vI" 
+alias mkd="mkdir -pv" 
+
+alias ll='exa -al --color=always --group-directories-first' # my preferred listing
+alias l='exa -l --color=always --group-directories-first'  # all files and dirs
+alias ls='exa --color=always --group-directories-first'  # long format
+alias lt='exa -aT --color=always --group-directories-first' # tree listing
+alias l.='exa -al --color=always --group-directories-first | grep "^\..*"'
+
+
+alias grep="grep --color=auto" 
+alias gs="git status" 
+alias gl="git log --graph --all --format="%an %Cblue"%s" 
+alias gll="git log --all --graph --decorate" 
+alias up="cd .." 
+alias py="python3" 
+alias python="python3" 
+alias alias arm="env /usr/bin/arch -arm64 /bin/zsh" 
+alias intel="env /usr/bin/arch -x86_64 /bin/zsh" 
+alias sshtokabinet="ssh h142508@linux.inf.u-szeged.hu" 
+alias studmount="sshfs h142508@linux.inf.u-szeged.hu:/home/h142508 /Users/hulu/stud" 
+alias gepmount="sshfs v1szk1s@192.168.1.67:/home/v1szk1s /Users/hulu/v1szk1s" 
+alias studumount="umount -f /Users/hulu/stud" 
+alias gepumount="umount -f /Users/hulu/v1szk1s" 
+alias ts="tmux new -s" 
+alias lst="tmux list-sessions" 
+alias ta="tmux attach -t" 
