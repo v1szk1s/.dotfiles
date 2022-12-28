@@ -98,7 +98,6 @@ filetype plugin on
 " Mappings:
 """"""""""""
 " abbrevs
-ab sqrt √
 ab tic ✓
 ab sup2 ²
 """"""""""
