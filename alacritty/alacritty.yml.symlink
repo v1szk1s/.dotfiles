@@ -11,7 +11,8 @@
 #import:
 #  - /path/to/alacritty.yml
 import:
-  - ~/dotfiles/alacritty/themes/horizon-dark.yaml
+  - ~/dotfiles/alacritty/themes/argonaut.yaml
+
 
     
 

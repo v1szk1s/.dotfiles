@@ -2,5 +2,5 @@ export EDITOR="Vim"
 export DOTFILES=$(echo ~)/dotfiles
 export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:~/dotfiles/bin:/Users/hulu/.cargo/bin
 export kabinet='h142508@linux.inf.u-szeged.hu'
-export tanszek='/Volumes/Common/team/columbus/exchange/aattila/'
-export host='root@164.92.167.158'
+#export tanszek='/Volumes/Common/team/columbus/exchange/aattila/'
+export sedbl='sedbl02.inf.u-szeged.h'

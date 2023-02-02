@@ -1,6 +1,5 @@
 set history=500
 let mapleader = " "
-let b:ale_fixers = ['prettier', 'eslint']
 
 " vimtex
 
@@ -187,10 +186,8 @@ au BufRead,BufNewFile *.run setfiletype ampl
 call plug#begin()
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'bfrg/vim-cpp-modern'
     Plug 'preservim/nerdtree'
     Plug 'vim-scripts/AutoComplPop'
-    Plug 'jelera/vim-javascript-syntax'
     Plug 'mattn/emmet-vim'
     Plug 'lervag/vimtex'
 call plug#end()
