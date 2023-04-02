@@ -100,23 +100,66 @@ setup_symlinks() {
     done
 }
 
-setup_symlinks
+setup_lf(){
+    title "setting up lf"
 
-#case "$1" in
-#		link)
-#			setup_symlinks
-#			;;
-#        proba)
-#            setup_zsh
-#            #for i in ${configs_to_links[@]}; do
-#                #echo $i
-#            #done
-#            ;;
-#		*)
-#			echo -e $"\nUsage: $(basename "$0") {link}\n"
-#			exit 1
-#			;;
-#esac
+    info "downloading latest release"
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        url=$(curl -s https://api.github.com/repos/gokcehan/lf/releases/latest | grep "browser_download_url.*darwin-amd")
+    else
+        url=$(curl -s https://api.github.com/repos/gokcehan/lf/releases/latest | grep "browser_download_url.*linux-amd")
+    fi
+
+    url=$(echo $url | cut -d : -f 2,3 | tr -d '"' )
+    target_dir=$HOME/.local/bin
+    mkdir -p $target_dir
+    wget $url -q -O $target_dir/lf.tar.gz
+
+    cd $target_dir
+    tar xf lf.tar.gz && rm lf.tar.gz
+
+    info "finished dowlnoading"
+}
+
+setup_nvim(){
+    title "setting up nvim"
+
+    info "downloading latest release"
+    if [[ $OSTYPE == 'darwin'* ]]; then
+        url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep "browser_download_url.*macos.tar.gz\"")
+    else
+        url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep "browser_download_url.*linux64.tar.gz\"")
+    fi
+
+    url=$(echo $url | cut -d : -f 2,3 | tr -d '"' )
+    target_dir=$HOME/.local/bin
+    mkdir -p $target_dir
+    wget $url -q -O $target_dir/nvim.tar.gz
+
+    cd $target_dir
+    mkdir nvim_src
+    tar xf nvim.tar.gz -C nvim_src --strip-components=1 && rm nvim.tar.gz
+    ln -s nvim_src/bin/nvim nvim
+
+    info "finished dowlnoading"
+}
+
+
+case "$1" in
+		link)
+			setup_symlinks
+			;;
+        lf)
+            setup_lf
+            ;;
+        nvim)
+            setup_nvim
+            ;;
+		*)
+			echo -e $"\nUsage: $(basename "$0") {link | lf}\n"
+			exit 1
+			;;
+esac
 
 echo -e
 success "Done."
