@@ -48,6 +48,13 @@ setup_zsh(){
             info "$i Already exists... Skipping. "
         fi
     done
+    
+    if [[ ! -f $HOME/.zshenv ]]; then
+        info "Making symlink for zshenv"
+        ln -s $DOTFILES/zsh/zshenv $HOME/.zshenv 
+    else
+        info ".zshenv Already exists... Skipping. "
+    fi
 
 }
 
