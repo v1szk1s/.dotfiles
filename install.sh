@@ -39,11 +39,11 @@ setup_zsh(){
 	title "Setup zsh"
 
     mkdir -p ~/.config/zsh
-    for i in $(find $DOTFILES/zsh -name '*.symlink' | xargs basename ); do
-        target="$HOME/.config/zsh/.$(basename "$DOTFILES/zsh/$i" '.symlink')"
+    for i in $(find $DOTFILES/zsh -name '*.symlink'); do
+        target="$HOME/.config/zsh/.$(basename "$i" '.symlink')"
         if [[ ! -f $target ]]; then
             info "Making symlink for $i"
-            ln -s $DOTFILES/zsh/$i $target
+            ln -s $i $target
         else
             info "$i Already exists... Skipping. "
         fi
