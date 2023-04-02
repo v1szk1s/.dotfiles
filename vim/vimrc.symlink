@@ -6,10 +6,6 @@ let mapleader = " "
 filetype plugin indent on
 
 syntax enable
-let g:vimtex_view_method = 'zathura'
-" Or with a generic interface:
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 " Basic settings
 set nocompatible
@@ -19,7 +15,6 @@ set noswapfile
 set ruler
 set number
 set relativenumber
-"set relativenumber
 set numberwidth=3
 set nowrap
 set ignorecase
@@ -31,7 +26,6 @@ set noerrorbells
 set novisualbell
 
 set notimeout
-set nottimeout
 
 " fuzzy find vagy mi
 set path+=**
@@ -43,8 +37,30 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'Normal·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ '^V' : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '^S' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
 
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
 """"""""""""
 " Status line
 """"""""""""
@@ -52,12 +68,13 @@ set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
-  elseif a:mode == 'r'
-    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
   else
-    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+    hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
   endif
 endfunction
+
+hi Status1 guifg=#008080 guibg=#fabd2f
+hi Status2 guifg=#F6955B guibg=#38A89D
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
@@ -66,6 +83,7 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
 " hi Normal guibg=NONE ctermbg=NONE
+set noshowmode
 
 set statusline=\ \ %f\ \                            " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
@@ -73,6 +91,7 @@ set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]      
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
 "modified flag
 
 set statusline+=%r      "read only flag
@@ -88,7 +107,7 @@ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 "
 "nerdtree
 let NERDTreeShowHidden=1
-au vimenter * if !argc() | NERDTree | endif
+" au vimenter * if !argc() | NERDTree | endif
 
 colo monokai
 filetype plugin on
@@ -190,6 +209,8 @@ call plug#begin()
     Plug 'vim-scripts/AutoComplPop'
     Plug 'mattn/emmet-vim'
     Plug 'lervag/vimtex'
+    Plug 'jremmen/vim-ripgrep'
+    Plug 'prettier/vim-prettier'
 call plug#end()
 
 """""""""""""
