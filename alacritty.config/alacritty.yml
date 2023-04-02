@@ -36,17 +36,17 @@ window:
   # must be non-zero for this to take effect. The number of columns must be at
   # least `2`, while using a value of `0` for columns and lines will fall back
   # to the window manager's recommended size
-  dimensions:
-    columns: 180
-    lines: 67 
+  #dimensions:
+  #columns: 180
+  #lines: 67 
 
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
   # If the position is not set, the window manager will handle the placement.
-  position:
-    x: 1
-    y: 1
+  #position:
+  #x: 1
+  #y: 1
 
   # Window padding (changes require restart)
   #
@@ -765,7 +765,7 @@ cursor:
 # in the order they were defined in.
  
 key_bindings:
-   - { key: F, mods: Control, chars: "\x03 tmux new ~/dotfiles/bin/tmux-sessionizer \x0D" }
+  - { key: F, mods: Control, chars: "\x03 tmux new ~/dotfiles/bin/tmux-sessionizer \x0D" }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
