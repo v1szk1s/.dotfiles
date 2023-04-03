@@ -87,7 +87,6 @@ setup_symlinks() {
     setup_packer
 
     title "Setup remaning"
-    configs_to_links=$(find $DOTFILES -name '*.config')
 
     for i in $(find $DOTFILES -name '*.config'); do
         target="$HOME/.config/$(basename "$DOTFILES/$i" '.config')"
@@ -146,15 +145,15 @@ setup_nvim(){
 
 
 case "$1" in
-		link)
-			setup_symlinks
-			;;
         lf)
             setup_lf
             ;;
         nvim)
             setup_nvim
             ;;
+		link)
+			setup_symlinks
+			;;
 		*)
 			echo -e $"\nUsage: $(basename "$0") {link | lf}\n"
 			exit 1
