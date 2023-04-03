@@ -11,7 +11,7 @@
 #import:
 #  - /path/to/alacritty.yml
 import:
-  - ~/dotfiles/alacritty.config/themes/argonaut.yaml
+  - ~/.dotfiles/alacritty.config/themes/argonaut.yaml
 
 
     
@@ -765,7 +765,7 @@ cursor:
 # in the order they were defined in.
  
 key_bindings:
-  - { key: F, mods: Control, chars: "\x03 tmux new ~/dotfiles/bin/tmux-sessionizer \x0D" }
+  - { key: F, mods: Control, chars: "\x03 tmux new ~/.dotfiles/bin/tmux-sessionizer \x0D" }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }

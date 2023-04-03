@@ -1,5 +1,5 @@
 export EDITOR="nvim"
-export DOTFILES=$(echo ~)/dotfiles
+export DOTFILES=$(echo ~)/.dotfiles
 
 if [[ $OSTYPE == 'darwin'* ]]; then
     export SCALA_HOME=/opt/homebrew/bin/scala
@@ -12,7 +12,7 @@ export LD_LIBRARY_PATH=$ORACLE_HOME
 
 
 
-export PATH=$HOME/.local/bin:~/dotfiles/bin:/usr/local/node-v18.15.0-darwin-x64/bin:$PATH
+export PATH=$DOTFILES/bin:$HOME/.local/bin:/usr/local/node-v18.15.0-darwin-x64/bin:$PATH
 
 export kabinet='linux.inf.u-szeged.hu'
 #export tanszek='/Volumes/Common/team/columbus/exchange/aattila/'
