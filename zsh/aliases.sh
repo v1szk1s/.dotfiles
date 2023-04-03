@@ -39,6 +39,7 @@ alias spotbugs="java -jar /Users/hulu/analysers/spotbugs-4.7.3/lib/spotbugs.jar 
 alias sonarqube="/Users/hulu/analysers/sonarqube-9.8.0.63668/bin/macosx-universal-64/sonar.sh"
 alias sonarscanner="/Users/hulu/analysers/sonar-scanner-4.7.0.2747-macosx/bin/sonar-scanner"
 alias orania="ssh -f -N h142508@linux.inf.u-szeged.hu -L 9999:orania2.inf.u-szeged.hu:1521"
+alias sedbl="ssh aattila@sedbl02.inf.u-szeged.hu"
 
 if [[ $OSTYPE == 'darwin'* ]]; then
     alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
