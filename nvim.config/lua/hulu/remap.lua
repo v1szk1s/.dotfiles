@@ -1,7 +1,6 @@
 
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -45,9 +44,29 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":q<cr>")
+vim.keymap.set("n", "<leader>Q", ":q!<cr>")
 
 vim.keymap.set("n", '<leader>"', 'viw<esc>a"<esc>bi"<esc>lel')
 vim.keymap.set("n", "<leader>'", "viw<esc>a'<esc>bi'<esc>lel")
+
+
+vim.keymap.set("n", "<leader>%", ":vsp<cr><c-w>l")
+vim.keymap.set("n", "<leader>|", ":sp<cr><c-w>jv")
+
+vim.keymap.set("n", "<leader>tn", ":tabnew<cr>")
+
+vim.keymap.set("n", "<leader>pv", ":Ex<cr>")
+
+vim.keymap.set("n", "<leader>{", "zfi{")
+
+vim.keymap.set("i", "$%", "<% %><esc>hhi")
+vim.keymap.set("n", "q:", "")
+
+
+
+
+
+-- vim.keymap.set("i", "{<cr>", "{<cr>}<esc>O")
 
 
 vim.keymap.set("n", "<leader><leader>", function()

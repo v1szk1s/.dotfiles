@@ -1,0 +1,10 @@
+#!/usr//bin/env bash
+
+if [[ $# -lt 1 ]]; then
+    exit 0;
+fi
+
+
+port=$(wtfport $1 2>/dev/null)
+
+kill $port

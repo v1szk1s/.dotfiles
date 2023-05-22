@@ -13,13 +13,24 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        }
+    }
+
+    use 'mattn/emmet-vim'
+
+    use 'xiyaowong/transparent.nvim'
+
+    use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     use({ 'rose-pine/neovim', as = 'rose-pine' })
-    -- use({ "catppuccin/nvim", as = "catppuccin" })
+    use({ "catppuccin/nvim", as = "catppuccin" })
     use({ 'folke/tokyonight.nvim', as = 'tokyonight' })
 
     -- vim.cmd('colorscheme catppuccin')
