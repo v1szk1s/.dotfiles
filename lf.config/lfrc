@@ -1,5 +1,6 @@
 # interpreter for shell commands
-set shell sh
+set shell bash
+set cursorpreviewfmt "\033[7m"
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -22,7 +23,7 @@ set scrolloff 5
 
 
 # use enter for shell commands
-map <enter> shell
+map <enter> read
 
 # execute current file (must be executable)
 map x $$f
