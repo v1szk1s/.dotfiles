@@ -45,8 +45,8 @@ cmd open &{{
 }}
 
 # define a custom 'rename' command without prompt for overwrite
-cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
-map A push :rename<space>
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map A push :rename<space>
 
 # make sure trash folder exists
 # %mkdir -p ~/.trash
@@ -98,6 +98,12 @@ cmd zip_function ${{
     cp -r $fx $1
     zip -r $1.zip $1
     rm -rf $1
+}}
+
+cmd link ${{
+    set -f
+    echo $fx
+
 }}
 
 cmd create ${{

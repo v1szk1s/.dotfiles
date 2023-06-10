@@ -1,8 +1,10 @@
 export EDITOR="nvim"
 export DOTFILES=$(echo ~)/.dotfiles
 
-if [ -f $DOTFILES/zsh/variables.sh ]; then
-    source $DOTFILES/zsh/variables.sh
+# export LD_LIBRARY_PATH=/usr/lib:/usr/lib64:/usr/local/lib:/usr/local/lib64
+
+if [ -f $DOTFILES/zsh/variables.zsh ]; then
+    source $DOTFILES/zsh/variables.zsh
 else
     print "Not found"
 fi
@@ -12,17 +14,20 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export SCALA_HOME=/opt/homebrew/bin/scala
     export JAVA_HOME=`/usr/libexec/java_home -v 17`
 fi
-#export ORACLE=/Users/hulu/Downloads/instantclient_18_1
-export ORACLE_HOME=/opt/instantclient_19_8
-export TNS_ADMIN=$ORACLE_HOME/network/admin
-export LD_LIBRARY_PATH=$ORACLE_HOME
 
+export JAVA_HOME=/opt/jdk-11.0.8
+#export LD_LIBRARY_PATH=/opt/gcc-10.2/lib64
+#export PATH=/opt/gcc-10.2/bin:$PATH
+export PATH=/opt/clang-12.0.1/:$PATH
+export PATH=/opt/gradle-5.3.1/bin:$PATH
+export PATH=/opt/apache-maven-3.2.5/bin:$PATH
+export PATH=~/work/AI4Cyber/build/bin:$PATH
+#export PATH=/opt/cmake-3.16.5/bin:$PATH
+#/opt/gradle-5.3.1/bin:/opt/apache-maven-3.2.5/bin:/opt/cmake-3.16.5/bin:$PATH
 
-
-export PATH=$DOTFILES/bin:$HOME/.local/bin:/usr/local/node-v18.15.0-darwin-x64/bin:$PATH
+export PATH=$DOTFILES/bin:$HOME/.local/bin:$PATH
 
 export kabinet='linux.inf.u-szeged.hu'
-#export tanszek='/Volumes/Common/team/columbus/exchange/aattila/'
 export sedbl='sedbl02.inf.u-szeged.h'
 
 export ZDOTDIR=~/.config/zsh

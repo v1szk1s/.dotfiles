@@ -2,11 +2,13 @@
 autoload -U colors && colors
 
 #PS1="%B%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}%{$reset_color%} $%b "
-PS1="%{$fg[magenta]%}%~%{$fg[red]%}%{$reset_color%} $%b "
+PS1=" %{$fg[magenta]%}%~%{$fg[red]%}%{$reset_color%} $%b "
 
 # History in cache directory:
+HISTFILE=$ZDOTDIR/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+setopt appendhistory
 
 CASE_SENSITIVE="false"
 
@@ -17,9 +19,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -69,7 +68,12 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
-[ -f "$DOTFILES/zsh/aliases.sh" ] && source "$DOTFILES/zsh/aliases.sh"
+[ -f "$DOTFILES/zsh/aliases.zsh" ] && source "$DOTFILES/zsh/aliases.zsh"
+[ -f "$DOTFILES/zsh/antigen.zsh" ] && source "$DOTFILES/zsh/antigen.zsh"
+
+antigen bundle jeffreytse/zsh-vi-mode
+
+antigen apply
 # Load zsh-syntax-highlighting; should be last.
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 #
@@ -86,6 +90,9 @@ fi
 bindkey -s '^o' 'lfcd\n'
 
 
+# vi mode
+#bindkey -v
+#export KEYTIMEOUT=1
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
