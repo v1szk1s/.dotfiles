@@ -44,6 +44,13 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":q<cr>")
+
+vim.keymap.set("n", "<C-s>", ":w<cr>")
+vim.keymap.set("i", "<C-s>", "<esc>:w<cr>a")
+
+vim.keymap.set("n", "<C-c>", ":x<cr>")
+vim.keymap.set("i", "<C-c>", "<esc>:x<cr>")
+
 vim.keymap.set("n", "<leader>Q", ":q!<cr>")
 
 vim.keymap.set("n", '<leader>"', 'viw<esc>a"<esc>bi"<esc>lel')
