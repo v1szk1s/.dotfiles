@@ -92,7 +92,7 @@ cmd tar ${{
 }}
 
 # compress current file or selected files with zip
-cmd zip_function ${{
+cmd zip ${{
     set -f
     mkdir $1
     cp -r $fx $1
