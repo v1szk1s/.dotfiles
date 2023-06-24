@@ -1892,7 +1892,7 @@ EOC
     # `antigen` wrapper not `antigen-apply` directly and it's called by an extension.
     LOG "TRACE: ${funcfiletrace}"
     if [[ $ANTIGEN_AUTO_CONFIG == true && $#ANTIGEN_CHECK_FILES -eq 0 ]]; then
-      ANTIGEN_CHECK_FILES+=($ZDOTDIR/.zshrc)
+      ANTIGEN_CHECK_FILES+=($ZDOTDIR/zshrc)
       if [[ $#funcfiletrace -ge 6 ]]; then
         ANTIGEN_CHECK_FILES+=("${${funcfiletrace[6]%:*}##* }")
       fi

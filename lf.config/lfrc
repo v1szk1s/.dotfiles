@@ -100,11 +100,11 @@ cmd zip_function ${{
     rm -rf $1
 }}
 
-cmd link ${{
-    set -f
-    echo $fx
-
-}}
+#cmd link ${{
+#    set -f
+#    echo $fx
+#
+#}}
 
 cmd create ${{
     if [[ ${1: -1} == "/" ]]; then
