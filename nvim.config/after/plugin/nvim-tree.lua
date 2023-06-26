@@ -26,16 +26,3 @@ api = require("nvim-tree.api")
 vim.keymap.set("n", "<C-n>", function()
     api.tree.toggle { find_file = true, focus = true };
 end)
-
-vim.keymap.set("n", "<C-m>", function()
-    api.tree.focus();
-end)
-
-vim.keymap.set("n", "<leader>pb", function()
-    api.tree.focus();
-end)
-vim.keymap.set("n", "<leader>pn", function()
-    api.tree.close();
-end)
-
-

@@ -14,7 +14,7 @@ alias l.='exa -al --color=always --group-directories-first | grep "^\..*"'
 
 alias grep="grep --color=auto" 
 alias gs="git status" 
-alias gl='git log --graph --all --format="%an %Cblue"%s'
+alias gl='git log --graph --all' #--format="%an %Cblue"%s'
 alias gll="git log --all --graph --decorate" 
 alias up="cd .." 
 alias py="python3" 

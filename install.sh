@@ -40,7 +40,7 @@ setup_zsh(){
 
     mkdir -p ~/.config/zsh
     for i in $(find $DOTFILES/zsh -name '*.symlink'); do
-        target="$HOME/.config/zsh/.$(basename "$i" '.symlink')"
+        target="$HOME/.config/zsh/$(basename "$i" '.symlink')"
         if [[ ! -f $target ]]; then
             info "Making symlink for $i"
             ln -s $i $target
