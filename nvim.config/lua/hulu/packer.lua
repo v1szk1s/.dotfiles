@@ -30,7 +30,7 @@ return require('packer').startup(function(use)
     }
 
     use({ 'rose-pine/neovim', as = 'rose-pine' })
-    use({ "catppuccin/nvim", as = "catppuccin" })
+    use({ 'catppuccin/nvim', as = 'catppuccin' })
     use({ 'folke/tokyonight.nvim', as = 'tokyonight' })
 
     -- vim.cmd('colorscheme catppuccin')
@@ -40,8 +40,12 @@ return require('packer').startup(function(use)
     use('ThePrimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
+    use('tpope/vim-commentary')
+    use('tpope/vim-surround')
+    use('tpope/vim-repeat')
 
-    use {
+
+     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         requires = {
@@ -58,9 +62,13 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
 
-            -- Snippets
-            { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
+            {
+                -- Snippets
+                'L3MON4D3/LuaSnip',
+                dependencies = { 'rafamadriz/friendly-snippets' },
+            }
+
         }
     }
+    
 end)

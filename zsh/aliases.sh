@@ -13,17 +13,14 @@ alias l.='exa -al --color=always --group-directories-first | grep "^\..*"'
 
 
 alias grep="grep --color=auto" 
-alias gits="git status" 
-alias gitl='git log --graph --all --format="%an %Cblue"%s'
-alias gitll="git log --all --graph --decorate" 
+alias gs="git status" 
+alias gl='git log --graph --all --format="%an %Cblue"%s'
+alias gll="git log --all --graph --decorate" 
 alias up="cd .." 
 alias py="python3" 
 alias python="python3" 
-alias alias arm="env /usr/bin/arch -arm64 /bin/zsh" 
-alias intel="env /usr/bin/arch -x86_64 /bin/zsh" 
 alias sshtokabinet="ssh h142508@linux.inf.u-szeged.hu" 
 alias studmount="sshfs h142508@linux.inf.u-szeged.hu:/home/h142508 /Users/hulu/stud" 
-alias gepmount="sshfs v1szk1s@192.168.1.67:/home/v1szk1s /Users/hulu/v1szk1s" 
 alias studumount="umount -f /Users/hulu/stud" 
 alias gepumount="umount -f /Users/hulu/v1szk1s" 
 
@@ -43,7 +40,11 @@ alias oraniak="ps aux | grep h142 | grep -v grep | cut -d' ' -f 14 | xargs kill"
 alias sedbl="ssh aattila@sedbl02.inf.u-szeged.hu"
 
 if [[ $OSTYPE == 'darwin'* ]]; then
+    alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 20`; java -version"
     alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
     alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_361`; java -version"
     alias j7="export JAVA_HOME=`/usr/libexec/java_home -v 1.7`; java -version"
+
+    alias ctags="`brew --prefix`/bin/ctags"
 fi
+
