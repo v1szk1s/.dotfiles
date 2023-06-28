@@ -41,12 +41,12 @@ setup_zsh(){
     mkdir -p ~/.config/zsh
     for i in $(find $DOTFILES/zsh -name '*.symlink'); do
         target="$HOME/.config/zsh/$(basename "$i" '.symlink')"
-        if [[ ! -f $target ]]; then
+        # if [[ ! -f $target ]]; then
             info "Making symlink for $i"
-            ln -s $i $target
-        else
-            info "$i Already exists... Skipping. "
-        fi
+            ln -sf $i $target
+        # else
+            # info "$i Already exists... Skipping. "
+        # fi
     done
     
     if [[ ! -f $HOME/.zshenv ]]; then
@@ -80,11 +80,23 @@ setup_packer(){
     fi
 }
 
+setup_tmux(){
+    title "Setup tpm"
+
+    if [[ ! -e $DOTFILES/tmux.config/plugins/tpm ]]; then
+        git clone https://github.com/tmux-plugins/tpm $DOTFILES/tmux.config/plugins/tpm
+        success "Done"
+    else
+        info "Already exists... Skipping. "
+    fi
+
+}
+
 
 setup_symlinks() {
     setup_zsh
     setup_gitconfig
-    setup_packer
+    setup_tmux
 
     title "Setup remaning"
 
@@ -135,13 +147,18 @@ setup_nvim(){
     mkdir -p $target_dir
     wget $url -q -O $target_dir/nvim.tar.gz
 
+    info "finished dowlnoading"
+
     cd $target_dir
     mkdir nvim_src
     tar xf nvim.tar.gz -C nvim_src --strip-components=1 && rm nvim.tar.gz
     ln -s nvim_src/bin/nvim nvim
 
-    info "finished dowlnoading"
+    success "Successfully set up nvim"
+
+    setup_packer
 }
+
 
 
 case "$1" in
@@ -155,7 +172,7 @@ case "$1" in
 			setup_symlinks
 			;;
 		*)
-			echo -e $"\nUsage: $(basename "$0") {link | lf}\n"
+			echo -e $"\nUsage: $(basename "$0") {link | lf | nvim}\n"
 			exit 1
 			;;
 esac
