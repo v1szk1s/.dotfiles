@@ -68,7 +68,7 @@ vim.keymap.set("n", "<leader>{", "zfi{")
 
 vim.keymap.set("i", "$%", "<% %><esc>hhi")
 
-vim.keymap.set("i", "<c-m>", "<c-x><c-f>")
+-- vim.keymap.set("i", "<c-m>", "<c-x><c-f>")
 
 
 -- vim.keymap.set("i", "{<cr>", "{<cr>}<esc>O")

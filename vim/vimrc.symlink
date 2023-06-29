@@ -19,7 +19,6 @@ set numberwidth=3
 set nowrap
 set ignorecase
 
-set hlsearch
 set incsearch 
 
 set noerrorbells
@@ -106,7 +105,6 @@ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 
 "
 "nerdtree
-let NERDTreeShowHidden=1
 " au vimenter * if !argc() | NERDTree | endif
 
 colo monokai
@@ -116,15 +114,10 @@ filetype plugin on
 " Mappings:
 """"""""""""
 " abbrevs
-ab tic ✓
-ab sup2 ²
 """"""""""
 " Bindings:
 """""""""
-nnoremap 0 ^
 " nnoremap <leader>r :! ./run<cr>
-nnoremap <leader>u viwU
-nnoremap <C-j> <C-e>
 nnoremap <leader>f :GFiles<cr>
 nnoremap <leader>g :Files<cr>
 nnoremap gp gT
@@ -146,8 +139,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 " tabs
-nnoremap <leader>tn :tabnew<cr>
-nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>t :tabnew<cr>
 
 
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.

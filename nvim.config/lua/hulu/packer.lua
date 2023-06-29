@@ -46,8 +46,16 @@ return require('packer').startup(function(use)
     use('tpope/vim-abolish')
     use('tpope/vim-unimpaired')
 
+    use({
+        "ziontee113/color-picker.nvim",
+        config = function()
+            require("color-picker")
+        end,
+    })
 
-     use {
+    use 'NvChad/nvim-colorizer.lua'
+
+    use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         requires = {
@@ -67,10 +75,9 @@ return require('packer').startup(function(use)
             {
                 -- Snippets
                 'L3MON4D3/LuaSnip',
-                 'rafamadriz/friendly-snippets',
+                'rafamadriz/friendly-snippets',
             }
 
         }
     }
-    
 end)
