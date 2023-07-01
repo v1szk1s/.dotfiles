@@ -1,16 +1,10 @@
 return {
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
-    },
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- lazyional
-        }
-    },
+    'rstacruz/vim-closer',
+    'tpope/vim-endwise',
     'mattn/emmet-vim',
-    'xiyaowong/transparent.nvim',
+    'tpope/vim-abolish',
+    --    'tpope/vim-repeat',
+    --'tpope/vim-unimpaired',
 
     {
         'nvim-telescope/telescope.nvim',
@@ -19,20 +13,20 @@ return {
         dependencies = { { 'nvim-lua/plenary.nvim' } }
     },
     --
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine',
-        config = function()
-            vim.cmd.colorscheme("rose-pine")
-        end
-    },
     -- { 'catppuccin/nvim',       name = 'catppuccin' },
     --    { 'folke/tokyonight.nvim', name = 'tokyonight' },
-    --
-    --
-    'ThePrimeagen/harpoon',
-    'mbbill/undotree',
-    'tpope/vim-fugitive',
+    {
+        'mbbill/undotree',
+        conf = function()
+            vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+        end
+    },
+    {
+        'tpope/vim-fugitive',
+        config = function()
+            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+        end
+    },
     'tpope/vim-commentary',
     --    'tpope/vim-surround',
     {
@@ -45,9 +39,6 @@ return {
             })
         end
     },
-    --    'tpope/vim-repeat',
-    'tpope/vim-abolish',
-    --'tpope/vim-unimpaired',
     --
     {
         "ziontee113/color-picker.nvim",
@@ -56,31 +47,11 @@ return {
         end,
     },
     --
-    'NvChad/nvim-colorizer.lua',
-    --
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
-        dependencies = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
-
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
-
-            {
-                -- Snippets
-                'L3MON4D3/LuaSnip',
-                'rafamadriz/friendly-snippets',
-            }
-
-        }
-    }
+        'NvChad/nvim-colorizer.lua',
+        config = function()
+            require('colorizer').setup()
+        end
+    },
+    --
 }
