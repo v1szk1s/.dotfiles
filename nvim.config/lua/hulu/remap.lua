@@ -27,8 +27,8 @@ vim.keymap.set("n", "gp", "gT")
 
 vim.keymap.set("n", "<leader>r", ":%s/")
 
-vim.keymap.set("n", "<leader>l", ":vertical resize +7<CR>")
-vim.keymap.set("n", "<leader>h", ":vertical resize -7<CR>")
+-- vim.keymap.set("n", "<leader>l", ":vertical resize +7<CR>")
+-- vim.keymap.set("n", "<leader>h", ":vertical resize -7<CR>")
 
 vim.keymap.set("n", "Q", "<nop>")
 --vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -50,6 +50,10 @@ vim.keymap.set("n", "<leader>Q", ":q!<cr>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>:w<cr>a")
 
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 vim.keymap.set("n", "<leader>Q", ":q!<cr>")
 
