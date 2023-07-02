@@ -49,12 +49,12 @@ setup_zsh(){
         # fi
     done
     
-    if [[ ! -f $HOME/.zshenv ]]; then
+    # if [[ ! -f $HOME/.zshenv ]]; then
         info "Making symlink for zshenv"
-        ln -s $DOTFILES/zsh/zshenv $HOME/.zshenv 
-    else
-        info ".zshenv Already exists... Skipping. "
-    fi
+        ln -sf $DOTFILES/zsh/zshenv $HOME/.zshenv 
+    # else
+        # info ".zshenv Already exists... Skipping. "
+    # fi
 
 }
 
@@ -63,18 +63,6 @@ setup_gitconfig(){
     if [[ ! -f $HOME/.gitconfig ]]; then
         info "Making symlink for gitconfig"
         ln -s $DOTFILES/gitconfig $HOME/.gitconfig
-    else
-        info "Already exists... Skipping. "
-    fi
-}
-
-setup_packer(){
-    title "Setup Packer for nvim"
-
-    if [[ ! -e  $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim ]]; then
-        git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-            $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
-        success "Done"
     else
         info "Already exists... Skipping. "
     fi
@@ -95,19 +83,18 @@ setup_tmux(){
 
 setup_symlinks() {
     setup_zsh
-    setup_gitconfig
     setup_tmux
 
     title "Setup remaning"
 
     for i in $(find $DOTFILES -name '*.config'); do
         target="$HOME/.config/$(basename "$DOTFILES/$i" '.config')"
-        if [[ ! -e $target ]]; then
+        # if [[ ! -e $target ]]; then
             info "Creatng $target symlink."
-            ln -s $i $target
-        else
-            info "Already exists... Skipping. "
-        fi
+            ln -sf $i $target
+        # else
+            # info "Already exists... Skipping. "
+        # fi
     done
 }
 
@@ -132,48 +119,21 @@ setup_lf(){
     info "finished dowlnoading"
 }
 
-setup_nvim(){
-    title "setting up nvim"
-
-    info "downloading latest release"
-    if [[ $OSTYPE == 'darwin'* ]]; then
-        url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep "browser_download_url.*macos.tar.gz\"")
-    else
-        url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep "browser_download_url.*linux64.tar.gz\"")
-    fi
-
-    url=$(echo $url | cut -d : -f 2,3 | tr -d '"' )
-    target_dir=$HOME/.local/bin
-    mkdir -p $target_dir
-    wget $url -q -O $target_dir/nvim.tar.gz
-
-    info "finished dowlnoading"
-
-    cd $target_dir
-    mkdir nvim_src
-    tar xf nvim.tar.gz -C nvim_src --strip-components=1 && rm nvim.tar.gz
-    ln -s nvim_src/bin/nvim nvim
-
-    success "Successfully set up nvim"
-
-    setup_packer
-}
-
-
 
 case "$1" in
-        lf)
-            setup_lf
-            ;;
-        nvim)
-            setup_nvim
-            ;;
+        # lf)
+        #     setup_lf
+        #     ;;
+        # nvim)
+        #     setup_nvim
+        #     ;;
 		link)
 			setup_symlinks
 			;;
 		*)
-			echo -e $"\nUsage: $(basename "$0") {link | lf | nvim}\n"
-			exit 1
+			setup_symlinks
+			# echo -e $"\nUsage: $(basename "$0") {link | lf | nvim}\n"
+			# exit 1
 			;;
 esac
 
