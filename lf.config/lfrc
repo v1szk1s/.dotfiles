@@ -39,7 +39,9 @@ map O $mimeopen --ask $f
 # text files and a file opener for the rest.
 cmd open &{{
     case $(file --mime-type -Lb $f) in
+        graphml) $OPENER $f > /dev/null 2> /dev/null;;
         text/*) lf -remote "send $id \$$EDITOR \$fx";;
+
         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
 }}
@@ -128,6 +130,7 @@ map Z push :zip<space>
 map E extract
 
 map w
+map R !massren
 
 #map o
 #map n

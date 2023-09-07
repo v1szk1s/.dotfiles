@@ -1,3 +1,23 @@
+export EDITOR="nvim"
+export DOTFILES=$(echo ~)/.dotfiles
+
 if [[ $OSTYPE == 'darwin'* ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+
+if [ -f $DOTFILES/zsh/variables.zsh ]; then
+    source $DOTFILES/zsh/variables.zsh
+else
+    print "Not found"
+fi
+
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+    export SCALA_HOME=/opt/homebrew/bin/scala
+    export JAVA_HOME=`/usr/libexec/java_home -v 17`
+    export PATH=/opt/homebrew/bin/:$PATH
+fi
+
+
+export PATH=$DOTFILES/bin:$HOME/.local/bin:$PATH
+export PATH=~/.config/emacs/bin:$PATH

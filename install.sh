@@ -1,5 +1,6 @@
 #!/bin/bash
 DOTFILES=$(pwd)
+
 COLOR_GRAY="\033[1;38;5;243m"
 COLOR_BLUE="\033[1;34m"
 COLOR_GREEN="\033[1;32m"
@@ -39,8 +40,9 @@ setup_zsh(){
 	title "Setup zsh"
 
     mkdir -p ~/.config/zsh
+
     for i in $(find $DOTFILES/zsh -name '*.symlink'); do
-        target="$HOME/.config/zsh/$(basename "$i" '.symlink')"
+        target="$HOME/.config/zsh/.$(basename "$i" .symlink)"
         # if [[ ! -f $target ]]; then
             info "Making symlink for $i"
             ln -sf $i $target

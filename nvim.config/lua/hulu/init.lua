@@ -4,3 +4,4 @@ require("hulu.ftdetect")
 require("hulu.lazy")
 
 vim.cmd("imap ,, <C-y>,")
+vim.cmd("vmap ,, <C-y>,")
