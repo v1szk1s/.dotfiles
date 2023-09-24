@@ -131,6 +131,8 @@ map E extract
 
 map w
 map R !massren
+map V !nvim .
+map <tab> ${{ tmux select-pane -L }}
 
 #map o
 #map n

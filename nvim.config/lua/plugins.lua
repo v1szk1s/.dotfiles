@@ -5,6 +5,7 @@ return {
     'tpope/vim-abolish',
     --    'tpope/vim-repeat',
     --'tpope/vim-unimpaired',
+    'lervag/vimtex',
 
     {
         'nvim-telescope/telescope.nvim',
