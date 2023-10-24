@@ -54,11 +54,11 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle);
 vim.keymap.set("n", "<c-s>", ":source<cr>", {silent = true});
 
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
+    -- You can pass additional configuration to telescope to change theme, layout, etc.
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        winblend = 10,
+        previewer = false,
+    })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 
@@ -68,4 +68,16 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', ']e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '[e', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+
+vim.keymap.set('n', '<leader>z', function()
+    if vim.o.laststatus == 0 then
+        vim.o.ls = 2
+        vim.o.ch = 1
+        vim.cmd('silent !tmux set status on')
+    else
+        vim.o.ls = 0
+        vim.o.ch = 0
+        vim.cmd('silent !tmux set status off')
+    end
+end)
 
