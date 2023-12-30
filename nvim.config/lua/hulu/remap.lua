@@ -1,5 +1,10 @@
 vim.g.mapleader = " "
 
+vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>")
+
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move vselected line up and down
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

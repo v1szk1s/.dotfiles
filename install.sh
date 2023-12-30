@@ -38,22 +38,23 @@ get_linkables() {
 
 setup_zsh(){
 	title "Setup zsh"
-
     mkdir -p ~/.config/zsh
 
     for i in $(find $DOTFILES/zsh -name '*.symlink'); do
         target="$HOME/.config/zsh/.$(basename "$i" .symlink)"
         # if [[ ! -f $target ]]; then
-            info "Making symlink for $i"
-            ln -sf $i $target
+            # info "Making symlink for $i"
+            info "ln -sf $i $target"
+            # ln -sf $i $target
         # else
             # info "$i Already exists... Skipping. "
         # fi
     done
     
     # if [[ ! -f $HOME/.zshenv ]]; then
-        info "Making symlink for zshenv"
-        ln -sf $DOTFILES/zsh/zshenv $HOME/.zshenv 
+        # info "Making symlink for zshenv"
+        info "ln -sf $DOTFILES/zsh/zshenv $HOME/.zshenv"
+        # ln -sf $DOTFILES/zsh/zshenv $HOME/.zshenv 
     # else
         # info ".zshenv Already exists... Skipping. "
     # fi
@@ -92,12 +93,14 @@ setup_symlinks() {
     for i in $(find $DOTFILES -name '*.config'); do
         target="$HOME/.config/$(basename "$DOTFILES/$i" '.config')"
         # if [[ ! -e $target ]]; then
-            info "Creatng $target symlink."
-            ln -sf $i $target
+            # info "Creatng $target symlink."
+            info "ln -sf $i $target"
+            # ln -sf $i $target
         # else
             # info "Already exists... Skipping. "
         # fi
     done
+
 }
 
 setup_lf(){

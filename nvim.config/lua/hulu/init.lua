@@ -6,23 +6,30 @@ require("hulu.lazy")
 vim.cmd("imap ,, <C-y>,")
 vim.cmd("vmap ,, <C-y>,")
 
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_winsize = 25
+vim.g.netrw_liststyle = 0
+
+local isCMP = true
+
+
 vim.defer_fn(function()
     require('nvim-treesitter.configs').setup {
         -- Add languages to be installed here that you want installed for treesitter
-        ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+        -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = false,
-
-        highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = '<c-space>',
-                node_incremental = '<c-space>',
-                scope_incremental = '<c-s>',
-                node_decremental = '<M-space>',
+                -- init_selection = '<c-space>',
+                -- node_incremental = '<c-space>',
+                -- scope_incremental = '<c-s>',
+                -- node_decremental = '<M-space>',
             },
         },
         textobjects = {
@@ -106,12 +113,12 @@ local on_attach = function(_, bufnr)
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
-    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-    nmap('<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, '[W]orkspace [L]ist Folders')
+    -- nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    -- nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    -- nmap('<leader>wl', function()
+    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, '[W]orkspace [L]ist Folders')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -167,7 +174,104 @@ require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+
+if isCMP then
+    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    local cmp = require 'cmp'
+    local luasnip = require 'luasnip'
+    require('luasnip.loaders.from_vscode').lazy_load()
+    luasnip.config.setup {}
+
+    cmp.setup {
+        snippet = {
+            expand = function(args)
+                luasnip.lsp_expand(args.body)
+            end,
+        },
+        completion = {
+            completeopt = 'menu,menuone,noinsert',
+        },
+        mapping = cmp.mapping.preset.insert {
+            ['<C-n>'] = cmp.mapping.select_next_item(),
+            ['<C-p>'] = cmp.mapping.select_prev_item(),
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete {},
+            ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            },
+            ['<C-l>'] = cmp.mapping(function(fallback)
+                if luasnip.expand_or_locally_jumpable() then
+                    luasnip.expand_or_jump()
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif luasnip.expand_or_locally_jumpable() then
+                    luasnip.expand_or_jump()
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+            ['<S-Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif luasnip.locally_jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+        },
+        sources = {
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+            { name = 'path' },
+        },
+    }
+    else
+    local coq = require 'coq'
+    local remap = vim.api.nvim_set_keymap
+
+    vim.g.coq_settings = { 
+        keymap = { recommended = false } 
+    }
+    local pair = require("ultimate-autopair")
+
+    -- these mappings are coq recommended mappings unrelated to nvim-autopairs
+    remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+    remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+    remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+    remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+    -- remap('i', '<cr>', [[pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]], { expr = true, noremap = true })
+    -- skip it, if you use another global object
+    _G.MUtils= {}
+
+    MUtils.CR = function()
+        if vim.fn.pumvisible() ~= 0 then
+            if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+                return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+            else
+                return vim.api.nvim_replace_termcodes("<C-e>", true, true, true) .. '\n'
+            end
+        else
+            return '\n'
+        end
+    end
+    remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+
+
+    coq.lsp_ensure_capabilities()
+    vim.cmd("COQnow -s")
+
+
+end
+
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -187,54 +291,6 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
@@ -244,9 +300,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable underline, use default values
         underline = false,
         -- Enable virtual text, override spacing to 4
-        virtual_text = {
-            spacing = 4,
-        },
+        virtual_text = false,
+        -- {
+        --     spacing = 6,
+        -- },
         -- Use a function to dynamically turn signs off
         -- and on, using buffer local variables
         signs = function(namespace, bufnr)
@@ -256,3 +313,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         update_in_insert = false,
     }
 )
+
+

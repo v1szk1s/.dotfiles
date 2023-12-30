@@ -1,38 +1,13 @@
 return {
-    -- 'tpope/vim-abolish',
-    -- 'tpope/vim-repeat',
-    -- 'lervag/vimtex',
-    'rstacruz/vim-closer',
-    'tpope/vim-endwise',
-    'mattn/emmet-vim',
-    'tpope/vim-unimpaired',
-    'simeji/winresizer',
-    'mbbill/undotree',
+    
+    {
+        'ms-jpq/coq_nvim',
+        version = 'coq',
 
-    {
-        "kylechui/nvim-surround",
-        version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
-    },
-    {
-        -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
         dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
+            'ms-jpq/coq.artifacts',
+            version = 'artifacts',
 
-            -- Useful status updates for LSP
-            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-            -- Additional lua configuration, makes nvim stuff amazing!
-            'folke/neodev.nvim',
         },
     },
 
@@ -52,6 +27,47 @@ return {
         },
     },
 
+    -- 'tpope/vim-abolish',
+    -- 'tpope/vim-repeat',
+    -- 'lervag/vimtex',
+    -- {
+    --     'JoosepAlviste/nvim-ts-context-commentstring', 
+    --     config = function()
+    --         require("ts_context_commentstring").setup()
+    --     end
+    -- },
+
+    -- { 
+    --     'numToStr/Comment.nvim', 
+    --     lazy = false,  
+    --     config = function()
+    --         require('Comment').setup ( {
+    --             pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    --         } )
+    --     end
+    -- },
+    -- 'tpope/vim-unimpaired',
+    'mattn/emmet-vim',
+    'simeji/winresizer',
+    'mbbill/undotree',
+    {
+        -- LSP Configuration & Plugins
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            -- Automatically install LSPs to stdpath for neovim
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+
+            -- Useful status updates for LSP
+            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+            { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+
+            -- Additional lua configuration, makes nvim stuff amazing!
+            'folke/neodev.nvim',
+        },
+    },
+
+
     {
         -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
@@ -60,15 +76,10 @@ return {
         },
         build = ':TSUpdate',
     },
-
-
-
-
     {
         'tpope/vim-fugitive',
         config = function()
             vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
         end
     },
-    'tpope/vim-commentary',
 }

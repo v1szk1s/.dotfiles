@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+
+name=$1
+hub_name=$2
+
+docker build -t $name . && \
+docker tag $name v1szk1s/$hub_name && \
+docker push v1szk1s/$hub_name

@@ -5,6 +5,8 @@ precmd() { print "" }
 PROMPT="$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%}
 %(?.%F{green}.%F{red})$%f "
 
+export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+
 # History in cache directory:
 HISTFILE=$ZDOTDIR/.zsh_history
 HISTSIZE=10000
