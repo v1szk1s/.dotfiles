@@ -12,72 +12,69 @@ vim.g.netrw_winsize = 25
 vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
 
-local isCMP = true
-
-
-vim.defer_fn(function()
-    require('nvim-treesitter.configs').setup {
-        -- Add languages to be installed here that you want installed for treesitter
-        -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
-
-        -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-        auto_install = false,
-        indent = { enable = true },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                -- init_selection = '<c-space>',
-                -- node_incremental = '<c-space>',
-                -- scope_incremental = '<c-s>',
-                -- node_decremental = '<M-space>',
-            },
-        },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                keymaps = {
-                    -- You can use the capture groups defined in textobjects.scm
-                    ['aa'] = '@parameter.outer',
-                    ['ia'] = '@parameter.inner',
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
-                    ['ac'] = '@class.outer',
-                    ['ic'] = '@class.inner',
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    [']m'] = '@function.outer',
-                    [']]'] = '@class.outer',
-                },
-                goto_next_end = {
-                    [']M'] = '@function.outer',
-                    [']['] = '@class.outer',
-                },
-                goto_previous_start = {
-                    ['[m'] = '@function.outer',
-                    ['[['] = '@class.outer',
-                },
-                goto_previous_end = {
-                    ['[M'] = '@function.outer',
-                    ['[]'] = '@class.outer',
-                },
-            },
-            -- swap = {
-            --     enable = true,
-            --     swap_next = {
-            --         ['<leader>a'] = '@parameter.inner',
-            --     },
-            --     swap_previous = {
-            --         ['<leader>A'] = '@parameter.inner',
-            --     },
-            -- },
-        },
-    }
-end, 0)
+-- vim.defer_fn(function()
+--     require('nvim-treesitter.configs').setup {
+--         -- Add languages to be installed here that you want installed for treesitter
+--         -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+--
+--         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+--         auto_install = false,
+--         indent = { enable = true },
+--         incremental_selection = {
+--             enable = true,
+--             keymaps = {
+--                 -- init_selection = '<c-space>',
+--                 -- node_incremental = '<c-space>',
+--                 -- scope_incremental = '<c-s>',
+--                 -- node_decremental = '<M-space>',
+--             },
+--         },
+--         textobjects = {
+--             select = {
+--                 enable = true,
+--                 lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+--                 keymaps = {
+--                     -- You can use the capture groups defined in textobjects.scm
+--                     ['aa'] = '@parameter.outer',
+--                     ['ia'] = '@parameter.inner',
+--                     ['af'] = '@function.outer',
+--                     ['if'] = '@function.inner',
+--                     ['ac'] = '@class.outer',
+--                     ['ic'] = '@class.inner',
+--                 },
+--             },
+--             move = {
+--                 enable = true,
+--                 set_jumps = true, -- whether to set jumps in the jumplist
+--                 goto_next_start = {
+--                     [']m'] = '@function.outer',
+--                     [']]'] = '@class.outer',
+--                 },
+--                 goto_next_end = {
+--                     [']M'] = '@function.outer',
+--                     [']['] = '@class.outer',
+--                 },
+--                 goto_previous_start = {
+--                     ['[m'] = '@function.outer',
+--                     ['[['] = '@class.outer',
+--                 },
+--                 goto_previous_end = {
+--                     ['[M'] = '@function.outer',
+--                     ['[]'] = '@class.outer',
+--                 },
+--             },
+--             -- swap = {
+--             --     enable = true,
+--             --     swap_next = {
+--             --         ['<leader>a'] = '@parameter.inner',
+--             --     },
+--             --     swap_previous = {
+--             --         ['<leader>A'] = '@parameter.inner',
+--             --     },
+--             -- },
+--         },
+--     }
+-- end, 0)
 
 
 
@@ -107,7 +104,10 @@ local on_attach = function(_, bufnr)
     nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
     nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    {
 
+    }
+    
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
@@ -176,101 +176,63 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 
-if isCMP then
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-    local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
-    require('luasnip.loaders.from_vscode').lazy_load()
-    luasnip.config.setup {}
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
 
-    cmp.setup {
-        snippet = {
-            expand = function(args)
-                luasnip.lsp_expand(args.body)
-            end,
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    completion = {
+        completeopt = 'menu,menuone,noinsert',
+    },
+    mapping = cmp.mapping.preset.insert {
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete {},
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
         },
-        completion = {
-            completeopt = 'menu,menuone,noinsert',
-        },
-        mapping = cmp.mapping.preset.insert {
-            ['<C-n>'] = cmp.mapping.select_next_item(),
-            ['<C-p>'] = cmp.mapping.select_prev_item(),
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete {},
-            ['<CR>'] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            },
-            ['<C-l>'] = cmp.mapping(function(fallback)
-                if luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
-                else
-                    fallback()
-                end
-            end, { 'i', 's' }),
-            ['<Tab>'] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                elseif luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
-                else
-                    fallback()
-                end
-            end, { 'i', 's' }),
-            ['<S-Tab>'] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                elseif luasnip.locally_jumpable(-1) then
-                    luasnip.jump(-1)
-                else
-                    fallback()
-                end
-            end, { 'i', 's' }),
-        },
-        sources = {
-            { name = 'nvim_lsp' },
-            { name = 'luasnip' },
-            { name = 'path' },
-        },
-    }
-    else
-    local coq = require 'coq'
-    local remap = vim.api.nvim_set_keymap
-
-    vim.g.coq_settings = { 
-        keymap = { recommended = false } 
-    }
-    local pair = require("ultimate-autopair")
-
-    -- these mappings are coq recommended mappings unrelated to nvim-autopairs
-    remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
-    remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
-    remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
-    remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
-    -- remap('i', '<cr>', [[pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]], { expr = true, noremap = true })
-    -- skip it, if you use another global object
-    _G.MUtils= {}
-
-    MUtils.CR = function()
-        if vim.fn.pumvisible() ~= 0 then
-            if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-                return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+        ['<C-l>'] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
             else
-                return vim.api.nvim_replace_termcodes("<C-e>", true, true, true) .. '\n'
+                fallback()
             end
-        else
-            return '\n'
-        end
-    end
-    remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
-
-
-    coq.lsp_ensure_capabilities()
-    vim.cmd("COQnow -s")
-
-
-end
+        end, { 'i', 's' }),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'path' },
+    },
+}
 
 
 -- Ensure the servers above are installed

@@ -1,15 +1,9 @@
 return {
-    
-    {
-        'ms-jpq/coq_nvim',
-        version = 'coq',
+    'mattn/emmet-vim',
 
-        dependencies = {
-            'ms-jpq/coq.artifacts',
-            version = 'artifacts',
-
-        },
-    },
+    -- 'tpope/vim-unimpaired',
+    -- 'simeji/winresizer',
+    -- 'mbbill/undotree',
 
     {
         -- Autocompletion
@@ -46,10 +40,36 @@ return {
     --         } )
     --     end
     -- },
-    -- 'tpope/vim-unimpaired',
-    'mattn/emmet-vim',
-    'simeji/winresizer',
-    'mbbill/undotree',
+
+    -- Lua
+    
+    -- {
+    --     "folke/zen-mode.nvim",
+    --     opts = {
+    --         plugins = {
+    --             tmux = { enabled = false },
+    --         },
+    --
+    --     }
+    -- },
+    -- lazy.nvim
+    
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    },
+
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
@@ -65,16 +85,6 @@ return {
             -- Additional lua configuration, makes nvim stuff amazing!
             'folke/neodev.nvim',
         },
-    },
-
-
-    {
-        -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
-        },
-        build = ':TSUpdate',
     },
     {
         'tpope/vim-fugitive',

@@ -10,6 +10,23 @@ return {
       require('lazy.core.loader').add_to_rtp(plugin)
       require 'nvim-treesitter.query_predicates'
     end,
+
+    configs = function ()
+            require('nvim-treesitter.configs').setup {
+
+                auto_install = false,
+                indent = { enable = true },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        -- init_selection = '<c-space>',
+                        -- node_incremental = '<c-space>',
+                        -- scope_incremental = '<c-s>',
+                        -- node_decremental = '<M-space>',
+                    },
+                },
+            }
+    end,
     main = 'nvim-treesitter.configs',
     opts = {
       ensure_installed = {

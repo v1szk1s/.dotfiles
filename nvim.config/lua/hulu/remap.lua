@@ -1,13 +1,15 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>")
+vim.keymap.set("n", "<tab>", "za")
+
+vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
 
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move vselected line up and down
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent = true}) -- move vselected line up and down
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {silent = true})
 
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz") -- cursor stays the same place when goind down or up
@@ -57,14 +59,6 @@ vim.keymap.set("n", "<leader>t", ":tabnew<cr>")
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle);
 
 vim.keymap.set("n", "<c-s>", ":source<cr>", {silent = true});
-
-vim.keymap.set('n', '<leader>/', function()
-    -- You can pass additional configuration to telescope to change theme, layout, etc.
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        winblend = 10,
-        previewer = false,
-    })
-end, { desc = '[/] Fuzzily search in current buffer' })
 
 
 

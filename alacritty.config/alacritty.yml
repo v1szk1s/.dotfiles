@@ -137,7 +137,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.977
+  opacity: 1
 
   # Startup Mode (changes require restart)
   #
@@ -454,14 +454,14 @@ colors:
 
 cursor:
   # Cursor style
-  # style:
+  style:
     # Cursor shape
     #
     # Values for `shape`:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    # shape: Block
+    shape: Block
 
     # Cursor blinking state
     #
@@ -494,7 +494,7 @@ cursor:
 
   # Thickness of the cursor relative to the cell width as floating point number
   # from `0.0` to `1.0`.
-  thickness: 0.16
+  # thickness: 0.16
 
 # Live config reload (changes require restart)
 #live_config_reload: true
