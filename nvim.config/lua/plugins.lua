@@ -1,7 +1,7 @@
 return {
     'mattn/emmet-vim',
 
-    -- 'tpope/vim-unimpaired',
+    'tpope/vim-unimpaired',
     -- 'simeji/winresizer',
     -- 'mbbill/undotree',
 

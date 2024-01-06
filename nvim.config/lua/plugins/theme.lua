@@ -7,6 +7,7 @@ return {
       vim.cmd.colorscheme 'onedark'
     end,
   },
+
     -- 'rose-pine/neovim',
     -- name = 'rose-pine',
     -- config = function()
@@ -54,6 +55,7 @@ return {
     --             StatusLine = { fg = 'love', bg = 'love', blend = 10 },
     --         }
     --     })
-    --     -- vim.cmd.colorscheme("rose-pine")
+    --     vim.cmd.colorscheme("rose-pine")
     -- end
+
 }

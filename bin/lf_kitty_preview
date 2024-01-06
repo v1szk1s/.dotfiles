@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+file=$1
+w=$2
+h=$3
+x=$4
+y=$5
+
+
+filename=$(basename $(echo "$file" | tr ' ' '_'))
+
+last=$(cat /tmp/lf_curr_file_previewed 2>/dev/null)
+if [[ "$last" != "$filename" ]]; then
+    if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+        tmux send-keys :redraw Enter
+    fi
+    echo $filename > /tmp/lf_curr_file_previewed
+fi
+
+
+if [[ "$(file -Lb --mime-type "$file")" =~ ^application/pdf ]]; then
+    if [[ ! -f "/tmp/$filename.png" ]]; then
+        pdftoppm -f 1 -l 1 "$file" >> "/tmp/$filename.png"
+    fi
+    kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "/tmp/$filename.png" < /dev/null > /dev/tty
+    exit 1
+fi
+
+if [[ "$(file -Lb --mime-type "$file")" =~ image.* ]]; then
+    kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file" < /dev/null > /dev/tty
+    exit 1
+fi
+
+# if [[ "$(file -Lb --mime-type "$file")" =~ application/json ]]; then
+#     cat "$file" | jq
+#     exit 1
+# fi
+
+if [[ "$(file -Lb --mime-type "$file")" =~ ^application/zip ]]; then
+    echo "zip contents:"
+    unzip -l "$file" | awk '{ print $4 }'
+    exit 1
+fi
+
+cat "$file"
+
+exit 1

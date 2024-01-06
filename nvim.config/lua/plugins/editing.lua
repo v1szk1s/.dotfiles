@@ -1,15 +1,9 @@
 return {
     -- 'tpope/vim-endwise',
     {
-        'altermo/ultimate-autopair.nvim',
-        event = { 'InsertEnter',  'CmdlineEnter' },
-        branch = 'v0.6',
-        opts = {
-            tabout = {
-                enable = true,
-                hopout = true,
-            },
-        },
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {} -- this is equalent to setup({}) function
     },
     {
         'ggandor/leap.nvim',
