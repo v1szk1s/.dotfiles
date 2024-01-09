@@ -1,7 +1,7 @@
 vim.filetype.add({
   extension = {
     ejs = 'html',
-    svelte = 'html',
+    -- svelte = 'html',
   },
   filename = {
 --    ['.foorc'] = 'toml',

@@ -1,4 +1,6 @@
 return {
+
+    'github/copilot.vim',
     'mattn/emmet-vim',
 
     'tpope/vim-unimpaired',

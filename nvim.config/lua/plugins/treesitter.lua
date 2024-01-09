@@ -50,6 +50,7 @@ return {
         'vimdoc',
         'sql',
         'regex',
+        'svelte',
       },
       highlight = {
         enable = true,

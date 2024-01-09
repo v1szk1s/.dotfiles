@@ -2,6 +2,7 @@ require("hulu.set")
 require("hulu.remap")
 require("hulu.ftdetect")
 require("hulu.lazy")
+require("hulu.snippets")
 
 vim.cmd("imap ,, <C-y>,")
 vim.cmd("vmap ,, <C-y>,")
@@ -113,7 +114,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+
 require('luasnip.loaders.from_vscode').lazy_load()
+require("luasnip.loaders.from_lua").load({paths = "snippets"})
+
+
 luasnip.config.setup {}
 
 cmp.setup {
@@ -142,15 +147,15 @@ cmp.setup {
                 fallback()
             end
         end, { 'i', 's' }),
-        ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
+        -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --     if cmp.visible() then
+        --         cmp.select_next_item()
+        --     elseif luasnip.expand_or_locally_jumpable() then
+        --         luasnip.expand_or_jump()
+        --     else
+        --         fallback()
+        --     end
+        -- end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
