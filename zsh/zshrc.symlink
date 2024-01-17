@@ -1,9 +1,25 @@
 # Enable colors and change prompt:
 autoload -U colors && colors
 
+
+#
+# # Load version control information
+autoload -Uz vcs_info
+
 precmd() { print "" }
-PROMPT="$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%}
-%(?.%F{green}.%F{red})$%f "
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable
+zstyle ':vcs_info:git:*' formats '%b'
+
+# Set up the prompt (with git branch name)
+setopt PROMPT_SUBST
+
+RPROMPT='%F{green}on ${vcs_info_msg_0_}%F{white}'
+
+PROMPT='$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%}
+%(?.%F{green}.%F{red})$%f '
+
 
 export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
