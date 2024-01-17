@@ -4,8 +4,8 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
 
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+vim.keymap.set({"n", "v"}, "j", "gj")
+vim.keymap.set({"n", "v"}, "k", "gk")
 
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent = true}) -- move vselected line up and down

@@ -142,10 +142,10 @@ map R !massren
 map V !nvim .
 map <tab> ${{ tmux select-pane -L }}
 
-map h :{{
-    updir
-    redraw
-}}
+# map h :{{
+#     updir
+#     redraw
+# }}
 
 #map o
 #map n

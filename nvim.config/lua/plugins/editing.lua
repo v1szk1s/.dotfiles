@@ -5,12 +5,12 @@ return {
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
     },
-    {
-        'ggandor/leap.nvim',
-        config = function()
-            require('leap').set_default_keymaps()
-        end,
-    },
+    -- {
+    --     'ggandor/leap.nvim',
+    --     config = function()
+    --         require('leap').set_default_keymaps()
+    --     end,
+    -- },
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features

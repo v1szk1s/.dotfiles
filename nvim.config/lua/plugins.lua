@@ -3,7 +3,9 @@ return {
     'github/copilot.vim',
     'mattn/emmet-vim',
 
+    "folke/zen-mode.nvim",
     'tpope/vim-unimpaired',
+    'tpope/vim-obsession',
     -- 'simeji/winresizer',
     -- 'mbbill/undotree',
 
