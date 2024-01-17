@@ -1,13 +1,15 @@
+export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 
 
-#
 # # Load version control information
 autoload -Uz vcs_info
 
-precmd() { print "" }
-precmd() { vcs_info }
+precmd() { 
+    vcs_info && print "" 
+}
 
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '%b'
@@ -15,19 +17,31 @@ zstyle ':vcs_info:git:*' formats '%b'
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 
-RPROMPT='%F{green}on ${vcs_info_msg_0_}%F{white}'
+RPROMPT='%F{green}${vcs_info_msg_0_}%F{white}'
 
 PROMPT='$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%}
 %(?.%F{green}.%F{red})$%f '
 
 
-export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
 # History in cache directory:
 HISTFILE=$ZDOTDIR/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt appendhistory
+# setopt appendhistory
+
+# Fixing zsh history problems on multiple terminals
+setopt inc_append_history
+setopt share_history
+
+# Ignore duplicate commands in history file
+setopt histignorealldups
+
+
+
+# Fixing some keys inside zsh
+autoload -Uz select-word-style
+select-word-style bash
 
 CASE_SENSITIVE="false"
 
@@ -36,7 +50,6 @@ autoload -Uz compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion::complete:*' gain-privileges 1
-
 
 # no (Normal): The default color for regular files without any special attributes.
 # fi (File): This is a general file type attribute. It typically specifies the default color for regular files. ln (Symbolic Link): The color for symbolic links.
