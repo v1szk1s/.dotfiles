@@ -31,7 +31,7 @@ return {
                 file_ignore_patterns = {
                     "node_modules",
                     "tags",
-                    ".git",
+                    ".git/",
                 }
             }
         }
