@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 
--- vim.keymap.set("n", "<tab>", "za")
+
+
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
 

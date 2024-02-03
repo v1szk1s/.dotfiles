@@ -1,10 +1,10 @@
 return {
-    -- 'tpope/vim-endwise',
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
     },
+    -- 'tpope/vim-endwise',
     -- {
     --     'ggandor/leap.nvim',
     --     config = function()

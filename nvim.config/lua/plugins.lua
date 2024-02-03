@@ -2,12 +2,29 @@ return {
 
     'github/copilot.vim',
     'mattn/emmet-vim',
-
     "folke/zen-mode.nvim",
     'tpope/vim-unimpaired',
-    'tpope/vim-obsession',
+    'mbbill/undotree',
+    -- 'tpope/vim-obsession',
     -- 'simeji/winresizer',
-    -- 'mbbill/undotree',
+
+
+    {
+        -- Add indentation guides even on blank lines
+        'lukas-reineke/indent-blankline.nvim',
+        -- Enable `lukas-reineke/indent-blankline.nvim`
+        -- See `:help ibl`
+        main = 'ibl',
+        opts = {},
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require('colorizer').setup()
+        end
+
+    },
+
 
     {
         -- Autocompletion
@@ -16,7 +33,6 @@ return {
             -- Snippet Engine & its associated nvim-cmp source
             'L3MON4D3/LuaSnip',
             'saadparwaiz1/cmp_luasnip',
-
             -- Adds LSP completion capabilities
             'hrsh7th/cmp-nvim-lsp',
 
@@ -28,36 +44,7 @@ return {
     -- 'tpope/vim-abolish',
     -- 'tpope/vim-repeat',
     -- 'lervag/vimtex',
-    -- {
-    --     'JoosepAlviste/nvim-ts-context-commentstring', 
-    --     config = function()
-    --         require("ts_context_commentstring").setup()
-    --     end
-    -- },
 
-    -- { 
-    --     'numToStr/Comment.nvim', 
-    --     lazy = false,  
-    --     config = function()
-    --         require('Comment').setup ( {
-    --             pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-    --         } )
-    --     end
-    -- },
-
-    -- Lua
-    
-    -- {
-    --     "folke/zen-mode.nvim",
-    --     opts = {
-    --         plugins = {
-    --             tmux = { enabled = false },
-    --         },
-    --
-    --     }
-    -- },
-    -- lazy.nvim
-    
     {
         "folke/noice.nvim",
         event = "VeryLazy",

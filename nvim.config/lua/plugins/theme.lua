@@ -1,12 +1,17 @@
 return {
     {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+        -- Theme inspired by Atom
+        'navarasu/onedark.nvim',
+        priority = 1000,
+        config = function()
+            require('onedark').setup {
+                -- Set a style preset. 'dark' is default.
+                style = 'deep', -- dark, darker, cool, deep, warm, warmer, light
+            }
+            require('onedark').load()
+            -- vim.cmd.colorscheme 'rose-pine-dawn'
+        end,
+    },
 
     'rose-pine/neovim',
     -- name = 'rose-pine',

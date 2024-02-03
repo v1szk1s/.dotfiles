@@ -5,10 +5,11 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
+vim.g.netrw_preview = 1
 
 vim.o.nu = true
 vim.o.relativenumber = true
-vim.o.numberwidth = 4
+vim.o.numberwidth = 3
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -44,10 +45,10 @@ vim.o.smartcase = true
 --vim.o.isfname:append("@-@")
 
 vim.o.updatetime = 250
-vim.o.timeoutlen = 500
+vim.o.timeoutlen = 300
 
 
--- vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect'
 
 
 --vim.o.colorcolumn = "80"

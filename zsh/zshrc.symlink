@@ -221,6 +221,10 @@ compctl -V directories -K _bd bd
 #export KEYTIMEOUT=1
 
 
+if [[ $OSTYPE == 'darwin'* ]]; then
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
