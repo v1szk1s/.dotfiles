@@ -1,22 +1,27 @@
 return {
-
     'github/copilot.vim',
     'mattn/emmet-vim',
     "folke/zen-mode.nvim",
-    'tpope/vim-unimpaired',
-    'mbbill/undotree',
-    -- 'tpope/vim-obsession',
-    -- 'simeji/winresizer',
-
+    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+    -- 'tpope/vim-abolish',
+    -- 'tpope/vim-repeat',
+    -- 'lervag/vimtex',
 
     {
-        -- Add indentation guides even on blank lines
-        'lukas-reineke/indent-blankline.nvim',
-        -- Enable `lukas-reineke/indent-blankline.nvim`
-        -- See `:help ibl`
-        main = 'ibl',
-        opts = {},
+        'tpope/vim-fugitive',
+        config = function()
+            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+        end
     },
+
+    {
+        'mbbill/undotree',
+        config = function()
+            vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle);
+        end
+
+    },
+
     {
         'norcalli/nvim-colorizer.lua',
         config = function()
@@ -41,9 +46,6 @@ return {
         },
     },
 
-    -- 'tpope/vim-abolish',
-    -- 'tpope/vim-repeat',
-    -- 'lervag/vimtex',
 
     {
         "folke/noice.nvim",
@@ -69,18 +71,11 @@ return {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
 
-            -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
             -- Additional lua configuration, makes nvim stuff amazing!
             'folke/neodev.nvim',
         },
-    },
-    {
-        'tpope/vim-fugitive',
-        config = function()
-            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
-        end
     },
 }

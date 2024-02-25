@@ -1,6 +1,13 @@
 vim.g.mapleader = " "
 
+-- for emmet
+vim.cmd("imap ,, <C-y>,")
+vim.cmd("vmap ,, <C-y>,")
 
+vim.keymap.set("n", "<leader>,", ":diffget //2<CR>", {silent = true})
+vim.keymap.set("n", "<leader>.", ":diffget //3<CR>", {silent = true})
+
+vim.keymap.set("n", "\\", "za", {silent = true})
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -58,12 +65,6 @@ vim.keymap.set("n", "<leader>t", ":tabnew<cr>")
 -- vim.keymap.set("i", "$%", "<% %><esc>hhi") -- ejs wonder
 
 
-vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle);
-
-vim.keymap.set("n", "<c-s>", ":source<cr>", {silent = true});
-
-
-
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', ']e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
@@ -71,6 +72,7 @@ vim.keymap.set('n', '[e', vim.diagnostic.setloclist, { desc = 'Open diagnostics 
 
 
 vim.keymap.set('n', '<leader>z', function()
+    vim.cmd('ZenMode')
     if vim.o.laststatus == 0 then
         vim.o.ls = 2
         vim.o.ch = 1

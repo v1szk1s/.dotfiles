@@ -2,16 +2,7 @@ require("hulu.set")
 require("hulu.remap")
 require("hulu.ftdetect")
 require("hulu.lazy")
-require("hulu.snippets")
 
-vim.cmd("imap ,, <C-y>,")
-vim.cmd("vmap ,, <C-y>,")
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
-vim.g.netrw_winsize = 25
-vim.g.netrw_liststyle = 0
 vim.cmd("au FileType netrw nmap <buffer> h -")
 vim.cmd("au FileType netrw nmap <buffer> l <cr>")
 
@@ -63,7 +54,6 @@ local on_attach = function(_, bufnr)
     {
 
     }
-
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')

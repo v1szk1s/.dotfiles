@@ -4,13 +4,6 @@ return {
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
     },
-    -- 'tpope/vim-endwise',
-    -- {
-    --     'ggandor/leap.nvim',
-    --     config = function()
-    --         require('leap').set_default_keymaps()
-    --     end,
-    -- },
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -21,6 +14,15 @@ return {
             })
         end
     },
+
+    {
+        -- Add indentation guides even on blank lines
+        'lukas-reineke/indent-blankline.nvim',
+        -- See `:help ibl`
+        main = 'ibl',
+        opts = {},
+    },
+
     {
         'numToStr/Comment.nvim',
         keys = {
@@ -32,6 +34,7 @@ return {
             end,
         },
     },
+
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
         ft = { 'typescriptreact' },
@@ -39,4 +42,5 @@ return {
             enable_autocmd = false,
         },
     },
+
 }

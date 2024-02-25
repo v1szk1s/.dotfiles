@@ -7,6 +7,9 @@ vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
 vim.g.netrw_preview = 1
 
+vim.o.foldmethod = "marker"
+vim.o.marker = "{{{,}}}"
+
 vim.o.nu = true
 vim.o.relativenumber = true
 vim.o.numberwidth = 3
