@@ -4,6 +4,9 @@ vim.g.mapleader = " "
 vim.cmd("imap ,, <C-y>,")
 vim.cmd("vmap ,, <C-y>,")
 
+vim.cmd("au FileType netrw nmap <buffer> h -")
+vim.cmd("au FileType netrw nmap <buffer> l <cr>")
+
 vim.keymap.set("n", "<leader>,", ":diffget //2<CR>", {silent = true})
 vim.keymap.set("n", "<leader>.", ":diffget //3<CR>", {silent = true})
 
@@ -71,16 +74,16 @@ vim.keymap.set('n', ']e', vim.diagnostic.open_float, { desc = 'Open floating dia
 vim.keymap.set('n', '[e', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 
-vim.keymap.set('n', '<leader>z', function()
-    vim.cmd('ZenMode')
-    if vim.o.laststatus == 0 then
-        vim.o.ls = 2
-        vim.o.ch = 1
-        vim.cmd('silent !tmux set status on')
-    else
-        vim.o.ls = 0
-        vim.o.ch = 0
-        vim.cmd('silent !tmux set status off')
-    end
-end)
+-- vim.keymap.set('n', '<leader>z', function()
+--     vim.cmd('ZenMode')
+--     if vim.o.laststatus == 0 then
+--         vim.o.ls = 2
+--         vim.o.ch = 1
+--         vim.cmd('silent !tmux set status on')
+--     else
+--         vim.o.ls = 0
+--         vim.o.ch = 0
+--         vim.cmd('silent !tmux set status off')
+--     end
+-- end)
 

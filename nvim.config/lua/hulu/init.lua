@@ -1,10 +1,24 @@
 require("hulu.set")
 require("hulu.remap")
 require("hulu.ftdetect")
-require("hulu.lazy")
 
-vim.cmd("au FileType netrw nmap <buffer> h -")
-vim.cmd("au FileType netrw nmap <buffer> l <cr>")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins")
+
+-- require("hulu.lazy")
+
 
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -89,68 +103,13 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
 require('luasnip.loaders.from_vscode').lazy_load()
 
 -- require("luasnip.loaders.from_lua").load({paths = "snippets"})
 
 
-luasnip.config.setup {}
 
-cmp.setup {
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
-    completion = {
-        completeopt = 'menu,menuone,noinsert',
-    },
 
-    mapping = cmp.mapping.preset.insert {
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete {},
-        ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        },
-        ['<C-l>'] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<c-j>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<c-k>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-    },
-    sources = {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' },
-    },
-}
 
 
 -- Ensure the servers above are installed

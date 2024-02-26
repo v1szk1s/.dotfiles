@@ -1,51 +1,51 @@
 return {
     'github/copilot.vim',
     'mattn/emmet-vim',
-    "folke/zen-mode.nvim",
-    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            plugins = {
+                tmux = { enabled = true },
+            }
+        },
+        keys = {
+            { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+        },
+    },
+    {
+        'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+        event = "VeryLazy",
+    },
     -- 'tpope/vim-abolish',
     -- 'tpope/vim-repeat',
     -- 'lervag/vimtex',
 
     {
         'tpope/vim-fugitive',
-        config = function()
-            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
-        end
+
+        keys = {
+            { "<leader>gs", "<cmd>Git<cr>", desc = "Git" },
+        },
+        -- config = function()
+        --     vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+        -- end
     },
 
     {
         'mbbill/undotree',
-        config = function()
-            vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle);
-        end
-
+        keys = {
+            { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
+        },
     },
 
     {
         'norcalli/nvim-colorizer.lua',
+        event = "VeryLazy",
         config = function()
             require('colorizer').setup()
         end
 
     },
-
-
-    {
-        -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            -- Snippet Engine & its associated nvim-cmp source
-            'L3MON4D3/LuaSnip',
-            'saadparwaiz1/cmp_luasnip',
-            -- Adds LSP completion capabilities
-            'hrsh7th/cmp-nvim-lsp',
-
-            -- Adds a number of user-friendly snippets
-            'rafamadriz/friendly-snippets',
-        },
-    },
-
 
     {
         "folke/noice.nvim",
@@ -59,8 +59,34 @@ return {
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-        }
+            -- "rcarriga/nvim-notify",
+        },
+        config = function ()
+             require("noice").setup({
+                -- cmdline = {
+                --     format = {
+                --         search_down = {
+                --             view = "cmdline",
+                --         },
+                --         search_up = {
+                --             view = "cmdline",
+                --         },
+                --     },
+                -- },
+                views = {
+                    cmdline_popup = {
+                        border = {
+                            style = "none",
+                            padding = { 0, 0 },
+                        },
+                        filter_options = {},
+                        win_options = {
+                            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+                        },
+                    },
+                },
+            })
+        end
     },
 
     {
@@ -71,6 +97,10 @@ return {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
 
+            -- config = function()
+            --     require('mason').setup()
+            --     require('mason-lspconfig').setup()
+            -- end,
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 

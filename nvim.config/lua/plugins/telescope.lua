@@ -32,6 +32,7 @@ return {
                     "node_modules",
                     "tags",
                     ".git/",
+                    "pack",
                 }
             }
         }
