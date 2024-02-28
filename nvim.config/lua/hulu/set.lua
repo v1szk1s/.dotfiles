@@ -7,9 +7,26 @@ vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
 vim.g.netrw_preview = 1
 
+
+
+
+
+
 vim.o.foldmethod = "indent"
--- vim.o.marker = "{{{,}}}"
 vim.o.foldlevel = 10
+
+function _G.custom_fold_text()
+    local line = vim.fn.getline(vim.v.foldstart)
+    local line_count = vim.v.foldend - vim.v.foldstart + 1
+    return "|-- " .. line:gsub("%s+", "") .. ": " .. line_count .. " lines"
+
+end
+
+vim.opt.foldtext = 'v:lua.custom_fold_text()'
+
+vim.opt.fillchars = { eob = "-", fold = " " }
+
+vim.opt.viewoptions:remove("options")
 
 vim.o.nu = true
 vim.o.relativenumber = true
@@ -56,4 +73,37 @@ vim.o.completeopt = 'menuone,noselect'
 
 
 --vim.o.colorcolumn = "80"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
