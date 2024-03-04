@@ -1,6 +1,31 @@
 return {
     'github/copilot.vim',
     'mattn/emmet-vim',
+    'tpope/vim-sleuth',
+
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {} -- this is equalent to setup({}) function
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    },
+
+    {
+        -- Add indentation guides even on blank lines
+        'lukas-reineke/indent-blankline.nvim',
+        -- See `:help ibl`
+        main = 'ibl',
+        opts = {},
+    },
     {
         "folke/zen-mode.nvim",
         opts = {
@@ -38,14 +63,14 @@ return {
         },
     },
 
-    {
-        'norcalli/nvim-colorizer.lua',
-        event = "VeryLazy",
-        config = function()
-            require('colorizer').setup()
-        end
-
-    },
+    -- {
+    --     'norcalli/nvim-colorizer.lua',
+    --     event = "VeryLazy",
+    --     config = function()
+    --         require('colorizer').setup()
+    --     end
+    --
+    -- },
 
     {
         "folke/noice.nvim",
@@ -62,7 +87,7 @@ return {
             -- "rcarriga/nvim-notify",
         },
         config = function ()
-             require("noice").setup({
+            require("noice").setup({
                 -- cmdline = {
                 --     format = {
                 --         search_down = {
@@ -88,6 +113,7 @@ return {
             })
         end
     },
+    { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
     {
         -- LSP Configuration & Plugins

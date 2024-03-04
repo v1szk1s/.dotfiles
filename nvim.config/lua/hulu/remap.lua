@@ -4,8 +4,14 @@ vim.g.mapleader = " "
 vim.cmd("imap ,, <C-y>,")
 vim.cmd("vmap ,, <C-y>,")
 
-vim.cmd("au FileType netrw nmap <buffer> h -")
-vim.cmd("au FileType netrw nmap <buffer> l <cr>")
+vim.keymap.set("n", "c*", "*``cgn")
+vim.keymap.set("n", "c#", "#``cgN")
+-- vim.keymap.set("nnoremap <leader>X #``cgN")
+
+vim.keymap.set("n", "<leader>,", ":diffget //2<CR>", {silent = true})
+
+-- vim.cmd("au FileType netrw nmap <buffer> h -")
+-- vim.cmd("au FileType netrw nmap <buffer> l <cr>")
 
 vim.keymap.set("n", "<leader>,", ":diffget //2<CR>", {silent = true})
 vim.keymap.set("n", "<leader>.", ":diffget //3<CR>", {silent = true})
@@ -14,7 +20,7 @@ vim.keymap.set("n", "\\", "za", {silent = true})
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
+-- vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
 
 vim.keymap.set({"n", "v"}, "j", "gj")
 vim.keymap.set({"n", "v"}, "k", "gk")
@@ -50,8 +56,8 @@ vim.keymap.set("n", "Q", "<nop>")
 --vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", ":!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- vim.keymap.set("n", "<leader>x", ":!chmod +x %<CR>", { silent = true })
 
 
 vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true} )

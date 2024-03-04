@@ -1,10 +1,8 @@
 set history=5000
 let mapleader=" "
 
-" vimtex
-filetype plugin indent on
 
-syntax enable
+" vimtex
 
 " Basic settings
 set nocompatible
@@ -14,6 +12,10 @@ set number
 set relativenumber
 set numberwidth=4
 set nowrap
+
+filetype plugin indent on
+syntax enable
+
 " set incsearch 
 
 set noerrorbells
@@ -43,7 +45,7 @@ set cursorline
 set ignorecase
 set smartcase
 set updatetime=250
-set timeoutlen=500
+set timeoutlen=300
 colo habamax
 
 
@@ -101,13 +103,13 @@ hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 " hi Normal guibg=NONE ctermbg=NONE
 set noshowmode
 
-set statusline=\ \ %f\ \                            " file name
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
+set statusline+=\ \ %f\ \                            " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]      
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
 "modified flag
 
 set statusline+=%r      "read only flag

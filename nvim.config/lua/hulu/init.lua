@@ -1,4 +1,4 @@
-require("hulu.set")
+require("hulu.opt")
 require("hulu.remap")
 require("hulu.ftdetect")
 
@@ -64,7 +64,7 @@ local on_attach = function(_, bufnr)
     nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
     nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
     nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
     {
 
     }
