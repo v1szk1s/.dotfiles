@@ -15,10 +15,10 @@ alt - l : yabai -m window --focus east
 lalt - space : yabai -m window --toggle float; sketchybar --trigger window_focus
 
 # Make window zoom to fullscreen: shift + lalt - f
-shift + lalt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+lalt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
 
 # Make window zoom to parent node: lalt - f
-lalt - f : yabai -m window --toggle zoom-parent; sketchybar --trigger window_focus
+# lalt - f : yabai -m window --toggle zoom-parent; sketchybar --trigger window_focus
 
 
 shift + lalt - h : yabai -m window --warp west || $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || yabai -m window --move rel:-10:0

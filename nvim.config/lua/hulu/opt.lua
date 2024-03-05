@@ -1,5 +1,4 @@
 --vim.o.guicursor = ""
-
 -- vim.g.netrw_browse_split = 0
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_winsize = 25
@@ -21,19 +20,20 @@ vim.cmd("set wildmenu")
 
 vim.o.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
-vim.opt.signcolumn = 'yes'
+
+vim.o.lz = false
 
 vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.opt.splitbelow = false
 
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.inccommand = 'split'
+-- vim.opt.inccommand = 'split'
 
 
 vim.o.foldmethod = "indent"
-vim.o.foldlevel = 10
+vim.o.foldlevel = 99
 
 function _G.custom_fold_text()
     local line = vim.fn.getline(vim.v.foldstart)
@@ -80,17 +80,16 @@ vim.o.cursorline = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
--- vim.o.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 --vim.o.isfname:append("@-@")
 
 vim.o.updatetime = 350
 vim.o.timeoutlen = 400
 
+vim.o.completeopt = 'menuone,noselect'
 
--- vim.o.completeopt = 'menuone,noselect'
 
-
---vim.o.colorcolumn = "80"
+-- vim.o.colorcolumn = "180"
 
 
 

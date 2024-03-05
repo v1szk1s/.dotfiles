@@ -86,6 +86,10 @@ return {
             --   If not available, we use `mini` as the fallback
             -- "rcarriga/nvim-notify",
         },
+
+        keys = {
+            { "<leader>mh", "<cmd>NoiceTelescope<cr>", desc = "Noice Telescope" },
+        },
         config = function ()
             require("noice").setup({
                 -- cmdline = {
