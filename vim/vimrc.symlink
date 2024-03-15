@@ -16,7 +16,7 @@ set nowrap
 filetype plugin indent on
 syntax enable
 
-" set incsearch 
+" set incsearch
 
 set noerrorbells
 set novisualbell
@@ -94,14 +94,14 @@ endfunction
 hi Status1 guifg=#008080 guibg=#fabd2f
 hi Status2 guifg=#F6955B guibg=#38A89D
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+" au InsertEnter * call InsertStatuslineColor(v:insertmode)
+" au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
 " default the statusline to green when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+" hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
 " hi Normal guibg=NONE ctermbg=NONE
-set noshowmode
+" set noshowmode
 
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
 set statusline+=\ \ %f\ \                            " file name
@@ -109,7 +109,7 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
-set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]      
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]
 "modified flag
 
 set statusline+=%r      "read only flag
@@ -133,16 +133,12 @@ filetype plugin on
 """"""""""""
 " nnoremap <leader>f :GFiles<cr>
 nnoremap <leader>sf :Files<cr>
-nnoremap gp gT
 nnoremap <leader><leader> :FZF<cr>
 
-nnoremap <leader>k :call ToggleList()<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
-nnoremap <leader>n :call ToggleNumber()<cr>
-nnoremap <leader>p :call ToggleWrap()<cr>
-nnoremap <leader>l :vertical resize +7<CR>
-nnoremap <leader>h :vertical resize -7<CR>
+
+nnoremap <leader>gs :G<cr
 
 " moving between splits
 nnoremap <C-j> <C-W>j
@@ -174,14 +170,17 @@ au BufRead,BufNewFile *.run setfiletype ampl
 call plug#begin()
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    " Plug 'preservim/nerdtree'
     " Plug 'vim-scripts/AutoComplPop'
     Plug 'mattn/emmet-vim'
     " Plug 'lervag/vimtex'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-repeat'
+
     Plug 'jremmen/vim-ripgrep'
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
-    " Plug 'prettier/vim-prettier'
 call plug#end()
 
 """""""""""""
@@ -192,17 +191,6 @@ call plug#end()
 :    set nolist
 :  else
 :    set list
-:  endif
-:endfunction
-
-
-:function ToggleNumber()
-:  if &relativenumber == 1
-:    set norelativenumber
-:    set nonumber
-:  else
-:    set relativenumber
-:    set number
 :  endif
 :endfunction
 

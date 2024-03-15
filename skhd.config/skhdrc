@@ -1,7 +1,7 @@
 # change window focus within space
+alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
-alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
 
 # swap windows
@@ -30,14 +30,16 @@ shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display ea
 
 ## Stacks (shift + ctrl - ...)
 # Add the active window to the window or stack to the {direction}: shift + ctrl - {j, k, l, ö}
-shift + ctrl - h    : yabai -m window  west --stack $(yabai -m query --windows --window | jq -r '.id') && sketchybar --trigger window_focus
-shift + ctrl - j    : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id') && sketchybar --trigger window_focus
-shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id') && sketchybar --trigger window_focus
-shift + ctrl - l : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id') && sketchybar --trigger window_focus
+# shift + ctrl - h    : yabai -m window  west --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
+# shift + ctrl - j    : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
+# shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
+# shift + ctrl - l : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
 
 # Stack Navigation: shift + ctrl - {n, p}
-shift + ctrl - n : yabai -m window --focus stack.next
-shift + ctrl - p : yabai -m window --focus stack.prev
+lalt + shift - n : yabai -m window --focus stack.next
+lalt + shift - p : yabai -m window --focus stack.prev
+lalt - n : yabai -m window --focus stack.next
+lalt - p : yabai -m window --focus stack.prev
 
 ## Resize (ctrl + lalt - ...)
 # Resize windows: ctrl + lalt - {j, k, l, ö}
@@ -58,12 +60,12 @@ ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 ## Insertion (shift + ctrl + lalt - ...)
 # Set insertion point for focused container: shift + ctrl + lalt - {j, k, l, ö, s}
-shift + ctrl + lalt - h : yabai -m window --insert west
-shift + ctrl + lalt - j : yabai -m window --insert south
-shift + ctrl + lalt - k : yabai -m window --insert north
-shift + ctrl + lalt - l : yabai -m window --insert east
+# shift + ctrl + lalt - h : yabai -m window --insert west
+# shift + ctrl + lalt - j : yabai -m window --insert south
+# shift + ctrl + lalt - k : yabai -m window --insert north
+# shift + ctrl + lalt - l : yabai -m window --insert east
 
-shift + ctrl + lalt - s : yabai -m window --insert stack
+# shift + ctrl + lalt - s : yabai -m window --insert stack
 
 lalt - t : kitty
 
@@ -80,6 +82,8 @@ shift + alt - 4 : yabai -m window --space 4;
 shift + alt - 5 : yabai -m window --space 5;
 shift + alt - 6 : yabai -m window --space 6;
 shift + alt - 7 : yabai -m window --space 7;
+shift + alt - 8 : yabai -m window --space 8;
+shift + alt - 9 : yabai -m window --space 9;
 
 # focus to space #
 alt - 1 : yabai -m space --focus 1;
@@ -89,6 +93,8 @@ alt - 4 : yabai -m space --focus 4;
 alt - 5 : yabai -m space --focus 5;
 alt - 6 : yabai -m space --focus 6;
 alt - 7 : yabai -m space --focus 7;
+alt - 8 : yabai -m space --focus 8;
+alt - 9 : yabai -m space --focus 9;
 
 
 

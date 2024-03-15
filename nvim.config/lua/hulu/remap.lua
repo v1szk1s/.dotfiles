@@ -4,6 +4,10 @@ vim.g.mapleader = " "
 vim.cmd("imap ,, <C-y>,")
 vim.cmd("vmap ,, <C-y>,")
 
+
+vim.keymap.set('n', '<leader>ff', ':e **/')
+vim.keymap.set('n', '<leader>fs', ':vim  **|copen<left><left><left><left><left><left><left><left><left>')
+
 vim.keymap.set("n", "c*", "*``cgn")
 vim.keymap.set("n", "c#", "#``cgN")
 -- vim.keymap.set("nnoremap <leader>X #``cgN")
@@ -60,7 +64,8 @@ vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- vim.keymap.set("n", "<leader>x", ":!chmod +x %<CR>", { silent = true })
 
 
-vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true} )
+vim.keymap.set("n", "<leader>w", ":w<cr>")
+
 vim.keymap.set("n", "<leader>q", ":x<cr>", { silent = true})
 
 vim.keymap.set("n", "<C-h>", "<C-w>h")

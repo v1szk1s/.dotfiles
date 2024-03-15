@@ -2,29 +2,13 @@ return {
     'github/copilot.vim',
     'mattn/emmet-vim',
     'tpope/vim-sleuth',
-
+    'tpope/vim-surround',
+    'tpope/vim-repeat',
+    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
-    },
-    {
-        "kylechui/nvim-surround",
-        version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
-    },
-
-    {
-        -- Add indentation guides even on blank lines
-        'lukas-reineke/indent-blankline.nvim',
-        -- See `:help ibl`
-        main = 'ibl',
-        opts = {},
     },
     {
         "folke/zen-mode.nvim",
@@ -37,23 +21,12 @@ return {
             { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
         },
     },
-    {
-        'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
-        event = "VeryLazy",
-    },
-    -- 'tpope/vim-abolish',
-    -- 'tpope/vim-repeat',
-    -- 'lervag/vimtex',
 
     {
         'tpope/vim-fugitive',
-
-        keys = {
-            { "<leader>gs", "<cmd>Git<cr>", desc = "Git" },
-        },
-        -- config = function()
-        --     vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
-        -- end
+        config = function()
+            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+        end
     },
 
     {
@@ -63,18 +36,9 @@ return {
         },
     },
 
-    -- {
-    --     'norcalli/nvim-colorizer.lua',
-    --     event = "VeryLazy",
-    --     config = function()
-    --         require('colorizer').setup()
-    --     end
-    --
-    -- },
-
     {
         "folke/noice.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         opts = {
             -- add any options here
         },
@@ -87,21 +51,11 @@ return {
             -- "rcarriga/nvim-notify",
         },
 
-        keys = {
-            { "<leader>mh", "<cmd>NoiceTelescope<cr>", desc = "Noice Telescope" },
-        },
+        -- keys = {
+        --     { "<leader>mh", "<cmd>NoiceTelescope<cr>", desc = "Noice Telescope" },
+        -- },
         config = function ()
             require("noice").setup({
-                -- cmdline = {
-                --     format = {
-                --         search_down = {
-                --             view = "cmdline",
-                --         },
-                --         search_up = {
-                --             view = "cmdline",
-                --         },
-                --     },
-                -- },
                 views = {
                     cmdline_popup = {
                         border = {
@@ -117,8 +71,6 @@ return {
             })
         end
     },
-    { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',

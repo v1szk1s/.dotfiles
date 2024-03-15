@@ -6,17 +6,11 @@
 -- vim.g.netrw_liststyle = 0
 -- vim.g.netrw_preview = 1
 --
-
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 -- vim.g.loaded_netrwSettings = 1
 -- vim.g.loaded_netrwFileHandlers = 1
 -- vim.g.loaded_netrw_gitignore = 1
-
-
-vim.cmd("set path+=**")
-vim.cmd("set wildmenu")
-
 
 vim.o.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
@@ -27,10 +21,9 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
--- vim.opt.inccommand = 'split'
-
+vim.opt.listchars= {tab = "» ",trail = "￮",multispace = "￮ ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
+-- vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends="|>",precedes="<|",nbsp= "_" }
 
 vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
@@ -57,7 +50,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.smartindent = true
 
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.linebreak = true
 
 vim.o.swapfile = false
@@ -86,9 +79,7 @@ vim.o.signcolumn = "yes"
 vim.o.updatetime = 350
 vim.o.timeoutlen = 400
 
-vim.o.completeopt = 'menuone,noselect'
-
-
+-- vim.o.completeopt = 'menuone'
 -- vim.o.colorcolumn = "180"
 
 

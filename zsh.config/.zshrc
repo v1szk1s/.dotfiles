@@ -51,58 +51,12 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion::complete:*' gain-privileges 1
 
-# no (Normal): The default color for regular files without any special attributes.
-# fi (File): This is a general file type attribute. It typically specifies the default color for regular files. ln (Symbolic Link): The color for symbolic links.
-# pi (FIFO): The color for named pipes (FIFOs or pipes).
-# so (Socket): The color for socket files.
-# bd (Block Device): The color for block device files.
-#
-#  di=34: Directories (di) are colored with ANSI color code 34 (blue).
-# ln=35: Symbolic links (ln) are colored with ANSI color code 35 (magenta).
-# so=32: Sockets (so) are colored with ANSI color code 32 (green).
-# pi=33: Named pipes (pi) are colored with ANSI color code 33 (yellow).
-# ex=31: Executables (ex) are colored with ANSI color code 31 (red).
-# bd=46;34: Block devices (bd) are colored with ANSI color code 46 (cyan background) and text color 34 (blue).
-# cd=43;34: Character devices (cd) are colored with ANSI color code 43 (yellow background) and text color 34 (blue).
-# su=41;30: Setuid executables (su) are colored with ANSI color code 41 (red background) and text color 30 (black).
-# sg=46;30: Setgid executables (sg) are colored with ANSI color code 46 (cyan background) and text color 30 (black).
-# tw=42;30: Sticky writable directories (tw) are colored with ANSI color code 42 (green background) and text color 30 (black).
-# ow=43;30: Other-writable directories (ow) are colored with ANSI color code 43 (yellow background) and text color 30 (black).
-#
-#  COLORS
-# Black: 30
-# Red: 31
-# Green: 32
-# Yellow: 33
-# Blue: 34
-# Magenta: 35
-# Cyan: 36
-# White: 37
-#
-# Background Black: 40
-# Background Red: 41
-# Background Green: 42
-# Background Yellow: 43
-# Background Blue: 44
-# Background Magenta: 45
-# Background Cyan: 46
-# Background White: 47
-
-
-
-
 # LS_COLORS='no=00;37:fi=00:di=00;33:ln=04;36:pi=40;33:so=01;35:bd=40;33;01:*=00;31'
 LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 
 export LS_COLORS
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# _ls_colors=":ow=34;34"
-# zstyle ':completion:*:default' list-colors "${(s.:.)_ls_colors}"
-# # LS_COLORS+=$_ls_colors
-#
-# zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
-
 
 zmodload zsh/complist
 compinit
@@ -118,7 +72,8 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 # enable backward search
-bindkey "^R" history-incremental-pattern-search-backward
+# bindkey "^R" history-incremental-pattern-search-backward
+bindkey -s '^R' 'cat ~/.config/zsh/.zsh_history | fzf\n'
 
 
 # Edit line in vim with ctrl-e:
@@ -132,9 +87,7 @@ bindkey '^e' edit-command-line
 antigen bundle jeffreytse/zsh-vi-mode
 
 antigen apply
-# Load zsh-syntax-highlighting; should be last.
-# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-#
+
 cdir ()
 {
     mkdir -p -- "$1" &&
@@ -214,12 +167,6 @@ _bd () {
   reply=($reply "/")
 }
 compctl -V directories -K _bd bd
-
-
-# vi mode
-#bindkey -v
-#export KEYTIMEOUT=1
-
 
 if [[ $OSTYPE == 'darwin'* ]]; then
     export PATH="/opt/homebrew/opt/ruby/bin:$PATH"

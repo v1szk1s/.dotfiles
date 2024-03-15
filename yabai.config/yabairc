@@ -50,6 +50,6 @@ yabai -m rule --add  label=".*Layout|Open" app="^yEd$" title=".*Layout|Open" man
 # yabai -m rule --add app="^KeePassXC$" manage=off
 
 
-yabai -m config layout bsp
+yabai -m config layout stack # [bsp|stack|float]
 
 echo "yabai configuration loaded.."
