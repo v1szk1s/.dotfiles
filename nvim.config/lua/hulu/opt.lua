@@ -68,7 +68,7 @@ vim.o.signcolumn = "yes"
 --vim.o.isfname:append("@-@")
 
 vim.o.updatetime = 350
-vim.o.timeoutlen = 400
+vim.o.timeoutlen = 800
 
 -- vim.o.completeopt = 'menuone'
 -- vim.o.colorcolumn = "180"
