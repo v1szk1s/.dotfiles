@@ -1,18 +1,9 @@
 --vim.o.guicursor = ""
--- vim.g.netrw_browse_split = 0
--- vim.g.netrw_banner = 0
--- vim.g.netrw_winsize = 25
--- vim.g.netrw_winsize = 25
--- vim.g.netrw_liststyle = 0
--- vim.g.netrw_preview = 1
---
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
--- vim.g.loaded_netrwSettings = 1
--- vim.g.loaded_netrwFileHandlers = 1
--- vim.g.loaded_netrw_gitignore = 1
 
-vim.o.clipboard = 'unnamedplus'
+vim.cmd("filetype plugin indent on")
+vim.o.syntax = "enable"
+
+-- vim.o.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 
 vim.o.lz = false
@@ -22,7 +13,7 @@ vim.opt.splitbelow = false
 
 vim.opt.list = true
 
-vim.opt.listchars= {tab = "» ",trail = "￮",multispace = "￮ ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
+vim.opt.listchars= {tab = "» ",trail = " ",multispace = "￮ ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 -- vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends="|>",precedes="<|",nbsp= "_" }
 
 vim.o.foldmethod = "indent"

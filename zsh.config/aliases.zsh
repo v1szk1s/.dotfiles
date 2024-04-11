@@ -4,6 +4,7 @@ alias mv="mv -iv"
 alias rm="rm -vI"
 alias mkd="mkdir -pv"
 
+alias ggc='gcloud compute ssh --zone "europe-central2-a" "instance-20240322-103402" --project "sincere-blade-416610"'
 
 if command -v exa >/dev/null; then
     alias ll='exa -al --color=always --group-directories-first' # my preferred listing
@@ -40,6 +41,7 @@ alias ta="tmux attach -t"
 if [[ $OSTYPE =~ darwin ]]; then
     alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 20`; java -version"
     alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
+    alias j11="export JAVA_HOME=`/usr/libexec/java_home -v 11`; java -version"
     alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_361`; java -version"
     alias j7="export JAVA_HOME=`/usr/libexec/java_home -v 1.7`; java -version"
 fi

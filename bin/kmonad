@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# kill the previous kmonad
+# ps -ef | grep kmonad | grep -v grep | awk '{print $2}' | xargs kill -9
+
+if pgrep -x "kmonad" > /dev/null
+then
+    echo "kmonad is running, killing kmonad"
+    ps aux | grep kmonad | grep -v grep | grep root | awk '{print $2}' | sudo xargs kill -9
+    exit 1
+fi
+
+sudo /Users/hulu/personal/kmonad/stack-work/install/aarch64-osx/7361ff05c86e9d295050d2180569491ecbe464866a9f1d71c7b693620628eed4/9.4.8/bin/kmonad /Users/hulu/personal/kmonad/stack-work/install/aarch64-osx/7361ff05c86e9d295050d2180569491ecbe464866a9f1d71c7b693620628eed4/9.4.8/bin/config.kbd &
+
