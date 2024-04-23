@@ -2,13 +2,12 @@ return {
     -- 'kmonad/kmonad-vim',
     -- 'github/copilot.vim',
 
-    -- 'mattn/emmet-vim',
 
     -- 'tpope/vim-sleuth', -- Automatically set the 'shiftwidth' and 'expandtab' options
     'tpope/vim-surround',
     'tpope/vim-repeat', -- to be able to repeat surround
-    -- 'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
-    -- 'tpope/vim-eunuch',
+    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+    'tpope/vim-eunuch',
     {
         'tpope/vim-fugitive',
         config = function()
@@ -16,34 +15,39 @@ return {
         end
     },
 
-    --
-    --
-    -- {
-    --     "lervag/vimtex",
-    --     init = function()
-    --         -- Use init for configuration, don't use the more common "config".
-    --     end
-    -- },
-    --     {
-    --     "folke/zen-mode.nvim",
-    --     opts = {
-    --         plugins = {
-    --             tmux = { enabled = true },
-    --         }
-    --     },
-    --     keys = {
-    --         { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
-    --     },
-    -- },
-    --
-    --
-    -- {
-    --     'mbbill/undotree',
-    --     keys = {
-    --         { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
-    --     },
-    -- },
-    --
+    {
+        'mattn/emmet-vim',
+        init = function ()
+            vim.g.user_emmet_leader_key='<C-q>'
+
+            vim.cmd("imap ,, <C-q>,")
+            vim.cmd("vmap ,, <C-q>,")
+         end
+    },
+    {
+        "lervag/vimtex",
+        init = function()
+            -- Use init for configuration, don't use the more common "config".
+        end
+    },
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            plugins = {
+                tmux = { enabled = true },
+            }
+        },
+        keys = {
+            { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+        },
+    },
+    {
+        'mbbill/undotree',
+        keys = {
+            { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
+        },
+    },
+
     {
         "folke/noice.nvim",
         -- event = "VeryLazy",
@@ -59,9 +63,6 @@ return {
             -- "rcarriga/nvim-notify",
         },
 
-        -- keys = {
-        --     { "<leader>mh", "<cmd>NoiceTelescope<cr>", desc = "Noice Telescope" },
-        -- },
         config = function ()
             require("noice").setup({
                 views = {

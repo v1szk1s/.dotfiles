@@ -10,15 +10,24 @@ return {
                 end
                 vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
             end
-            nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+            nmap('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
             nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-            -- nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-            -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-            -- nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-            -- nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-            -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-            -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+            nmap("<leader>vd", function() vim.diagnostic.open_float() end, '')
+
+            nmap("[d", function() vim.diagnostic.goto_next() end, 'go to next diagnostic message')
+            nmap("]d", function() vim.diagnostic.goto_prev() end, 'go to previous diagnostic message')
+            nmap(']e', function() vim.diagnostic.open_float() end, 'Open floating diagnostic message')
+            nmap('[e', function() vim.diagnostic.setloclist() end, 'Open diagnostics list' )
+
+            nmap("gd", function() vim.lsp.buf.definition() end, '')
+            nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+            nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+            nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+
+            nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'symbols')
+            nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
             nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
             nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
         end
@@ -49,12 +58,14 @@ return {
             },
         }
 
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-        -- require('luasnip.loaders.from_vscode').lazy_load()
 
+
+        -- local capabilities = vim.lsp.protocol.make_client_capabilities() -- default
+        -- local capabilities = require("coq").lsp_ensure_capabilities() -- for coq
+
+        local capabilities = require('cmp_nvim_lsp').default_capabilities() -- for cmp
         -- require("luasnip.loaders.from_lua").load({paths = "snippets"})
-        -- Ensure the servers above are installed
+
         local mason_lspconfig = require 'mason-lspconfig'
 
         mason_lspconfig.setup {
@@ -87,8 +98,6 @@ return {
                 -- signs = function(namespace, bufnr)
                 --     return vim.b[bufnr].show_signs == true
                 -- end,
-                --
-                -- Disable a feature
                 update_in_insert = false,
             }
         )
@@ -107,6 +116,6 @@ return {
         { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
         -- Additional lua configuration, makes nvim stuff amazing!
-        -- 'folke/neodev.nvim',
+        'folke/neodev.nvim',
     },
 }

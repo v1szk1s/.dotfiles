@@ -44,6 +44,7 @@ cmd open &{{
     case $(file --mime-type -Lb $f) in
         graphml) $OPENER $f > /dev/null 2> /dev/null;;
         text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        application/pdf) zathura $f > /dev/null;;
 
         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
     esac

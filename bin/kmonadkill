@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ps aux | grep kmonad | grep -v grep | grep root | awk '{print $2}' | sudo xargs kill -9

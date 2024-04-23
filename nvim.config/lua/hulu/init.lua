@@ -1,6 +1,7 @@
 require("hulu.opt")
 require("hulu.remap")
 require("hulu.ftdetect")
+require("hulu.status-line")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
