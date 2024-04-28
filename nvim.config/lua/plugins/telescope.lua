@@ -41,18 +41,13 @@ return {
         local builtin = require('telescope.builtin')
 
         vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-        -- vim.keymap.set('n', '<leader>fj', builtin.find_files, { desc = '[ FJ] Search Files' })
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Search Files' })
-
-        -- vim.keymap.set('n', '<leader>fk', builtin.live_grep, { desc = '[ FK] Search Grep' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search Grep' })
-
         vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = '[F]ind [G]it' })
-
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-
+        vim.keymap.set('n', '<leader>sk', 'Telescope keymaps<cr>', { desc = '[F]ind [H]elp' })
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
-        -- vim.keymap.set('n', '<c-f>', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+
         -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
         -- vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
         -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })

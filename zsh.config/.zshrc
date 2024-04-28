@@ -73,7 +73,7 @@ bindkey -v '^?' backward-delete-char
 
 # enable backward search
 # bindkey "^R" history-incremental-pattern-search-backward
-bindkey -s "^R" "cat ~/.config/zsh/.zsh_history | fzf\n"
+# bindkey -s "^R" "cat ~/.config/zsh/.zsh_history | fzf\n"
 
 
 # Edit line in vim with ctrl-e:
