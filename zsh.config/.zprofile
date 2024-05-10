@@ -1,6 +1,3 @@
-export EDITOR="nvim"
-export DOTFILES=$(echo ~)/.dotfiles
-
 if [[ $OSTYPE =~ darwin ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
     export SCALA_HOME=/opt/homebrew/bin/scala
@@ -11,5 +8,3 @@ fi
 # [ -f $DOTFILES/zsh.config/variables.zsh ] && source $DOTFILES/zsh/variables.zsh
 
 
-export PATH=$DOTFILES/bin:$HOME/.local/bin:$PATH
-export PATH=~/.config/emacs/bin:$PATH

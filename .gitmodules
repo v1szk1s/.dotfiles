@@ -1,3 +1,6 @@
 [submodule "nvim.config/pack/github/start/copilot.vim"]
 	path = nvim.config/pack/github/start/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+[submodule "zsh.config/plugins/zsh-completions"]
+	path = zsh.config/plugins/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
