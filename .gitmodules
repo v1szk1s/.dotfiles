@@ -4,3 +4,6 @@
 [submodule "zsh.config/plugins/zsh-completions"]
 	path = zsh.config/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+[submodule "zsh.config/plugins/powerlevel10k"]
+	path = zsh.config/plugins/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k

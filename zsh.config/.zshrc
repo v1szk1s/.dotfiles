@@ -1,8 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # the following options are from https://github.com/Phantas0s
 # 
 # +------------+
 # | NAVIGATION |
 # +------------+
+# zmodload zsh/zprof
 
 setopt AUTO_CD              # Go to folder path without using cd.
 
@@ -29,61 +37,44 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
+setopt PROMPT_SUBST
 
 source $DOTFILES/zsh.config/plugins/bd.zsh
+
+source $DOTFILES/zsh.config/plugins/powerlevel10k/powerlevel10k.zsh-theme
 
 # Enable colors and change prompt:
 autoload -U colors && colors
 
-# # Load version control information
-autoload -Uz vcs_info
 
-precmd() {
-    vcs_info && print ""
-}
-# Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '[%b]'
+[ -f "$DOTFILES/zsh.config/aliases.zsh" ] && source "$DOTFILES/zsh.config/aliases.zsh"
 
-export PROMPT='$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%} %F{green}${vcs_info_msg_0_}%F{white}
-%(?.%F{green}.%F{red})$%f '
+# Load version control information
+# autoload -Uz vcs_info
+#
+# precmd() {
+#     vcs_info && print ""
+# }
+# # Format the vcs_info_msg_0_ variable
+# zstyle ':vcs_info:git:*' formats '[%b]'
+#
+# PROMPT='$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%} %F{green}${vcs_info_msg_0_}%F{white}
+# %(?.%F{green}.%F{red})$%f '
 
-setopt PROMPT_SUBST
 
-
-# Fixing some keys inside zsh
-autoload -Uz select-word-style
-select-word-style bash
-
-export CASE_SENSITIVE="false"
 
 # Basic auto/tab complete:
-autoload -Uz compinit
-fpath=(~/.dotfiles/zsh.config/completions \\$fpath)
-
-# LS_COLORS='no=00;37:fi=00:di=00;33:ln=04;36:pi=40;33:so=01;35:bd=40;33;01:*=00;31'
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-zmodload zsh/complist
-compinit
-
 source $DOTFILES/zsh.config/completion.zsh
+
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
-[ -f "$DOTFILES/zsh.config/aliases.zsh" ] && source "$DOTFILES/zsh.config/aliases.zsh"
-[ -f "$DOTFILES/zsh.config/antigen.zsh" ] && source "$DOTFILES/zsh.config/antigen.zsh"
 
-antigen bundle jeffreytse/zsh-vi-mode
-
-antigen apply
-
-cdir ()
-{
+cdir () {
     mkdir -p -- "$1" &&
        cd -P -- "$1"
 }
@@ -95,10 +86,7 @@ fi
 
 bindkey -s '^o' 'lfcd\n'
 
-if [[ $OSTYPE == 'darwin'* ]]; then
-    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-fi
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# zprof
