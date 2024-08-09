@@ -11,7 +11,7 @@ vim.o.lz = false
 vim.opt.splitright = true
 vim.opt.splitbelow = false
 
-vim.opt.list = true
+vim.opt.list = false
 
 vim.opt.listchars= {tab = "» ",trail = " ",multispace = "￮ ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 -- vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends="|>",precedes="<|",nbsp= "_" }
@@ -35,7 +35,7 @@ vim.o.nu = true
 vim.o.relativenumber = true
 vim.o.numberwidth = 3
 
-vim.o.tabstop = 4
+vim.o.tabstop = 2
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true

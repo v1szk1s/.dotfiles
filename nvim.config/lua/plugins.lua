@@ -4,10 +4,12 @@ return {
 
 
     -- 'tpope/vim-sleuth', -- Automatically set the 'shiftwidth' and 'expandtab' options
+    'tpope/vim-abolish', -- better replace
     'tpope/vim-surround',
     'tpope/vim-repeat', -- to be able to repeat surround
     'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
     'tpope/vim-eunuch',
+    -- 'tpope/vim-dispatch',
     {
         'tpope/vim-fugitive',
         config = function()
@@ -27,7 +29,7 @@ return {
     {
         "lervag/vimtex",
         init = function()
-            -- Use init for configuration, don't use the more common "config".
+            vim.g.vimtex_view_method = 'zathura'
         end
     },
     {
@@ -77,17 +79,37 @@ return {
                         },
                     },
                 },
+                routes = {
+                    {
+                        filter = {
+                            event = "lsp",
+                            kind = "progress",
+                            cond = function(message)
+                                local client = vim.tbl_get(message.opts, "progress", "client")
+                                return client == "lua_ls" or client == "pylsp"
+                            end,
+                        },
+                        opts = { skip = true },
+                    },
+                },
             })
         end
     },
-    {
-        'norcalli/nvim-colorizer.lua',
-        config = function()
-            require 'colorizer'.setup {
-                '*'; -- Highlight all files, but customize some others.
-                css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
-                html = { names = false; } -- Disable parsing "names" like Blue or Gray
-            }
-        end
-    },
+
+    -- {
+    --     'brenoprata10/nvim-highlight-colors',
+    --     config = function()
+    --         require('nvim-highlight-colors').setup({})
+    --     end,
+    -- }
+    -- {
+    --     'norcalli/nvim-colorizer.lua',
+    --     config = function()
+    --         require 'colorizer'.setup {
+    --             '*'; -- Highlight all files, but customize some others.
+    --             css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
+    --             html = { names = false; } -- Disable parsing "names" like Blue or Gray
+    --         }
+    --     end
+    -- },
 }

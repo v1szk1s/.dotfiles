@@ -9,3 +9,4 @@ let g:netrw_list_hide='\.\/,\.\.\/,'
 
 nmap <buffer> h -
 nmap <buffer> l <CR>
+nmap <buffer> s <nop>

@@ -5,6 +5,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+
+bindkey '^h' autosuggest-accept
+
 # the following options are from https://github.com/Phantas0s
 # 
 # +------------+
@@ -40,8 +58,7 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 setopt PROMPT_SUBST
 
 source $DOTFILES/zsh.config/plugins/bd.zsh
-
-source $DOTFILES/zsh.config/plugins/powerlevel10k/powerlevel10k.zsh-theme
+# source $DOTFILES/zsh.config/plugins/powerlevel10k/powerlevel10k.zsh-theme
 
 # Enable colors and change prompt:
 autoload -U colors && colors
@@ -52,6 +69,28 @@ autoload -U colors && colors
 # Load version control information
 # autoload -Uz vcs_info
 #
+# Remove mode switching delay.
+KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
+#
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'beam' ]]; then
+#     echo -ne '\e[5 q'
+#   fi
+# }
+# zle -N zle-keymap-select
+# _fix_cursor() {
+#    echo -ne '\e[5 q'
+# }
+#
+# precmd_functions+=(_fix_cursor)
 # precmd() {
 #     vcs_info && print ""
 # }
@@ -72,6 +111,13 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+
 # Load aliases and shortcuts if existent.
 
 cdir () {
@@ -86,7 +132,15 @@ fi
 
 bindkey -s '^o' 'lfcd\n'
 
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
 
 # zprof
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh.config/.p10k.zsh.
+[[ ! -f ~/.dotfiles/zsh.config/.p10k.zsh ]] || source ~/.dotfiles/zsh.config/.p10k.zsh
+
+[ -f $DOTFILES/zsh.config/.fzf.zsh ] && source $DOTFILES/zsh.config/.fzf.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

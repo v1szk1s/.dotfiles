@@ -10,7 +10,7 @@ yabai -m config window_placement second_child
 # yabai -m config menubar_opacity 0.0
 
 yabai -m config external_bar               all:00:0     \
-                mouse_follows_focus        on          \
+                mouse_follows_focus        off          \
                 focus_follows_mouse        autofocus          \
                 window_zoom_persist        off          \
                 window_placement           second_child \
@@ -45,7 +45,9 @@ yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 
-yabai -m rule --add label=".*Color" app="^GIMP$" title=".*Color" manage=off
+# yabai -m rule --add label="Save" app="^yEd$" title="Save" manage=off
+
+yabai -m rule --add app="GIMP" manage=off
 
 yabai -m rule --add  label=".*Layout|Open" app="^yEd$" title=".*Layout|Open" manage=off
 

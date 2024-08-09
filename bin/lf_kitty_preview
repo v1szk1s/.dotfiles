@@ -8,15 +8,6 @@ y=$5
 
 filename=$(basename $(echo "$file" | tr ' ' '_'))
 
-last=$(cat /tmp/lf_curr_file_previewed 2>/dev/null)
-if [[ "$last" != "$filename" ]]; then
-    if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
-        tmux send-keys :redraw Enter
-    fi
-    echo $filename > /tmp/lf_curr_file_previewed
-fi
-
-
 if [[ "$(file -Lb --mime-type "$file")" =~ ^application/pdf ]]; then
     if [[ ! -f "/tmp/$filename.png" ]]; then
         pdftoppm -f 1 -l 1 "$file" >> "/tmp/$filename.png"

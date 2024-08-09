@@ -1,3 +1,5 @@
+alias kc="kubectl"
+
 alias q="exit; tmux attach -t"
 alias cp="cp -iv"
 alias mv="mv -iv"
@@ -25,18 +27,18 @@ alias gs="git status"
 alias gl='git log --graph --all' #--format="%an %Cblue"%s'
 alias gll="git log --all --graph --decorate"
 
-if command -v python3 >/dev/null; then
-    alias py="python3"
-    alias python="python3"
-fi
+# if command -v python3 >/dev/null; then
+# alias py="python3"
+alias python="python3.11"
+# fi
 
 if command -v nvim >/dev/null; then
     alias vim="nvim"
 fi
 
-alias ts="tmux new -s"
+alias ts="tmux new-session"
 alias lst="tmux list-sessions"
-alias ta="tmux attach -t"
+alias ta="tmux attach-session"
 
 if [[ $OSTYPE =~ darwin ]]; then
     alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 20`; java -version"
