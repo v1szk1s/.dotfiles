@@ -31,7 +31,7 @@ font pango:monospace 8
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex-autostart --autostart --environment i3
-exec --no-startup-id feh --randomize --bg-fill /usr/share/backgrounds/wallpapers/*
+exec --no-startup-id feh --bg-fill /home/hulu/Downloads/bg.png
 
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -39,7 +39,7 @@ exec --no-startup-id feh --randomize --bg-fill /usr/share/backgrounds/wallpapers
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- lock --nofork
 
 bindsym Mod4+l exec --no-startup-id lock
 
@@ -48,11 +48,11 @@ bindsym Mod4+l exec --no-startup-id lock
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-exec --no-startup-id "setxkbmap -layout us,hu -option 'grp:win_space_toggle' -option 'caps:escape'"
+# exec --no-startup-id "setxkbmap -layout us,hu -option 'grp:win_space_toggle' -option 'caps:escape'"
 
-exec --no-startup-id picom -b
+# exec --no-startup-id picom -b
 
-exec --no-startup-id launch-polybar.sh
+# exec --no-startup-id launch-polybar.sh
 
 
 
@@ -237,7 +237,7 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 client.background       #FFFFFF
 
 # Configure 5px of space between windows and to the screen edges.
-gaps inner 5px
+# gaps inner 5px
 
 # Configure an additional 5px of extra space to the screen edges,
 # for a total gap of 10px to the screen edges, and 5px between windows.

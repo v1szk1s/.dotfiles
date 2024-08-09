@@ -3,7 +3,6 @@ DOTFILES=$(pwd)
 
 
 setup_gitconfig(){
-	title "Set up gitconfig"
 	if [[ ! -f $HOME/.gitconfig ]]; then
 		echo "Making symlink for gitconfig"
 		ln -s $DOTFILES/gitconfig $HOME/.gitconfig
@@ -13,7 +12,6 @@ setup_gitconfig(){
 }
 
 setup_tmux(){
-	title "Setup tpm"
 
 	if [[ ! -e $DOTFILES/tmux.config/plugins/tpm ]]; then
 		git clone https://github.com/tmux-plugins/tpm $DOTFILES/tmux.config/plugins/tpm
@@ -27,7 +25,6 @@ setup_tmux(){
 
 
 setup_lf(){
-	title "setting up lf"
 
 	echo "downloading latest release"
 	if [[ $OSTYPE == 'darwin'* ]]; then
@@ -50,7 +47,6 @@ setup_lf(){
 setup_symlinks() {
 	# setup_tmux
 
-	title "Setup symlinks"
 
 	for i in $(find $DOTFILES -name '*.config'); do
 		MAC="yabai|sketchybar|skhd"
@@ -61,15 +57,14 @@ setup_symlinks() {
 		target="$HOME/.config/$(basename "$DOTFILES/$i" '.config')"
 
 		[[ $OSTYPE =~ darwin.* && "$i" =~ $LINUX || \
-			! $OSTYPE =~ darwin.* && "$i" =~ $MAX ]] && continue
-
-
+			! $OSTYPE =~ darwin.* && "$i" =~ $MAC ]] && continue
 
 		if [[ ! -e $target ]]; then
 			echo "Creating $basename symlink."
 			ln -sf $i $target
 
-            [[ "$i" =~ zsh ]] && echo ln -sf $i/zshenv $HOME/.zshenv
+            # [[ "$i" =~ zsh ]] && ln -sf $i/zshenv $HOME/.zshenv
+            [[ "$i" =~ zsh ]] && echo "ln -sf $i/zshenv $HOME/.zshenv"
 		else
 			echo "Already exists... Skipping. "
 		fi
@@ -111,5 +106,4 @@ setup_symlinks
 	#
 	# set -- "${POSITIONAL_ARGS[@]}"
 
-	echo -e
-	success "Done."
+	echo -e "Done"
