@@ -35,7 +35,6 @@ _comp_options+=(globdots) # With hidden files
 # Only work with the Zsh function vman
 # See $DOTFILES/zsh/scripts.zsh
 compdef vman="man"
-
 # +---------+
 # | Options |
 # +---------+
@@ -102,5 +101,5 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 
 ## For kubernetes
 # source $DOTFILES/zsh/plugins/kubectl-completion/_kubectl
-# zstyle ':completion:*:*:kubectl:*' list-grouped false
-
+source <(kubectl completion zsh)
+zstyle ':completion:*:*:kubectl:*' list-grouped false

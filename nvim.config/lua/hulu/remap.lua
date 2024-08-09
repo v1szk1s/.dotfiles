@@ -1,6 +1,24 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+function _G.toggle_html_comment()
+    local current_line = vim.fn.getline('.')
+    local is_commented = current_line:match('^%s*<!--.*-->%s*$')
+    if is_commented then
+        current_line = current_line:gsub("^%s*<!%-%- (.-) %-%->%s*$", "%1")
+    else
+        current_line = current_line:gsub('^(.*)$', '<!-- %1 -->')
+    end
+    vim.fn.setline('.', current_line)
+end
+
+vim.api.nvim_set_keymap('n', 'gh', ':lua toggle_html_comment()<CR>', { noremap = true, silent = true })
+
+
+-- vim.keymap.set("n", '<c-m>', ':Dispatch<cr>')
+
+vim.keymap.set('n', '<leader>sa', 'ggVG"+y', { silent = true })
+
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set("n", "<c-p>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
