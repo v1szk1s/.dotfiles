@@ -38,10 +38,10 @@ vim.keymap.set("n", "<leader>.", ":diffget //3<CR>", {silent = true})
 vim.keymap.set("n", "\\", "za", {silent = true}) -- fold with \
 
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent = true}) -- move vselected line up and down
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {silent = true})
+-- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {silent = true}) -- move vselected line up and down
+-- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {silent = true})
 
-vim.keymap.set("n", "J", "mzJ`z") -- so cursor stays 
+-- vim.keymap.set("n", "J", "mzJ`z") -- so cursor stays 
 
 -- vim.keymap.set("n", "<C-d>", "Lzz") -- cursor stays the same place when goind down or up
 -- vim.keymap.set("n", "<C-u>", "Hzz")

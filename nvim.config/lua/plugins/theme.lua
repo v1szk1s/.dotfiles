@@ -1,6 +1,7 @@
 return {
     "rebelot/kanagawa.nvim",
     "catppuccin/nvim",
+    "rose-pine/neovim", name = "rose-pin",
     {
         'projekt0n/github-nvim-theme',
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -10,6 +11,8 @@ return {
             })
 
             vim.cmd('colorscheme github_dark')
+            -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+            -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         end,
     },
     {

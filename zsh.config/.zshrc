@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -65,6 +66,8 @@ autoload -U colors && colors
 
 
 [ -f "$DOTFILES/zsh.config/aliases.zsh" ] && source "$DOTFILES/zsh.config/aliases.zsh"
+
+[ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh"
 
 # Load version control information
 # autoload -Uz vcs_info
@@ -135,12 +138,22 @@ bindkey -s '^o' 'lfcd\n'
 
 export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
 
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
+
+
 # zprof
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh.config/.p10k.zsh.
 [[ ! -f ~/.dotfiles/zsh.config/.p10k.zsh ]] || source ~/.dotfiles/zsh.config/.p10k.zsh
 
-[ -f $DOTFILES/zsh.config/.fzf.zsh ] && source $DOTFILES/zsh.config/.fzf.zsh
+source <(fzf --zsh)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':'):$PATH"
+# $(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':')
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

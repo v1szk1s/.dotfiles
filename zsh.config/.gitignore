@@ -1,4 +1,6 @@
-variables
+.variables.sh
 .zsh_history
 .zsh_sessions
 .zcompdump
+plugins/*
+.p10k.zsh

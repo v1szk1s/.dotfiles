@@ -6,6 +6,8 @@ alias mv="mv -iv"
 alias rm="rm -vI"
 alias mkd="mkdir -pv"
 
+alias lf="lfrun"
+
 alias ggc='gcloud compute ssh --zone "europe-central2-a" "instance-20240322-103402" --project "sincere-blade-416610"'
 
 if command -v exa >/dev/null; then

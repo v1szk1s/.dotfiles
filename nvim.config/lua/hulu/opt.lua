@@ -13,8 +13,8 @@ vim.opt.splitbelow = false
 
 vim.opt.list = false
 
-vim.opt.listchars= {tab = "» ",trail = " ",multispace = "￮ ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
--- vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends="|>",precedes="<|",nbsp= "_" }
+-- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
+vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
 
 vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
