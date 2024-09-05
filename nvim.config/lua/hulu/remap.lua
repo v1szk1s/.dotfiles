@@ -21,7 +21,7 @@ vim.keymap.set('n', '<leader>sa', 'ggVG"+y', { silent = true })
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-vim.keymap.set("n", "<c-p>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
+vim.keymap.set("n", "<c-n>", ":let @z=expand('%:t') | Ex<cr>/<c-r>z<cr>", {silent = true})
 
 vim.keymap.set('i', '{<CR>', '{<CR>}<C-o>O')
 
