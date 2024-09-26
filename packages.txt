@@ -1,3 +1,7 @@
+texlive-langextra
+texlive-hyphen-hungarian
+tree-sitter-cli
+
 alsa-utils 1.2.12-1
 autoconf-archive 1:2023.02.20-2
 base 3-2
@@ -73,7 +77,6 @@ sudo 1.9.15.p5-2
 systemd-resolvconf 256.5-1
 tldr 3.3.0-1
 tmux 3.4-10
-tree-sitter-cli 0.23.0-1
 ttf-fira-code 6.2-2
 ttf-fira-mono 2:3.206-4
 ttf-firacode-nerd 3.2.1-2

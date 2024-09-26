@@ -31,7 +31,7 @@ alias gll="git log --all --graph --decorate"
 
 # if command -v python3 >/dev/null; then
 # alias py="python3"
-alias python="python3.11"
+# alias python="python3.11"
 # fi
 
 if command -v nvim >/dev/null; then

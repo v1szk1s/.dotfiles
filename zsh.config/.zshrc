@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+source <(fzf --zsh)
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Download Zinit, if it's not there yet
@@ -65,9 +66,9 @@ source $DOTFILES/zsh.config/plugins/bd.zsh
 autoload -U colors && colors
 
 
-[ -f "$DOTFILES/zsh.config/aliases.zsh" ] && source "$DOTFILES/zsh.config/aliases.zsh"
+[ -f "$DOTFILES/zsh.config/aliases.zsh" ] && source "$DOTFILES/zsh.config/aliases.zsh" || echo "Could not source aliases"
 
-[ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh"
+[ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh" || echo "Could not source .variables.sh\nSome script may not work!"
 
 # Load version control information
 # autoload -Uz vcs_info
@@ -114,11 +115,17 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+# bindkey -M vicmd '^R' fzf-history-widget
+
+zvm_bindkey viins '^R' fzf-history-widget
+
+
+
+# bindkey '^p' history-search-backward
+# bindkey '^n' history-search-forward
 
 # bindkey -v
-bindkey '^R' history-incremental-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 
 # Load aliases and shortcuts if existent.
@@ -148,11 +155,16 @@ export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh.config/.p10k.zsh.
 [[ ! -f ~/.dotfiles/zsh.config/.p10k.zsh ]] || source ~/.dotfiles/zsh.config/.p10k.zsh
 
-source <(fzf --zsh)
 
+export GOPATH="$HOME/go"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':'):$PATH"
+export PATH="/var/lib/snapd/snap/bin:$PATH"
+export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
+export PATH="/opt/GoLand-2024.2.1.1/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+
+# export PATH="$(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':'):$PATH"
 # $(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':')
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

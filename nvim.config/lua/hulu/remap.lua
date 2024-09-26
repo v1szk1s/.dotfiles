@@ -1,18 +1,44 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-function _G.toggle_html_comment()
-    local current_line = vim.fn.getline('.')
-    local is_commented = current_line:match('^%s*<!--.*-->%s*$')
-    if is_commented then
-        current_line = current_line:gsub("^%s*<!%-%- (.-) %-%->%s*$", "%1")
-    else
-        current_line = current_line:gsub('^(.*)$', '<!-- %1 -->')
-    end
-    vim.fn.setline('.', current_line)
-end
+-- Place this in your init.lua or a sourced Lua config file
+vim.keymap.set('n', 'gf', function()
+    -- Get the word under the cursor
+    local file_line = vim.fn.expand('<cWORD>')
 
-vim.api.nvim_set_keymap('n', 'gh', ':lua toggle_html_comment()<CR>', { noremap = true, silent = true })
+    -- Check if it matches the pattern 'filename:line_number'
+    local filename, line = string.match(file_line, "(.+):(%d+)")
+
+    if filename and line then
+        -- Convert line to a number
+        line = tonumber(line)
+
+        -- Open the file
+        vim.cmd('edit ' .. vim.fn.fnameescape(filename))
+
+        -- Go to the specific line
+        if line then
+            vim.fn.cursor(line, 0)
+        end
+    else
+        -- Fall back to the default gf behavior if no line number is found
+        vim.cmd('edit ' .. vim.fn.fnameescape(file_line))
+    end
+end, { silent = true, noremap = true })
+
+
+-- function _G.toggle_html_comment()
+--     local current_line = vim.fn.getline('.')
+--     local is_commented = current_line:match('^%s*<!--.*-->%s*$')
+--     if is_commented then
+--         current_line = current_line:gsub("^%s*<!%-%- (.-) %-%->%s*$", "%1")
+--     else
+--         current_line = current_line:gsub('^(.*)$', '<!-- %1 -->')
+--     end
+--     vim.fn.setline('.', current_line)
+-- end
+--
+-- vim.api.nvim_set_keymap('n', 'gh', ':lua toggle_html_comment()<CR>', { noremap = true, silent = true })
 
 
 -- vim.keymap.set("n", '<c-m>', ':Dispatch<cr>')
