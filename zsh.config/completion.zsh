@@ -9,9 +9,12 @@
 # | General |
 # +---------+
 
+# source <(ng completion script)  # angular completion
+
 # Load more completions
 fpath=($DOTFILES/zsh.config/plugins/zsh-completions/src $fpath)
 fpath=(~/.dotfiles/zsh.config/completions $fpath)
+
 
 # Should be called before compinit
 zmodload zsh/complist

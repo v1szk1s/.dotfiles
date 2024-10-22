@@ -1,9 +1,18 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+# Automatically start tmux on zsh startup
+if command -v tmux >/dev/null 2>&1; then
+  # Check if tmux is already running
+  if [ -z "$TMUX" ]; then
+    tmux attach-session -t default || tmux new-session -s default
+  fi
 fi
+
 
 source <(fzf --zsh)
 
@@ -25,8 +34,6 @@ zinit light zsh-users/zsh-syntax-highlighting
 
 bindkey '^h' autosuggest-accept
 
-# the following options are from https://github.com/Phantas0s
-# 
 # +------------+
 # | NAVIGATION |
 # +------------+
@@ -119,6 +126,8 @@ bindkey '^e' edit-command-line
 
 zvm_bindkey viins '^R' fzf-history-widget
 
+WORDCHARS=${WORDCHARS/\/}
+bindkey '^W' backward-kill-word
 
 
 # bindkey '^p' history-search-backward
@@ -164,8 +173,7 @@ export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 export PATH="/opt/GoLand-2024.2.1.1/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 
+
 # export PATH="$(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':'):$PATH"
 # $(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':')
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+# Check if inside a tmux session

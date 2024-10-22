@@ -22,7 +22,7 @@ vim.keymap.set('n', 'gf', function()
         end
     else
         -- Fall back to the default gf behavior if no line number is found
-        vim.cmd('edit ' .. vim.fn.fnameescape(file_line))
+        vim.cmd('edit ' .. vim.fn.fnameescape(vim.fn.expand('<cfile>')))
     end
 end, { silent = true, noremap = true })
 
