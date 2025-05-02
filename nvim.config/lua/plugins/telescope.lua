@@ -26,14 +26,24 @@ return {
                     hidden = true
                 }
             },
-            defaults = {
-                file_ignore_patterns = {
-                    "node_modules",
-                    "tags",
-                    ".git/",
-                    "pack",
-                }
-            }
+			defaults = {
+				vimgrep_arguments = {
+					'rg',
+					'--color=never',
+					'--no-heading',
+					'--with-filename',
+					'--line-number',
+					'--column',
+					'--smart-case',
+					'--hidden' -- Add this flag to include dotfiles
+				},
+				file_ignore_patterns = {
+					"node_modules",
+					"tags",
+					".git/",
+					"pack",
+				}
+			}
         }
 
         pcall(require('telescope').load_extension, 'fzf')

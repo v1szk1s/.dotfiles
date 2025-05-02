@@ -1,0 +1,26 @@
+[general]
+
+import = ["~/.dotfiles/alacritty.config/themes/argonaut.toml"]
+
+[window]
+
+padding = { x = 3, y = 3}
+decorations = "None"
+opacity = 1
+startup_mode = "Maximized"
+title = "Terminal"
+dynamic_title = true
+
+[font]
+size = 10
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[colors.cursor]
+cursor = "#19ecff"
+
+[cursor.style]
+shape = "Block"
+

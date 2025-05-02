@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Click handlers
+case $BLOCK_BUTTON in
+  1) pactl set-sink-mute @DEFAULT_SINK@ toggle ;; # Left click: mute/unmute
+  3) pavucontrol & ;;                             # Right click: open GUI
+  4) pamixer -i 5 ;;                              # Scroll up: volume up
+  5) pamixer -d 5 ;;                              # Scroll down: volume down
+esac
+
+# Get volume and mute state
+volume=$(pamixer --get-volume)
+muted=$(pamixer --get-mute)
+
+# Pick icon
+if [ "$muted" = "true" ]; then
+    icon="󰖁"
+    echo "$icon mute"
+else
+    if [ "$volume" -lt 30 ]; then
+        icon="󰕿"
+    elif [ "$volume" -lt 70 ]; then
+        icon="󰖀"
+    else
+        icon="󰕾"
+    fi
+    echo "$icon $volume%"
+fi
+

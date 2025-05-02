@@ -11,7 +11,7 @@ return {
                 vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
             end
             nmap('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
-            nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+            nmap('<M-space>', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
             nmap("<leader>vd", function() vim.diagnostic.open_float() end, '')
 
@@ -37,14 +37,16 @@ return {
         -- require('neodev').setup()
 
         local servers = {
-            clangd = {
+            -- clangd = {
                 -- init_options = {
                 -- },
-            },
-            gopls = {},
-            pyright = {},
-            -- rust_analyzer = {},
-            tsserver = {},
+            -- },
+            -- gopls = {},
+            -- pyright = {},
+            rust_analyzer = {
+
+			},
+            -- tsserver = {},
             html = { filetypes = { 'html', 'twig', 'hbs'} },
             lua_ls = {
                 Lua = {
@@ -62,8 +64,8 @@ return {
 
         -- local capabilities = vim.lsp.protocol.make_client_capabilities() -- default
         -- local capabilities = require("coq").lsp_ensure_capabilities() -- for coq
-
         local capabilities = require('cmp_nvim_lsp').default_capabilities() -- for cmp
+
         -- require("luasnip.loaders.from_lua").load({paths = "snippets"})
 
         local mason_lspconfig = require 'mason-lspconfig'

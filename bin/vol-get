@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [[ $(pactl get-sink-mute @DEFAULT_SINK@) == "Mute: yes" ]]; then
-    echo "-"
-    exit 0
-fi
-
-pactl get-sink-volume @DEFAULT_SINK@ | awk 'BEGIN{ FS="/" }{ print $2 }' | sed 's/ //g'

@@ -1,0 +1,4 @@
+// this is for 4k display
+configuration {
+    dpi: 150;
+}

@@ -13,6 +13,8 @@ if command -v tmux >/dev/null 2>&1; then
   fi
 fi
 
+export TERM=tmux-256color
+
 
 source <(fzf --zsh)
 
@@ -32,7 +34,6 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 
-bindkey '^h' autosuggest-accept
 
 # +------------+
 # | NAVIGATION |
@@ -77,40 +78,12 @@ autoload -U colors && colors
 
 [ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh" || echo "Could not source .variables.sh\nSome script may not work!"
 
-# Load version control information
-# autoload -Uz vcs_info
-#
-# Remove mode switching delay.
 KEYTIMEOUT=1
 
-# Change cursor shape for different vi modes.
-# function zle-keymap-select {
-#   if [[ ${KEYMAP} == vicmd ]] ||
-#      [[ $1 = 'block' ]]; then
-#     echo -ne '\e[1 q'
-#
-#   elif [[ ${KEYMAP} == main ]] ||
-#        [[ ${KEYMAP} == viins ]] ||
-#        [[ ${KEYMAP} = '' ]] ||
-#        [[ $1 = 'beam' ]]; then
-#     echo -ne '\e[5 q'
-#   fi
-# }
-# zle -N zle-keymap-select
-# _fix_cursor() {
-#    echo -ne '\e[5 q'
-# }
-#
-# precmd_functions+=(_fix_cursor)
-# precmd() {
-#     vcs_info && print ""
-# }
-# # Format the vcs_info_msg_0_ variable
-# zstyle ':vcs_info:git:*' formats '[%b]'
-#
-# PROMPT='$(tput setaf 13)%n$(tput setaf 15)@$(tput setaf 220)%m $(tput setaf 14)%~%{$fg[red]%}%{$reset_color%} %F{green}${vcs_info_msg_0_}%F{white}
-# %(?.%F{green}.%F{red})$%f '
-
+LFCD="$DOTFILES/lf.config/lfcd.sh"
+if [ -f "$LFCD" ]; then
+    source "$LFCD"
+fi
 
 
 # Basic auto/tab complete:
@@ -118,10 +91,29 @@ source $DOTFILES/zsh.config/completion.zsh
 
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
+# Keybinds
+
+
+bindkey '^h' autosuggest-accept
+zvm_bindkey viins '^R' fzf-history-widget
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# bindkey -s '^o' 'lfcd\n'
+# bindkey -M vicmd '^o' 'lfcd\n'
+
+lfcd-widget() {
+  lfcd 
+  zle reset-prompt  # Refresh the prompt immediately
+}
+
+zle -N lfcd-widget
+bindkey '^o' lfcd-widget
+bindkey -M vicmd '^o' lfcd-widget
+
+
+# zvm_bindkey viins '^o' fzf-history-widget
 # bindkey -M vicmd '^R' fzf-history-widget
 
 zvm_bindkey viins '^R' fzf-history-widget
@@ -144,12 +136,7 @@ cdir () {
        cd -P -- "$1"
 }
 
-LFCD="$DOTFILES/lf.config/lfcd.sh"
-if [ -f "$LFCD" ]; then
-    source "$LFCD"
-fi
 
-bindkey -s '^o' 'lfcd\n'
 
 
 export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
@@ -172,8 +159,7 @@ export PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 export PATH="/opt/GoLand-2024.2.1.1/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
+export PATH="/opt/RustRover-2024.3.3/bin:$PATH"
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 
-# export PATH="$(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':'):$PATH"
-# $(find /opt -maxdepth 2 -name "bin" -type d | tr '\n' ':')
-# Check if inside a tmux session

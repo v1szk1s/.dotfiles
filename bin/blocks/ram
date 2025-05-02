@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Icon (RAM chip)
+icon="󰍛"
+
+# Click handler (optional)
+case $BLOCK_BUTTON in
+  1) notify-send "Memory Usage" "$(free -h)" ;;  # Left click
+  3) alacritty -e htop & ;;                      # Right click
+esac
+
+# Get RAM usage in GiB (used / total)
+read used total <<< $(free -h | awk '/^Mem:/ {print $3, $2}')
+
+echo "$icon $used/$total"
+

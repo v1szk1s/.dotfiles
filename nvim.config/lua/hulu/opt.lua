@@ -16,8 +16,8 @@ vim.opt.list = false
 -- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
 
-vim.o.foldmethod = "indent"
-vim.o.foldlevel = 99
+vim.o.foldmethod = "marker"
+vim.o.foldlevel = 0
 
 function _G.custom_fold_text()
     local line = vim.fn.getline(vim.v.foldstart)
@@ -42,7 +42,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = false
 vim.o.smartindent = true
 
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.linebreak = true
 
 vim.o.swapfile = false
@@ -61,7 +61,7 @@ vim.o.termguicolors = true
 
 vim.o.scrolloff = 8
 
-vim.o.cursorline = true
+vim.o.cursorline = false
 
 vim.o.ignorecase = true
 vim.o.smartcase = true

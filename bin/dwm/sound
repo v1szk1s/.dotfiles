@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Get the current default sink
+current_sink=$(pactl info | grep "Default Sink" | awk '{print $3}')
+
+# List sinks, marking the current one with a star
+sinks=$(pactl list short sinks | awk -v current="$current_sink" '{
+    if ($2 == current) {
+        print "* " $2
+    } else {
+        print "  " $2
+    }
+}')
+
+# Let user choose a sink using dmenu
+chosen=$(echo "$sinks" | dmenu -l 20 -i -p "Select audio sink:")
+
+# Exit if nothing selected
+[ -z "$chosen" ] && exit 1
+
+# Remove the star/whitespace prefix
+chosen_sink=$(echo "$chosen" | sed 's/^[* ]*//')
+
+# Set default sink
+pactl set-default-sink "$chosen_sink"
+
+# Move all existing sink inputs to the new sink
+for input in $(pactl list short sink-inputs | awk '{print $1}'); do
+    pactl move-sink-input "$input" "$chosen_sink"
+done
+
+# Optional: notify user
+notify-send "Audio Sink Changed" "$chosen_sink"
+

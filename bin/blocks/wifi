@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#!/bin/bash
+
+ssid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+signal=$(nmcli -t -f active,signal dev wifi | grep '^yes' | cut -d: -f2)
+
+# Pick icon based on signal strength
+if [[ -n "$ssid" ]]; then
+    if (( signal > 80 )); then
+        icon="󰤨"
+    elif (( signal > 60 )); then
+        icon="󰤥"
+    elif (( signal > 40 )); then
+        icon="󰤢"
+    elif (( signal > 20 )); then
+        icon="󰤟"
+    else
+        icon="󰤯"
+    fi
+    # echo "$icon $ssid"
+    echo "$icon"
+else
+    echo "󰤮"
+fi
+

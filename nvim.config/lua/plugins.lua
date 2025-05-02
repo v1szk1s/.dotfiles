@@ -1,22 +1,25 @@
 return {
-    -- 'kmonad/kmonad-vim',
     -- 'github/copilot.vim',
+    -- 'tpope/vim-abolish', -- better replace
+    -- 'tpope/vim-eunuch',
 
-
-    -- 'tpope/vim-sleuth', -- Automatically set the 'shiftwidth' and 'expandtab' options
-    'tpope/vim-abolish', -- better replace
+    'tpope/vim-sleuth', -- Automatically set the 'shiftwidth' and 'expandtab' options
     'tpope/vim-surround',
     'tpope/vim-repeat', -- to be able to repeat surround
     'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
-    'tpope/vim-eunuch',
-    -- 'tpope/vim-dispatch',
+
+    {
+            'mrcjkb/rustaceanvim',
+            version = '^5', -- Recommended
+            lazy = false, -- This plugin is already lazy
+    },
+
     {
         'tpope/vim-fugitive',
         config = function()
             vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
         end
     },
-
     {
         'mattn/emmet-vim',
         init = function ()
@@ -29,20 +32,20 @@ return {
     {
         "lervag/vimtex",
         init = function()
-			vim.g.vimtex_view_method = 'zathura'
+            vim.g.vimtex_view_method = 'zathura'
         end
     },
-    {
-        "folke/zen-mode.nvim",
-        opts = {
-            plugins = {
-                tmux = { enabled = false },
-            }
-        },
-        keys = {
-            { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
-        },
-    },
+    -- {
+    --     "folke/zen-mode.nvim",
+    --     opts = {
+    --         plugins = {
+    --             tmux = { enabled = false },
+    --         }
+    --     },
+    --     keys = {
+    --         { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+    --     },
+    -- },
     {
         'mbbill/undotree',
         keys = {
