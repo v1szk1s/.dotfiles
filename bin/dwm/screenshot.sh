@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-
-scrot -s ~/pictures/%Y-%m-%d-%T-screenshot.png
+mkdir -p ~/pictures/screenshots/
+maim -s ~/pictures/screenshots/%Y-%m-%d-%T-screenshot.png

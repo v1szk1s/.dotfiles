@@ -6,12 +6,12 @@
 # fi
 
 # Automatically start tmux on zsh startup
-if command -v tmux >/dev/null 2>&1; then
-  # Check if tmux is already running
-  if [ -z "$TMUX" ]; then
-    tmux attach-session -t default || tmux new-session -s default
-  fi
-fi
+# if command -v tmux >/dev/null 2>&1; then
+#   # Check if tmux is already running
+#   if [ -z "$TMUX" ]; then
+#     tmux attach-session -t default || tmux new-session -s default
+#   fi
+# fi
 
 export TERM=tmux-256color
 
@@ -162,4 +162,5 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="/opt/RustRover-2024.3.3/bin:$PATH"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

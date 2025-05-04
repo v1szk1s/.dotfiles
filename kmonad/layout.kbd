@@ -63,14 +63,16 @@
 
 
 (defsrc
+  esc  f1    f2    f3    f4    f5    f6    f7    f8    f9    f10 f11 f12
   grv  1    2    3    4    5    6    7    8    9    0
   tab  q    w    e    r    t    y    u    i    o    p
   caps a    s    d    f    g    h    j    k    l    ;    '  
   lsft z    x    c    v    b    n    m    ,    . /
-  lctl lmet lalt           spc            ralt rmet 
+  lctl lmet lalt           spc            ralt ssrq
 )
 
 (deflayer qwerty
+  esc  KeyMute    vold    volu    f20    brdn    bru    f7    f8    f9    f10 f11 f12
   grv  KeyMute    vold    volu  4  brdn    bru    7    8    9    0
   tab  q    w    e    r    t    y    u    i    o    p
   esc @home_a    @home_s    @home_d    @home_f    g    h    @home_j    @home_k    @home_l    @home_;    enter
@@ -79,6 +81,7 @@
 )
 
 (deflayer functions
+  _  _    _    _    _    _    _    _    _    _    _ _ _
   grv  1    2    3    4    5    6    7    8    9    0
   tab  f10    f4    f5    f6    del    X    u    i    o    p
   esc  f11    f1    f2    f3    ins    X    rmet    rctl    lalt    rsft    '
@@ -87,6 +90,7 @@
 )
 
 (deflayer hungarian
+  _  _    _    _    _    _    _    _    _    _    _ _ _
   grv  1    2    3    4    5    6    7    8    9    0
   tab  f10    f4    f5    f6    del       _    ]    102d    =    _
   esc  f11    f1    f2    f3    ins       '    -    `    0    '    '
@@ -95,6 +99,7 @@
 )
 
 (deflayer numbers
+  _  _    _    _    _    _    _    _    _    _    _ _ _
   grv  1    2    3    4    5    6    7    8    9    0
   tab  *    4    5    6    -    X    u    i    o    p
   esc /    1    2    3    +    X    rmet    rctl    lalt    rsft    '
@@ -103,6 +108,7 @@
 )
 
 (deflayer symbols
+  _  _    _    _    _    _    _    _    _    _    _ _ _
   grv  1    2    3    4    5    6    7    8    9    0
   tab  !    @    #    $    %    &    *    \(    \)    =
   esc lsft    lalt    lctl    lmet    |    \    -    {    }    "    '
@@ -111,6 +117,7 @@
 )
 
 (deflayer navigation
+  _  _    _    _    _    _    _    _    _    _    _ _ _
   grv  1    2    3    4    5    6    7    8    9    0
   tab  !    @    #    $    %    &    *    \(    \)    =
   esc lsft    lalt    lctl    lmet    |    left    down    up    right  "    '

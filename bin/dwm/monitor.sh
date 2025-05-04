@@ -10,6 +10,7 @@ SECONDARY=$(xrandr | grep " connected" | awk 'NR==2{print $1}')
 # If there are no two connected monitors, exit
 if [ -z "$SECONDARY" ]; then
     echo "Only one monitor detected."
+    notify-send "Only one monitor detected."
     exit 1
 fi
 
@@ -18,10 +19,10 @@ CHOICE=$(echo -e "$OPTIONS" | dmenu -l 4 -i -p "Select Display Configuration:")
 
 # Apply the chosen configuration
 case $CHOICE in
-    Extend)
+    "Extend")
         xrandr --output "$PRIMARY" --auto --primary --output "$SECONDARY" --auto --right-of "$PRIMARY"
         ;;
-    Mirror)
+    "Mirror")
         xrandr --output "$PRIMARY" --auto --primary --output "$SECONDARY" --auto --same-as "$PRIMARY"
         ;;
     "Primary Only")
@@ -32,6 +33,7 @@ case $CHOICE in
         ;;
     *)
         echo "No valid option selected."
+        notify-send "No valid option selected."
         exit 1
         ;;
 esac
