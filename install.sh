@@ -1,7 +1,6 @@
 #!/bin/bash
 DOTFILES=$(pwd)
 
-
 setup_gitconfig(){
 	if [[ ! -f $HOME/.gitconfig ]]; then
 		echo "Making symlink for gitconfig"
@@ -22,54 +21,21 @@ setup_tmux(){
 
 }
 
-
-
-setup_lf(){
-
-	echo "downloading latest release"
-	if [[ $OSTYPE == 'darwin'* ]]; then
-		url=$(curl -s https://api.github.com/repos/gokcehan/lf/releases/latest | grep "browser_download_url.*darwin-amd")
-	else
-		url=$(curl -s https://api.github.com/repos/gokcehan/lf/releases/latest | grep "browser_download_url.*linux-amd")
-	fi
-
-	url=$(echo $url | cut -d : -f 2,3 | tr -d '"' )
-	target_dir=$HOME/.local/bin
-	mkdir -p $target_dir
-	wget $url -q -O $target_dir/lf.tar.gz
-
-	cd $target_dir
-	tar xf lf.tar.gz && rm lf.tar.gz
-
-	echo "finished dowlnoading"
-}
-
 setup_symlinks() {
-	# setup_tmux
-
-
-	for i in $(find $DOTFILES -name '*.config'); do
-		MAC="yabai|sketchybar|skhd"
-		LINUX="i3|picom|polybar"
-		BOTH="zsh|nvim|lf|tmux|kitty|alacritty"
+	for i in $(find $DOTFILES -maxdepth 1 -name '*.config'); do
 		basename=$(basename "$DOTFILES/$i" '.config')
 
 		target="$HOME/.config/$(basename "$DOTFILES/$i" '.config')"
-
-		[[ $OSTYPE =~ darwin.* && "$i" =~ $LINUX || \
-			! $OSTYPE =~ darwin.* && "$i" =~ $MAC ]] && continue
 
 		if [[ ! -e $target ]]; then
 			echo "Creating $basename symlink."
 			ln -sf $i $target
 
-            # [[ "$i" =~ zsh ]] && ln -sf $i/zshenv $HOME/.zshenv
-            [[ "$i" =~ zsh ]] && echo "ln -sf $i/zshenv $HOME/.zshenv"
+			[[ "$i" =~ zsh ]] && echo "ln -sf $i/zshenv $HOME/.zshenv"
 		else
 			echo "Already exists... Skipping. "
 		fi
 	done
-
 }
 
 setup_symlinks
