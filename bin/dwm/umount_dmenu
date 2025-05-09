@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# List all mounted removable drives
+DRIVES=$(ls /run/media/$USER)
+
+# Check if there are any removable drives
+if [ -z "$DRIVES" ]; then
+    echo "No removable drives found"
+    notify-send "No removable drives found"
+    exit 1
+fi
+
+# Let user choose a drive to eject using dmenu
+CHOSEN=$(echo "$DRIVES" | dmenu -l 20 -i -p "Eject drive:")
+
+# Extract just the device name (/dev/sdX)
+DEVICE=$(echo "$CHOSEN" | awk '{print $1}')
+echo "$DEVICE"
+
+udiskie-umount --detach /run/media/$USER/$DEVICE

@@ -108,9 +108,19 @@ lfcd-widget() {
   zle reset-prompt  # Refresh the prompt immediately
 }
 
+lf-widget() {
+  lfcd /run/media/v1szk1s/
+  zle reset-prompt  # Refresh the prompt immediately
+}
+
 zle -N lfcd-widget
+zle -N lf-widget
+
 bindkey '^o' lfcd-widget
 bindkey -M vicmd '^o' lfcd-widget
+
+bindkey '^n' lf-widget
+bindkey -M vicmd '^n' lf-widget
 
 
 # zvm_bindkey viins '^o' fzf-history-widget

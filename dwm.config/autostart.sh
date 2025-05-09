@@ -2,7 +2,9 @@ cd ~
 dwmblocks &
 picom &
 st &
-keepassxc &
+udiskie &
+# keepassxc &
+~/.fehbg &
 # vpn-toggle.sh &
 # discord &
 firefox &

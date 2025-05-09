@@ -1,5 +1,4 @@
 return {
-    -- 'github/copilot.vim',
     -- 'tpope/vim-abolish', -- better replace
     -- 'tpope/vim-eunuch',
 
@@ -8,12 +7,11 @@ return {
     'tpope/vim-repeat', -- to be able to repeat surround
     'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
 
-    {
-            'mrcjkb/rustaceanvim',
-            version = '^5', -- Recommended
-            lazy = false, -- This plugin is already lazy
-    },
-
+    -- {
+    --         'mrcjkb/rustaceanvim',
+    --         version = '^5', -- Recommended
+    --         lazy = false, -- This plugin is already lazy
+    -- },
     {
         'tpope/vim-fugitive',
         config = function()
@@ -52,53 +50,6 @@ return {
             { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
         },
     },
-
-    {
-        "folke/noice.nvim",
-        -- event = "VeryLazy",
-        opts = {
-            -- add any options here
-        },
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            -- "rcarriga/nvim-notify",
-        },
-
-        config = function ()
-            require("noice").setup({
-                views = {
-                    cmdline_popup = {
-                        border = {
-                            style = "none",
-                            padding = { 0, 0 },
-                        },
-                        filter_options = {},
-                        win_options = {
-                            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-                        },
-                    },
-                },
-                routes = {
-                    {
-                        filter = {
-                            event = "lsp",
-                            kind = "progress",
-                            cond = function(message)
-                                local client = vim.tbl_get(message.opts, "progress", "client")
-                                return client == "lua_ls" or client == "pylsp"
-                            end,
-                        },
-                        opts = { skip = true },
-                    },
-                },
-            })
-        end
-    },
-
     {
         'norcalli/nvim-colorizer.lua',
         config = function()

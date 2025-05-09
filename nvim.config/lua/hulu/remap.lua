@@ -35,24 +35,24 @@ vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":x<cr>", { silent = true})
 
 -- if cursor on word that is : file.txt:80 gf will go to the 80th line of file.txt
-vim.keymap.set('n', 'gf', function()
-	local file_line = vim.fn.expand('<cWORD>')
-	-- Check if it matches the pattern 'filename:line_number'
-	local filename, line = string.match(file_line, "(.+):(%d+)")
-
-	if filename and line then
-		-- Convert line to a number
-		line = tonumber(line)
-
-		-- Open the file
-		vim.cmd('edit ' .. vim.fn.fnameescape(filename))
-
-		-- Go to the specific line
-		if line then
-			vim.fn.cursor(line, 0)
-		end
-	else
-		-- Fall back to the default gf behavior if no line number is found
-		vim.cmd('edit ' .. vim.fn.fnameescape(vim.fn.expand('<cfile>')))
-	end
-end, { silent = true, noremap = true })
+-- vim.keymap.set('n', 'gf', function()
+-- 	local file_line = vim.fn.expand('<cWORD>')
+-- 	-- Check if it matches the pattern 'filename:line_number'
+-- 	local filename, line = string.match(file_line, "(.+):(%d+)")
+--
+-- 	if filename and line then
+-- 		-- Convert line to a number
+-- 		line = tonumber(line)
+--
+-- 		-- Open the file
+-- 		vim.cmd('edit ' .. vim.fn.fnameescape(filename))
+--
+-- 		-- Go to the specific line
+-- 		if line then
+-- 			vim.fn.cursor(line, 0)
+-- 		end
+-- 	else
+-- 		-- Fall back to the default gf behavior if no line number is found
+-- 		vim.cmd('edit ' .. vim.fn.fnameescape(vim.fn.expand('<cfile>')))
+-- 	end
+-- end, { silent = true, noremap = true })
