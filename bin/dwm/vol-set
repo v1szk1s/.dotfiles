@@ -2,13 +2,30 @@
 
 MAX_VOL=100
 
-if [[ $1 == "up" ]] && [[ $(pactl get-sink-volume @DEFAULT_SINK@ | awk 'BEGIN{ FS="/" }{ print $2 }' | sed 's/[ %]//g') -lt $MAX_VOL ]]; then
-    pactl set-sink-volume @DEFAULT_SINK@ +5%
+# Get current volume (removes percent and rounds float)
+CURRENT_VOL=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}')
+
+if [[ $1 == "up" ]] && [[ $CURRENT_VOL -lt $MAX_VOL ]]; then
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 elif [[ $1 == "down" ]]; then
-    pactl set-sink-volume @DEFAULT_SINK@ -5%
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 elif [[ $1 == "mute" ]]; then
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 fi
 
 pkill -RTMIN+12 dwmblocks
-    
+
+# #!/bin/bash
+#
+# MAX_VOL=100
+#
+# if [[ $1 == "up" ]] && [[ $(pactl get-sink-volume @DEFAULT_SINK@ | awk 'BEGIN{ FS="/" }{ print $2 }' | sed 's/[ %]//g') -lt $MAX_VOL ]]; then
+#     pactl set-sink-volume @DEFAULT_SINK@ +5%
+# elif [[ $1 == "down" ]]; then
+#     pactl set-sink-volume @DEFAULT_SINK@ -5%
+# elif [[ $1 == "mute" ]]; then
+#     pactl set-sink-mute @DEFAULT_SINK@ toggle
+# fi
+#
+# pkill -RTMIN+12 dwmblocks
+#

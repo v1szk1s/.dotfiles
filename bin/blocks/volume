@@ -1,29 +1,52 @@
 #!/bin/sh
 
-# Click handlers
-case $BLOCK_BUTTON in
-  1) pactl set-sink-mute @DEFAULT_SINK@ toggle ;; # Left click: mute/unmute
-  3) pavucontrol & ;;                             # Right click: open GUI
-  4) pamixer -i 5 ;;                              # Scroll up: volume up
-  5) pamixer -d 5 ;;                              # Scroll down: volume down
-esac
+# Get volume and mute state from wpctl
+volume_line=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 
-# Get volume and mute state
-volume=$(pamixer --get-volume)
-muted=$(pamixer --get-mute)
+# Extract volume (float) and mute flag (if present)
+volume=$(echo "$volume_line" | awk '{print $2}')
+muted=$(echo "$volume_line" | grep -q MUTED && echo "true" || echo "false")
+
+# Convert volume to integer percentage
+volume_percent=$(printf "%.0f\n" "$(echo "$volume * 100" | bc -l)")
+
+
+volume_percent=$(printf "%.0f\n" "$(echo "$(echo "$volume_line" | awk '{print $2}') * 100" | bc -l)")
 
 # Pick icon
 if [ "$muted" = "true" ]; then
     icon="󰖁"
     echo "$icon mute"
 else
-    if [ "$volume" -lt 30 ]; then
+    if [ "$volume_percent" -lt 30 ]; then
         icon="󰕿"
-    elif [ "$volume" -lt 70 ]; then
+    elif [ "$volume_percent" -lt 70 ]; then
         icon="󰖀"
     else
         icon="󰕾"
     fi
-    echo "$icon $volume%"
+    echo "$icon $volume_percent%"
 fi
 
+
+# #!/bin/sh
+#
+# # Get volume and mute state
+# volume=$(pamixer --get-volume)
+# muted=$(pamixer --get-mute)
+#
+# # Pick icon
+# if [ "$muted" = "true" ]; then
+#     icon="󰖁"
+#     echo "$icon mute"
+# else
+#     if [ "$volume" -lt 30 ]; then
+#         icon="󰕿"
+#     elif [ "$volume" -lt 70 ]; then
+#         icon="󰖀"
+#     else
+#         icon="󰕾"
+#     fi
+#     echo "$icon $volume%"
+# fi
+#
