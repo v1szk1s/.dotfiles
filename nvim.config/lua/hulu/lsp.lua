@@ -1,3 +1,7 @@
+
+vim.lsp.enable({'clangd', 'lua_ls', 'tsserver'})
+
+
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
      local bufnr = args.buf
@@ -33,6 +37,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Docs
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    vim.keymap.set('n', '<leader>td', function()
+      diagnostics_enabled = not diagnostics_enabled
+      vim.diagnostic.enable(diagnostics_enabled)
+      print("Diagnostics " .. (diagnostics_enabled and "enabled" or "disabled"))
+    end, { desc = 'Toggle diagnostics' })
+
 
   end,
 })
@@ -44,5 +54,3 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
 })
-
-vim.lsp.enable({'clangd', 'lua_ls'})

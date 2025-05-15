@@ -1,2 +1,6 @@
 set selection-clipboard clipboard
 set page-cache-size 30
+set scroll-step 400
+
+map <F2> feedkeys ":set scroll-step 400<Return>"
+map <F3> feedkeys ":set scroll-step 40<Return>"
