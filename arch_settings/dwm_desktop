@@ -1,0 +1,7 @@
+/usr/share/xsessions/dwm.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Exec=dwm
+Icon=dwm
+Type=XSession
