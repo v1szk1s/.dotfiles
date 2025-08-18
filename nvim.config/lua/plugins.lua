@@ -1,17 +1,24 @@
 return {
     -- 'tpope/vim-abolish', -- better replace
     -- 'tpope/vim-eunuch',
+    -- 'vuciv/golf',
 
-    'tpope/vim-sleuth', -- Automatically set the 'shiftwidth' and 'expandtab' options
+    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+    'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
     'tpope/vim-surround',
     'tpope/vim-repeat', -- to be able to repeat surround
-    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
-
-    -- {
-    --         'mrcjkb/rustaceanvim',
-    --         version = '^5', -- Recommended
-    --         lazy = false, -- This plugin is already lazy
-    -- },
+    {
+        'stevearc/oil.nvim',
+        init = function()
+            require("oil").setup({
+                keymaps = {
+                    ["l"] = "actions.select",
+                    ["h"] = { "actions.parent", mode = "n" },
+                },
+            })
+            vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
+        end,
+    },
     {
         'tpope/vim-fugitive',
         config = function()
@@ -59,5 +66,17 @@ return {
                 html = { names = false; } -- Disable parsing "names" like Blue or Gray
             }
         end
+    },
+    { -- Adds git related signs to the gutter, as well as utilities for managing changes
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+        },
     },
 }

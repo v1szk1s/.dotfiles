@@ -1,17 +1,11 @@
 return {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.4',
+    -- tag = '0.1.4',
 
-    -- branch = '0.1.x',
     dependencies = {
         'nvim-lua/plenary.nvim',
-        -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-        -- Only load if `make` is available. Make sure you have the system
-        -- requirements installed.
         {
             'nvim-telescope/telescope-fzf-native.nvim',
-            -- NOTE: If you are having trouble with this installation,
-            --       refer to the README for telescope-fzf-native for more instructions.
             build = 'make',
             cond = function()
                 return vim.fn.executable 'make' == 1
@@ -26,24 +20,25 @@ return {
                     hidden = true
                 }
             },
-			defaults = {
-				vimgrep_arguments = {
-					'rg',
-					'--color=never',
-					'--no-heading',
-					'--with-filename',
-					'--line-number',
-					'--column',
-					'--smart-case',
-					'--hidden' -- Add this flag to include dotfiles
-				},
-				file_ignore_patterns = {
-					"node_modules",
-					"tags",
-					".git/",
-					"pack",
-				}
-			}
+            defaults = {
+                vimgrep_arguments = {
+                    'rg',
+                    '--color=never',
+                    '--no-heading',
+                    '--with-filename',
+                    '--line-number',
+                    '--column',
+                    '--smart-case',
+                    '--hidden' -- Add this flag to include dotfiles
+                },
+                file_ignore_patterns = {
+                    "node_modules",
+                    "tags",
+                    ".git/",
+                    ".svn/",
+                    "pack",
+                }
+            }
         }
 
         pcall(require('telescope').load_extension, 'fzf')
@@ -55,9 +50,15 @@ return {
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search Grep' })
         vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = '[F]ind [G]it' })
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-        vim.keymap.set('n', '<leader>sk', 'Telescope keymaps<cr>', { desc = '[F]ind [H]elp' })
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
 
+        vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences'})
+        vim.keymap.set('n', 'gI', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mplementation'})
+        vim.keymap.set('n', '<leader>D', require('telescope.builtin').lsp_type_definitions, { desc = 'Type [D]efinition'})
+        vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols'})
+        vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols'})
+
+        -- vim.keymap.set('n', '<leader>sk', 'Telescope keymaps<cr>', { desc = '[F]ind [H]elp' })
         -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
         -- vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
         -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
@@ -69,14 +70,6 @@ return {
                 previewer = false,
             })
         end, { desc = '[/] Fuzzily search in current buffer' })
-
-        -- vim.keymap.set('n', '<leader>p', function()
-        --     -- You can pass additional configuration to telescope to change theme, layout, etc.
-        --     require('telescope.builtin').find_files({
-        --         find_command = { "find ~/egyetem/6 ~/egyetem ~/projects ~ ~/work ~/personal $DOTFILES ~/playground", "-mindepth 1", "-maxdepth 1", "-type d"}
-        --
-        --     })
-        -- end, { desc = '[/] Fuzzily search in current buffer' })
 
         vim.keymap.set('n', '<leader>s/', function()
             builtin.live_grep {

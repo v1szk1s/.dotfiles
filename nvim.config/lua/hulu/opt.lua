@@ -1,12 +1,8 @@
---vim.o.guicursor = ""
-
 vim.cmd("filetype plugin indent on")
-vim.o.syntax = "enable"
 
--- vim.o.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 
-vim.o.lz = false
+vim.opt.lz = false
 
 vim.opt.splitright = true
 vim.opt.splitbelow = false
@@ -18,14 +14,6 @@ vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends
 
 vim.o.foldmethod = "marker"
 vim.o.foldlevel = 0
-
-function _G.custom_fold_text()
-    local line = vim.fn.getline(vim.v.foldstart)
-    local line_count = vim.v.foldend - vim.v.foldstart + 1
-    return "|-- " .. line:gsub("%s+", "") .. ": " .. line_count .. " lines"
-end
-
-vim.opt.foldtext = 'v:lua.custom_fold_text()'
 
 vim.opt.fillchars = { eob = "-", fold = " " }
 
@@ -42,7 +30,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = false
 vim.o.smartindent = true
 
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.linebreak = true
 
 vim.o.swapfile = false
@@ -71,48 +59,6 @@ vim.o.signcolumn = "yes"
 vim.o.updatetime = 350
 vim.o.timeoutlen = 500
 
--- vim.o.completeopt = 'menuone'
+vim.o.completeopt = 'menuone'
+vim.opt.completeopt:append({ "menuone", "noselect", "popup" })
 -- vim.o.colorcolumn = "180"
-
-
-local function show_macro_recording()
-    local recording_register = vim.fn.reg_recording()
-    if recording_register == "" then
-        return ""
-    else
-        return "Recording @" .. recording_register
-    end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

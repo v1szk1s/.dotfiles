@@ -18,8 +18,8 @@ return {
       views = {
         cmdline_popup = {
           border = {
-            style = "none",
-            padding = { 0, 0 },
+            -- style = "none",
+            -- padding = { 0, 0 },
           },
           filter_options = {},
           win_options = {

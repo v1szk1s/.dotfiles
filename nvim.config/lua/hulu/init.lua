@@ -1,6 +1,5 @@
 require("hulu.opt")
 require("hulu.remap")
-require("hulu.ftdetect")
 require("hulu.lsp")
 -- require("hulu.status-line")
 
@@ -17,7 +16,28 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins",
+    {
+        ui = {
+            -- If you are using a Nerd Font: set icons to an empty table which will use the
+            -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+            icons = vim.g.have_nerd_font and {} or {
+                cmd = '⌘',
+                config = '🛠',
+                event = '📅',
+                ft = '📂',
+                init = '⚙',
+                keys = '🗝',
+                plugin = '🔌',
+                runtime = '💻',
+                require = '🌙',
+                source = '📄',
+                start = '🚀',
+                task = '📌',
+                lazy = '💤 ',
+            },
+        },
+    })
 
 
 local augroup = vim.api.nvim_create_augroup
@@ -31,7 +51,7 @@ autocmd('TextYankPost', {
     callback = function()
         vim.highlight.on_yank({
             higroup = 'IncSearch',
-            timeout = 40,
+            timeout = 25,
         })
     end,
 })
