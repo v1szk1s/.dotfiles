@@ -3,7 +3,8 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/IdeaProjects ~/egyetem/6 ~/egyetem ~/projects ~ ~/work ~/personal $DOTFILES ~/playground -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$( find ~ ~/personal/ ~/playground/ ~/projects $DOTFILES -mindepth 1 -maxdepth 1 -type d ! -name "\.*" | fzf)
+#; find ~ -mindepth 1 -maxdepth 1 -type d ! -name "\.*" )| fzf)
 fi
 
 if [[ -z $selected ]]; then
