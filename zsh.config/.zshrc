@@ -93,16 +93,8 @@ zvm_bindkey viins '^R' fzf-history-widget
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# bindkey -s '^o' 'lfcd\n'
-# bindkey -M vicmd '^o' 'lfcd\n'
-
 lfcd-widget() {
   lfcd 
-  zle reset-prompt  # Refresh the prompt immediately
-}
-
-lf-widget() {
-  lfcd /run/media/v1szk1s/
   zle reset-prompt  # Refresh the prompt immediately
 }
 
@@ -112,27 +104,11 @@ zle -N lf-widget
 bindkey '^o' lfcd-widget
 bindkey -M vicmd '^o' lfcd-widget
 
-bindkey '^n' lf-widget
-bindkey -M vicmd '^n' lf-widget
-
-
-# zvm_bindkey viins '^o' fzf-history-widget
-# bindkey -M vicmd '^R' fzf-history-widget
-
 zvm_bindkey viins '^R' fzf-history-widget
 
 WORDCHARS=${WORDCHARS/\/}
 bindkey '^W' backward-kill-word
 
-
-# bindkey '^p' history-search-backward
-# bindkey '^n' history-search-forward
-
-# bindkey -v
-# bindkey '^R' history-incremental-search-backward
-
-
-# Load aliases and shortcuts if existent.
 
 cdir () {
     mkdir -p -- "$1" &&
@@ -142,28 +118,9 @@ cdir () {
 
 
 
-export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
-
-export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
-export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
-
-
-# zprof
-
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh.config/.p10k.zsh.
-[[ ! -f ~/.dotfiles/zsh.config/.p10k.zsh ]] || source ~/.dotfiles/zsh.config/.p10k.zsh
-
-
 export GOPATH="$HOME/go"
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/var/lib/snapd/snap/bin:$PATH"
-export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
-export PATH="/opt/GoLand-2024.2.1.1/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
-export PATH="/opt/RustRover-2024.3.3/bin:$PATH"
+export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

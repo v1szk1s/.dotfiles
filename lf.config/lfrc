@@ -3,6 +3,8 @@ set ratios 1:2:3
 set shell bash
 set cursorpreviewfmt "\033[7m"
 
+set info size:time
+
 # set previewer lf_kitty_preview
 # set cleaner lf_kitty_clean
 set previewer ~/.config/lf/preview
@@ -38,6 +40,40 @@ map X !$f
 # map o &mimeopen $f
 # map O $mimeopen --ask $f
 
+
+cmd paste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                lf -remote "send $id echo \"$line\""
+            done
+            ;;
+        move)
+            mv -n -- "$@" .
+            lf -remote "send clear"
+            ;;
+    esac
+}}
+
+cmd on-init :{{
+    cmd on-redraw %{{
+        if [ "$lf_width" -le 80 ]; then
+            lf -remote "send $id set ratios 1:2"
+        elif [ "$lf_width" -le 160 ]; then
+            lf -remote "send $id set ratios 1:2:3"
+        else
+            lf -remote "send $id set ratios 1:2:3:5"
+        fi
+    }}
+    on-redraw
+}}
+
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
 # use either file extensions and/or mime types here. Below uses an editor for
@@ -54,6 +90,12 @@ cmd open &{{
 
 
 cmd trash &{{
+    if [ "$confirm" == "y" ] || [ "$confirm" = "Y" ]; then
+    rm -rf -- "$f"
+    echo "Deleted $f"
+    else
+        echo "Cancelled"
+    fi
    set -f
    TRASH_DIR="$HOME/.local/share/lftrash/files"
    META_DIR="$HOME/.local/share/lftrash/meta"
@@ -140,14 +182,68 @@ cmd create ${{
 	# mkdir $1
 }}
 
+cmd bulk-rename ${{
+    old="$(mktemp)"
+    new="$(mktemp)"
+    if [ -n "$fs" ]; then
+        fs="$(basename -a -- $fs)"
+    else
+        fs="$(ls)"
+    fi
+    printf '%s\n' "$fs" > "$old"
+    printf '%s\n' "$fs" > "$new"
+    $EDITOR "$new"
+    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+    paste "$old" "$new" | while IFS= read -r names; do
+        src="$(printf '%s' "$names" | cut -f1)"
+        dst="$(printf '%s' "$names" | cut -f2)"
+        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+            continue
+        fi
+        mv -- "$src" "$dst"
+    done
+    rm -- "$old" "$new"
+    lf -remote "send $id unselect"
+}}
+
+# y (select for copy) and P to paste symlink
+# d (select for cut) and P to paste hard link
+cmd link %{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    if [ "$#" -lt 1 ]; then
+        lf -remote "send $id echoerr no files to link"
+        exit
+    fi
+    case "$mode" in
+        # 'copy' mode indicates a symlink
+        copy) ln -sr -t . -- "$@";;
+        # while 'move' mode indicates a hard link
+        move)
+            ln -t . -- "$@"
+            lf -remote "send clear"
+            ;;
+    esac
+}}
+
+map P :link
+
+map R bulk-rename
+map r
+map i rename
+map I :rename; cmd-home
+map A :rename; cmd-end
+# map c :rename; cmd-delete-home
+map C :rename; cmd-end; cmd-delete-home
+
 # bindings
 map . set hidden!
 map p paste
 map x cut
 map y copy
-map P delete
-map D trash
-map U undelete
+map D delete
+# map U undelete
 
 map B set_bg
 
@@ -157,7 +253,4 @@ map A push :create_dir<space>
 map F filter
 map Z push :zip<space>
 map E extract
-
-map w
-map R !massren
-map V !nvim .
+map <backspace2> clear

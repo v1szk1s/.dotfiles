@@ -72,8 +72,8 @@
 )
 
 (deflayer qwerty
-  esc  KeyMute    vold    volu    f20    brdn    bru    f7    f8    f9    f10 f11 f12
-  grv  KeyMute    vold    volu  4  brdn    bru    7    8    9    0
+  caps  KeyMute    vold    volu    f20    brdn    bru    f7    f8    f9    f10 f11 f12
+  grv  1    2    3  4  5    6    7    8    9    0
   tab  q    w    e    r    t    y    u    i    o    p
   esc @home_a    @home_s    @home_d    @home_f    g    h    @home_j    @home_k    @home_l    @home_;    enter
   lsft z    x    c    v    @hu_b    n    m    ,    . /

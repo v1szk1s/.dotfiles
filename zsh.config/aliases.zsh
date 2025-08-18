@@ -1,27 +1,18 @@
 alias kc="kubectl"
 
-alias q="exit; tmux attach -t"
+alias mc="tmux split -h lf; lf"
+
+alias nc="ncat"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
-alias mkd="mkdir -pv"
 
 alias lf="lfrun"
 
-alias ggc='gcloud compute ssh --zone "europe-central2-a" "instance-20240322-103402" --project "sincere-blade-416610"'
-
-if command -v exa >/dev/null; then
-    alias ll='exa -al --color=always --group-directories-first' # my preferred listing
-    alias l='exa -l --color=always --group-directories-first'  # all files and dirs
-    alias ls='exa --color=always --group-directories-first'  # long format
-    alias lt='exa -aT --color=always --group-directories-first' # tree listing
-    alias l.='exa -al --color=always --group-directories-first | grep "^\..*"'
-else
-    alias ll='ls -al --color=auto'
-    alias l='ls -l --color=auto'
-    alias ls='ls --color=auto'
-    alias lt='ls -aT --color=auto'
-fi
+alias ll='ls -al --color=auto'
+alias l='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias lt='ls -aT --color=auto'
 
 
 alias grep="grep --color=auto"
@@ -33,10 +24,6 @@ alias gll="git log --all --graph --decorate"
 # alias py="python3"
 # alias python="python3.11"
 # fi
-
-if command -v nvim >/dev/null; then
-    alias vim="nvim"
-fi
 
 alias ts="tmux new-session"
 alias lst="tmux list-sessions"
