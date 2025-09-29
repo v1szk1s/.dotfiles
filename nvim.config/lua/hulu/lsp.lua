@@ -1,4 +1,4 @@
-vim.lsp.enable({'clangd', 'lua_ls', 'tsserver', 'gopls'})
+vim.lsp.enable({'clangd', 'lua_ls', 'tsserver', 'gopls', 'apollo-language-server'})
 
 
 vim.api.nvim_create_autocmd('LspAttach', {

@@ -6,7 +6,7 @@ import = ["~/.dotfiles/alacritty.config/themes/argonaut.toml"]
 
 padding = { x = 3, y = 3}
 decorations = "None"
-opacity = 0.8
+opacity = 1
 startup_mode = "Maximized"
 title = "Terminal"
 dynamic_title = true
@@ -15,7 +15,7 @@ dynamic_title = true
 size = 16
 
 [font.normal]
-family = "Hack Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [colors.cursor]

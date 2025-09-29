@@ -1,10 +1,10 @@
 (defcfg
   ;; For Linux
-  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-  output (uinput-sink "My KMonad output"
+  ;; input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  ;; output (uinput-sink "My KMonad output"
     ;; To understand the importance of the following line, see the section on
     ;; Compose-key sequences at the near-bottom of this file.
-    "sleep 1 && setxkbmap -option compose:ralt")
+    ;; "sleep 1 && setxkbmap -option compose:ralt")
   cmp-seq ralt    ;; Set the compose key to `RightAlt'
   cmp-seq-delay 5 ;; 5ms delay between each compose-key sequence press
  ;; key-seq-delay 5 ;; 5ms delay between each outputted key event
@@ -14,8 +14,8 @@
   ;; output (send-event-sink)
 
   ;; For MacOS
-  ;; input  (iokit-name "my-keyboard-product-string")
-  ;; output (kext)
+  input  (iokit-name "Apple Internal Keyboard / Trackpad")
+  output (kext)
 
   ;; Comment this if you want unhandled events not to be emitted
   fallthrough true
@@ -68,16 +68,17 @@
   tab  q    w    e    r    t    y    u    i    o    p
   caps a    s    d    f    g    h    j    k    l    ;    '  
   lsft z    x    c    v    b    n    m    ,    . /
-  lctl lmet lalt           spc            ralt ssrq
+  fn lctl lalt lmet      spc            rmet ralt
 )
 
+ ;; caps  KeyMute    vold    volu    f20    brdn    bru    f7    f8    f9    f10 f11 f12
 (deflayer qwerty
-  caps  KeyMute    vold    volu    f20    brdn    bru    f7    f8    f9    f10 f11 f12
+  caps  brdn    bru    f3    f4    f5    f6    f7 f8 f9 KeyMute    vold    volu
   grv  1    2    3  4  5    6    7    8    9    0
   tab  q    w    e    r    t    y    u    i    o    p
   esc @home_a    @home_s    @home_d    @home_f    g    h    @home_j    @home_k    @home_l    @home_;    enter
   lsft z    x    c    v    @hu_b    n    m    ,    . /
-  lctl X @nav           @space            @bksp @fun
+  lctl XX XX @nav           @space            @bksp @fun
 )
 
 (deflayer functions
@@ -86,7 +87,7 @@
   tab  f10    f4    f5    f6    del    X    u    i    o    p
   esc  f11    f1    f2    f3    ins    X    rmet    rctl    lalt    rsft    '
   lsft f12    f7    f8    f9    `    X    m    ,    . /
-  lctl X tab          0           ralt rmet
+  lctl XX XX tab          0           ralt rmet
 )
 
 (deflayer hungarian
@@ -95,7 +96,7 @@
   tab  f10    f4    f5    f6    del       _    ]    102d    =    _
   esc  f11    f1    f2    f3    ins       '    -    `    0    '    '
   lsft f12    f7    f8    f9    `         _    \    _    [ ?
-  lctl X tab          0           ralt rmet
+  lctl XX XX tab          0           ralt rmet
 )
 
 (deflayer numbers
@@ -104,7 +105,7 @@
   tab  *    4    5    6    -    X    u    i    o    p
   esc /    1    2    3    +    X    rmet    rctl    lalt    rsft    '
   lsft *    7    8    9    `    X    m    ,    . /
-  lctl X tab          0           ralt rmet
+  lctl XX XX tab          0           ralt rmet
 )
 
 (deflayer symbols
@@ -113,7 +114,7 @@
   tab  !    @    #    $    %    &    *    \(    \)    =
   esc lsft    lalt    lctl    lmet    |    \    -    {    }    "    '
   lsft ^ `    <    >    ~    +    \_    [    ]   /
-  lctl X lalt           spc            ralt rmet
+  lctl XX XX lalt           spc            ralt rmet
 )
 
 (deflayer navigation
@@ -122,7 +123,7 @@
   tab  !    @    #    $    %    &    *    \(    \)    =
   esc lsft    lalt    lctl    lmet    |    left    down    up    right  "    '
   lsft `    <    >    ~    +    \_    [    ]    ^ /
-  lctl X lalt           spc            ralt rmet
+  lctl XX XX lalt           spc            ralt rmet
 )
 
 #| --------------------------------------------------------------------------

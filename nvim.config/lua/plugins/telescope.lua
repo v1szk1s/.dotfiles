@@ -17,27 +17,35 @@ return {
         require('telescope').setup {
             pickers = {
                 find_files = {
-                    hidden = true
+                    hidden = true,
+                    find_command = {
+                        "fd", "--type", "f", "--strip-cwd-prefix",
+                        "--hidden",             -- if you want dotfiles
+                        "--exclude", ".git",
+                        "--exclude", "node_modules",
+                        "--exclude", "dist",
+                        "--exclude", "build",
+                    },
                 }
             },
             defaults = {
                 vimgrep_arguments = {
-                    'rg',
-                    '--color=never',
-                    '--no-heading',
-                    '--with-filename',
-                    '--line-number',
-                    '--column',
-                    '--smart-case',
-                    '--hidden' -- Add this flag to include dotfiles
+                    "rg", "--color=never", "--no-heading", "--with-filename",
+                    "--line-number", "--column", "--smart-case",
+                    "--hidden", "--no-follow",
+                    "--glob", "!**/.git/*",
+                    "--glob", "!**/node_modules/*",
+                    "--glob", "!**/dist/*",
+                    "--glob", "!**/build/*",
+                    "--glob", "!*.lock",
                 },
-                file_ignore_patterns = {
-                    "node_modules",
-                    "tags",
-                    ".git/",
-                    ".svn/",
-                    "pack",
-                }
+                -- file_ignore_patterns = {
+                --     "node_modules",
+                --     "tags",
+                --     ".git/",
+                --     ".svn/",
+                --     -- "pack",
+                -- }
             }
         }
 
@@ -47,7 +55,9 @@ return {
 
         vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Search Files' })
+        vim.keymap.set('n', '<c-f>', builtin.find_files, { desc = 'Search Files' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Search Grep' })
+        vim.keymap.set('n', '<c-g>', builtin.live_grep, { desc = 'Search Grep' })
         vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = '[F]ind [G]it' })
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[F]ind [H]elp' })
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[F]ind current [W]ord' })

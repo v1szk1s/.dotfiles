@@ -3,6 +3,12 @@ return {
     -- 'tpope/vim-eunuch',
     -- 'vuciv/golf',
 
+    {
+        'sbdchd/neoformat',
+        init = function ()
+            vim.g.neoformat_try_node_exe = 1
+        end
+    },
     'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
     'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
     'tpope/vim-surround',
@@ -19,12 +25,24 @@ return {
             vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
         end,
     },
+    -- {
+    --     "NeogitOrg/neogit",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --         "sindrets/diffview.nvim",
+    --         "nvim-telescope/telescope.nvim",
+    --     },
+    -- },
+
     {
         'tpope/vim-fugitive',
         config = function()
             vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+            vim.keymap.set({"n", "v"}, "<leader>gh", ":diffget //2<cr>");
+            vim.keymap.set({"n", "v"}, "<leader>gl", ":diffget //3<cr>");
         end
     },
+
     {
         'mattn/emmet-vim',
         init = function ()
@@ -67,16 +85,16 @@ return {
             }
         end
     },
-    { -- Adds git related signs to the gutter, as well as utilities for managing changes
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-            },
-        },
-    },
+    -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+    --     'lewis6991/gitsigns.nvim',
+    --     opts = {
+    --         signs = {
+    --             add = { text = '+' },
+    --             change = { text = '~' },
+    --             delete = { text = '_' },
+    --             topdelete = { text = '‾' },
+    --             changedelete = { text = '~' },
+    --         },
+    --     },
+    -- },
 }

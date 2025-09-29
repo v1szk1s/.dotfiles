@@ -12,9 +12,9 @@ image() {
 
 batorcat() {
 	file="$1"
-	shift
+	# shift
 	if command -v bat > /dev/null 2>&1; then
-		bat --color=always --style=plain --pager=never "$file" "$@"
+		bat --color=always --style=plain --pager=never "$file"
 	else
 		cat "$file"
 	fi
@@ -40,9 +40,10 @@ case "$mime_type" in
     application/x-rar)  # Handles .rar
         unrar l "$1" ;;
     application/json)  # Handles .rar
-				jq . "$1" ;;
+        # echo "itt" ;;
+        jq '.' "$1" ;;
     application/javascript)  # Handles .rar
-				bat "$1" ;;
+        bat "$1" ;;
     text/markdown)  # Handles .md
         glow"$1" ;;
     application/x-7z-compressed)  # Handles .7z
@@ -85,7 +86,8 @@ case "$mime_type" in
         [ ! -f "${CACHE}.jpg" ] && convert "$1" "${CACHE}.jpg"
         image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
     text/*|application/x-shellscript)  # Handles .ino, .txt
-        batorcat --language=cpp "$1" ;;
+        batorcat "$1" ;;
+        # echo "itt" ;;
     *)  # Default case
         file -ibL "$1" | grep -q text && batorcat "$1" || file -Lb "$1" ;;
 esac

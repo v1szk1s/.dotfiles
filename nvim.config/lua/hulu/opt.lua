@@ -12,8 +12,8 @@ vim.opt.list = false
 -- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
 
-vim.o.foldmethod = "marker"
-vim.o.foldlevel = 0
+vim.o.foldmethod = "indent"
+vim.o.foldlevel = 20
 
 vim.opt.fillchars = { eob = "-", fold = " " }
 
@@ -59,6 +59,7 @@ vim.o.signcolumn = "yes"
 vim.o.updatetime = 350
 vim.o.timeoutlen = 500
 
-vim.o.completeopt = 'menuone'
-vim.opt.completeopt:append({ "menuone", "noselect", "popup" })
+-- vim.opt.completeopt:append({ "menuone", "noselect", "popup" })
+vim.opt.completeopt = { "menuone", "noinsert" }
+
 -- vim.o.colorcolumn = "180"

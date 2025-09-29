@@ -41,102 +41,102 @@ map X !$f
 # map O $mimeopen --ask $f
 
 
-cmd paste &{{
-    set -- $(cat ~/.local/share/lf/files)
-    mode="$1"
-    shift
-    case "$mode" in
-        copy)
-            rsync -av --ignore-existing --progress -- "$@" . |
-            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
-            while IFS= read -r line; do
-                line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-                lf -remote "send $id echo \"$line\""
-            done
-            ;;
-        move)
-            mv -n -- "$@" .
-            lf -remote "send clear"
-            ;;
-    esac
-}}
-
-cmd on-init :{{
-    cmd on-redraw %{{
-        if [ "$lf_width" -le 80 ]; then
-            lf -remote "send $id set ratios 1:2"
-        elif [ "$lf_width" -le 160 ]; then
-            lf -remote "send $id set ratios 1:2:3"
-        else
-            lf -remote "send $id set ratios 1:2:3:5"
-        fi
-    }}
-    on-redraw
-}}
-
-# define a custom 'open' command
-# This command is called when current file is not a directory. You may want to
-# use either file extensions and/or mime types here. Below uses an editor for
-# text files and a file opener for the rest.
-cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        graphml) $OPENER $f > /dev/null 2> /dev/null;;
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        application/pdf) zathura $f > /dev/null;;
-
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-    esac
-}}
-
-
-cmd trash &{{
-    if [ "$confirm" == "y" ] || [ "$confirm" = "Y" ]; then
-    rm -rf -- "$f"
-    echo "Deleted $f"
-    else
-        echo "Cancelled"
-    fi
-   set -f
-   TRASH_DIR="$HOME/.local/share/lftrash/files"
-   META_DIR="$HOME/.local/share/lftrash/meta"
-   mkdir -p "$TRASH_DIR" "$META_DIR"
-
-   for f in $fx; do
-       base=$(basename "$f")
-       uuid=$(date +%s%N)  # unique ID for each trashed file
-       mv -- "$f" "$TRASH_DIR/$uuid"
-       realpath "$f" > "$META_DIR/$uuid"
-   done
-}}
-
-cmd undelete ${{
-   set -f
-   TRASH_DIR="$HOME/.local/share/lftrash/files"
-   META_DIR="$HOME/.local/share/lftrash/meta"
-   TMP_SELECTION=$HOME/.cache/lf_undelete
-   
-   : > $HOME/.cache/lf_undelete
-
-   lf -command 'cmd on-quit $ echo $fs > $HOME/.cache/lf_undelete' $TRASH_DIR
-
-    while IFS= read -r file; do
-        uuid=$(basename "$file")
-        meta="$META_DIR/$uuid"
-        [ ! -f "$meta" ] && continue
-        dest=$(cat "$meta")
-        destdir=$(dirname "$dest")
-        mkdir -p "$destdir"
-        mv -i "$file" "$dest"
-        rm -f "$meta"
-    done < "$TMP_SELECTION"
-
-}}
-
-cmd set_bg &{{
-   set -f
-   feh --bg-fill $f
-}}
-
+# cmd paste &{{
+#     set -- $(cat ~/.local/share/lf/files)
+#     mode="$1"
+#     shift
+#     case "$mode" in
+#         copy)
+#             rsync -av --ignore-existing --progress -- "$@" . |
+#             stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+#             while IFS= read -r line; do
+#                 line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+#                 lf -remote "send $id echo \"$line\""
+#             done
+#             ;;
+#         move)
+#             mv -n -- "$@" .
+#             lf -remote "send clear"
+#             ;;
+#     esac
+# }}
+# 
+# cmd on-init :{{
+#     cmd on-redraw %{{
+#         if [ "$lf_width" -le 80 ]; then
+#             lf -remote "send $id set ratios 1:2"
+#         elif [ "$lf_width" -le 160 ]; then
+#             lf -remote "send $id set ratios 1:2:3"
+#         else
+#             lf -remote "send $id set ratios 1:2:3:5"
+#         fi
+#     }}
+#     on-redraw
+# }}
+# 
+# # define a custom 'open' command
+# # This command is called when current file is not a directory. You may want to
+# # use either file extensions and/or mime types here. Below uses an editor for
+# # text files and a file opener for the rest.
+# cmd open &{{
+#     case $(file --mime-type -Lb $f) in
+#         graphml) $OPENER $f > /dev/null 2> /dev/null;;
+#         text/*) lf -remote "send $id \$$EDITOR \$fx";;
+#         application/pdf) zathura $f > /dev/null;;
+# 
+#         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+#     esac
+# }}
+# 
+# 
+# cmd trash &{{
+#     if [ "$confirm" == "y" ] || [ "$confirm" = "Y" ]; then
+#     rm -rf -- "$f"
+#     echo "Deleted $f"
+#     else
+#         echo "Cancelled"
+#     fi
+#    set -f
+#    TRASH_DIR="$HOME/.local/share/lftrash/files"
+#    META_DIR="$HOME/.local/share/lftrash/meta"
+#    mkdir -p "$TRASH_DIR" "$META_DIR"
+# 
+#    for f in $fx; do
+#        base=$(basename "$f")
+#        uuid=$(date +%s%N)  # unique ID for each trashed file
+#        mv -- "$f" "$TRASH_DIR/$uuid"
+#        realpath "$f" > "$META_DIR/$uuid"
+#    done
+# }}
+# 
+# cmd undelete ${{
+#    set -f
+#    TRASH_DIR="$HOME/.local/share/lftrash/files"
+#    META_DIR="$HOME/.local/share/lftrash/meta"
+#    TMP_SELECTION=$HOME/.cache/lf_undelete
+# 
+#    : > $HOME/.cache/lf_undelete
+# 
+#    lf -command 'cmd on-quit $ echo $fs > $HOME/.cache/lf_undelete' $TRASH_DIR
+# 
+#     while IFS= read -r file; do
+#         uuid=$(basename "$file")
+#         meta="$META_DIR/$uuid"
+#         [ ! -f "$meta" ] && continue
+#         dest=$(cat "$meta")
+#         destdir=$(dirname "$dest")
+#         mkdir -p "$destdir"
+#         mv -i "$file" "$dest"
+#         rm -f "$meta"
+#     done < "$TMP_SELECTION"
+# 
+# }}
+# 
+# cmd set_bg &{{
+#    set -f
+#    feh --bg-fill $f
+# }}
+# 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
 cmd extract ${{
@@ -168,6 +168,7 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
 
 cmd create_dir ${{
     mkdir -p $1
@@ -230,12 +231,12 @@ cmd link %{{
 map P :link
 
 map R bulk-rename
-map r
-map i rename
-map I :rename; cmd-home
-map A :rename; cmd-end
+# map r
+# map i rename
+# map I :rename; cmd-home
+# map A :rename; cmd-end
 # map c :rename; cmd-delete-home
-map C :rename; cmd-end; cmd-delete-home
+# map C :rename; cmd-end; cmd-delete-home
 
 # bindings
 map . set hidden!

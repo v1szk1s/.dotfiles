@@ -27,5 +27,21 @@ vim.keymap.set("n", "Q", "@q")
 
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+vim.keymap.set("i", "<CR>", function()
+  return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true })
+
 -- vim.keymap.set("n", "<leader>w", ":w<cr>")
 -- vim.keymap.set("n", "<leader>q", ":x<cr>", { silent = true})
+
+
+-- -- Autocmd for fugitive buffers
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "fugitive",
+--   callback = function()
+--     -- Buffer-local mappings
+--     vim.keymap.set("n", "gh", ":diffget //2<CR>", { buffer = true, desc = "Take left side of diff" })
+--     vim.keymap.set("n", "gl", ":diffget //3<CR>", { buffer = true, desc = "Take right side of diff" })
+--   end,
+-- })
+--

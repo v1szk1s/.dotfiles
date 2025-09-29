@@ -12,8 +12,8 @@
 # source <(ng completion script)  # angular completion
 
 # Load more completions
-fpath=($DOTFILES/zsh.config/plugins/zsh-completions/src $fpath)
-fpath=(~/.dotfiles/zsh.config/completions $fpath)
+# fpath=($DOTFILES/zsh.config/plugins/zsh-completions/src $fpath)
+# fpath=(~/.dotfiles/zsh.config/completions $fpath)
 
 
 # Should be called before compinit
@@ -104,5 +104,5 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 
 ## For kubernetes
 # source $DOTFILES/zsh/plugins/kubectl-completion/_kubectl
-source <(kubectl completion zsh)
-zstyle ':completion:*:*:kubectl:*' list-grouped false
+# source <(kubectl completion zsh)
+# zstyle ':completion:*:*:kubectl:*' list-grouped false
