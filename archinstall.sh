@@ -4,13 +4,11 @@ set -Eeuo pipefail
 # ==========================================
 # CONFIG — EDIT THESE
 # ==========================================
-USERNAME="you"                           # your new username
-USER_FULLNAME="Your Name"                # optional full name
+USERNAME="mumu"                           # your new username
+USER_FULLNAME="Attila Ambrus"                # optional full name
 USER_PASSWORD=""                         # leave empty to be prompted
-DOTFILES_REPO="https://github.com/yourname/yourdotfiles.git"
-DOTFILES_DIR="/home/${USERNAME}/.dotfiles"
-DOTFILES_APPLY_CMD='stow -v -t ~ */'     # or "./install" if your repo has a script
 INSTALL_PARU=true                        # true/false
+DOTFILES_DIR="/home/${USERNAME}/.dotfiles"
 
 # Shell preference
 DEFAULT_SHELL="/bin/zsh"                 # /bin/zsh or /bin/bash
@@ -31,7 +29,7 @@ WAYLAND_PACKAGES=(
 )
 
 # Optional quality-of-life
-EXTRA_PACKAGES=(sudo vim htop jq zsh)
+E#TRA_PACKAGES=(sudo vim htop jq zsh fzf ripgrep kmonad)
 
 # ==========================================
 # SANITY CHECKS
@@ -95,25 +93,8 @@ systemctl enable bluetooth
 # PipeWire is socket-activated; make sure user services are available at login.
 loginctl enable-linger "$USERNAME" || true
 
-# ==========================================
-# DOTFILES
-# ==========================================
-echo "==> Cloning dotfiles for $USERNAME…"
-install -d -o "$USERNAME" -g "$USERNAME" "$(dirname "$DOTFILES_DIR")"
-if sudo -u "$USERNAME" test -d "$DOTFILES_DIR/.git"; then
-  echo "Dotfiles already present at $DOTFILES_DIR — pulling latest…"
-  sudo -u "$USERNAME" git -C "$DOTFILES_DIR" pull --rebase --autostash || true
-else
-  sudo -u "$USERNAME" git clone --depth=1 "$DOTFILES_REPO" "$DOTFILES_DIR"
-fi
 
-echo "==> Applying dotfiles…"
-if sudo -u "$USERNAME" test -x "$DOTFILES_DIR/install"; then
-  sudo -u "$USERNAME" bash -lc "cd \"$DOTFILES_DIR\" && ./install"
-else
-  pacman -S --needed --noconfirm stow
-  sudo -u "$USERNAME" bash -lc "cd \"$DOTFILES_DIR\" && $DOTFILES_APPLY_CMD"
-fi
+sudo -u "$USERNAME" bash -lc "cd \"$DOTFILES_DIR\" && ./install"
 
 echo "==> Initializing XDG user directories…"
 sudo -u "$USERNAME" xdg-user-dirs-update || true
