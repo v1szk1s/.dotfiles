@@ -21,10 +21,14 @@ return {
                     ["l"] = "actions.select",
                     ["h"] = { "actions.parent", mode = "n" },
                 },
+                view_options = {
+                    show_hidden = true,
+                },
             })
             vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
         end,
     },
+
     -- {
     --     "NeogitOrg/neogit",
     --     dependencies = {
