@@ -87,20 +87,12 @@ fi
 source $DOTFILES/zsh.config/completion.zsh
 
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-# # Keybinds
-bindkey '^h' autosuggest-accept
-
-
-source <(fzf --zsh)
-bindkey '^r' fzf-history-widget
-
-# bindkey '^r' fzf-history-widget
-# bindkey -M vicmd '^r' fzf-history-widget
-
-# # Edit line in vim with ctrl-e:
-# autoload edit-command-line; zle -N edit-command-line
-# bindkey '^e' edit-command-line
+zvm_after_init() {
+  source <(fzf --zsh)
+  bindkey '^h' autosuggest-accept
+  autoload edit-command-line; zle -N edit-command-line
+  bindkey '^e' edit-command-line
+}
 #
 lfcd-widget() {
   lfcd 
@@ -117,11 +109,10 @@ bindkey -M vicmd '^o' lfcd-widget
 WORDCHARS=${WORDCHARS/\/}
 bindkey '^W' backward-kill-word
 
-
-# cdir () {
-#     mkdir -p -- "$1" &&
-#        cd -P -- "$1"
-# }
+cdir () {
+    mkdir -p -- "$1" &&
+       cd -P -- "$1"
+}
 
 
 # export GOPATH="$HOME/go"
