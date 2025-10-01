@@ -1,0 +1,23 @@
+width=300
+height=80
+
+font=Monospace 10
+
+# Colors (RGBA hex or named colors)
+background-color=#282828cc
+
+# Border color and thickness
+border-color=#458588ff
+border-size=2
+
+# Corner radius (for rounded corners)
+border-radius=6
+
+# Duration before notification disappears (milliseconds)
+default-timeout=5000
+
+# Margin from screen edges in pixels
+margin=10
+
+# Icon size in pixels
+max-icon-size=32

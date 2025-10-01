@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Click handlers (optional)
-case $BLOCK_BUTTON in
-  1) notify-send "Battery Status" "$(acpi -b)" ;; # left click
-esac
-
 # Check battery info
 capacity=$(cat /sys/class/power_supply/BAT*/capacity)
 status=$(cat /sys/class/power_supply/BAT*/status)

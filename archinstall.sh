@@ -17,19 +17,19 @@ DEFAULT_SHELL="/bin/zsh"                 # /bin/zsh or /bin/bash
 
 # Hyprland + Wayland essentials (tweak freely)
 WAYLAND_PACKAGES=(
-  hyprland hyprpaper hyprlock hypridle
+  hyprland hyprpaper hyprlock hypridle hyprpicker
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-user-dirs
-  waybar rofi-wayland kitty wofi
-  pipewire wireplumber pipewire-pulse pipewire-alsa pipewire-jack helvum
-  grim slurp wl-clipboard swappy qt5-wayland qt6-wayland
+  waybar alacritty nwg-displays
+  alsa-firmware sof-firmware pipewire wireplumber pipewire-pulse pipewire-alsa pipewire-jack helvum
+  grim slurp wl-clipboard satty qt5-wayland qt6-wayland mako
   brightnessctl playerctl pavucontrol network-manager-applet blueman
   polkit-gnome thunar thunar-archive-plugin file-roller gvfs gvfs-mtp udiskie udisks2
   ttf-nerd-fonts-symbols ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-emoji
-  git stow curl wget unzip zip tar
+  git curl wget unzip zip tar
 )
 
 # Optional quality-of-life
-E#TRA_PACKAGES=(sudo vim htop jq zsh fzf ripgrep kmonad)
+#TRA_PACKAGES=(sudo vim htop jq zsh fzf ripgrep kmonad)
 
 # ==========================================
 # SANITY CHECKS

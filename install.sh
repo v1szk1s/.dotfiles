@@ -15,21 +15,12 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-setup_gitconfig(){
-	if [[ ! -f $HOME/.gitconfig || $FORCE == true ]]; then
-		echo "Linking gitconfig"
-		ln -sf $DOTFILES/gitconfig $HOME/.gitconfig
-	else
-		echo "Already exists... Skipping."
-	fi
-}
-
 setup_tmux(){
-	if [[ ! -e $DOTFILES/tmux.config/plugins/tpm || $FORCE == true ]]; then
-		if [[ -d $DOTFILES/tmux.config/plugins/tpm ]]; then
-			rm -rf $DOTFILES/tmux.config/plugins/tpm
+	if [[ ! -e ~/.tmux/plugins/tpm/tpm || $FORCE == true ]]; then
+		if [[ -d ~/.tmux/plugins/tpm/tpm ]]; then
+			rm -rf ~/.tmux/plugins/tpm/tpm
 		fi
-		git clone https://github.com/tmux-plugins/tpm $DOTFILES/tmux.config/plugins/tpm
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 		echo "tmux plugins installed."
 	else
 		echo "Already exists... Skipping."
@@ -37,12 +28,13 @@ setup_tmux(){
 }
 
 setup_symlinks() {
-	for i in $(find "$DOTFILES" -maxdepth 1 -name '*.config'); do
-		basename=$(basename "$i" '.config')
+	for i in $(find "$DOTFILES/config" -maxdepth 1); do
+		basename=$(basename "$i")
 		target="$HOME/.config/$basename"
 
 		if [[ ! -e $target || $FORCE == true ]]; then
 			echo "Creating $basename symlink."
+			echo "ln -sfn $i $target"
 			ln -sfn "$i" "$target"
 			[[ "$basename" == "zsh" ]] && ln -sfn "$i/zshenv" "$HOME/.zshenv"
 		else
