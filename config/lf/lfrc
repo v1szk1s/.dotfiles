@@ -5,10 +5,6 @@ set cursorpreviewfmt "\033[7m"
 
 set info size:time
 
-# set previewer lf_kitty_preview
-# set cleaner lf_kitty_clean
-set previewer ~/.config/lf/preview
-set cleaner ~/.config/lf/cleaner
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -35,6 +31,11 @@ map <enter> read
 # execute current file (must be executable)
 map x $$f
 map X !$f
+
+
+set preview true
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
 
 # dedicated keys for file opener actions
 # map o &mimeopen $f
@@ -132,13 +133,13 @@ map X !$f
 # 
 # }}
 # 
-# cmd set_bg &{{
-#    set -f
-#    feh --bg-fill $f
-# }}
-# 
-# extract the current file with the right command
-# (xkcd link: https://xkcd.com/1168/)
+cmd set_bg &{{
+   set -f
+   #feh --bg-fill $f
+   hyprctl hyprpaper preload $f
+   hyprctl hyprpaper wallpaper ,$f
+}}
+
 cmd extract ${{
     set -f
     case $f in
@@ -231,12 +232,6 @@ cmd link %{{
 map P :link
 
 map R bulk-rename
-# map r
-# map i rename
-# map I :rename; cmd-home
-# map A :rename; cmd-end
-# map c :rename; cmd-delete-home
-# map C :rename; cmd-end; cmd-delete-home
 
 # bindings
 map . set hidden!
@@ -255,3 +250,6 @@ map F filter
 map Z push :zip<space>
 map E extract
 map <backspace2> clear
+map i %{{ 
+    imv -w "float" .
+}}

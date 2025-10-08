@@ -27,6 +27,15 @@ WAYLAND_PACKAGES=(
   ttf-nerd-fonts-symbols ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-emoji
   git curl wget unzip zip tar
 )
+MUST_HAVE_AUX_PACKAGES=(
+  audacity libreoffice-fresh libreoffice-fresh-hu
+  vlc vlc-plugins-all imv
+  keepassxc nextcloud-client gnome-keyring seahorse
+  gimp chromium
+)
+PROGRAMMING=(
+  go
+)
 
 # Optional quality-of-life
 #TRA_PACKAGES=(sudo vim htop jq zsh fzf ripgrep kmonad)

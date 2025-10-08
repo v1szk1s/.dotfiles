@@ -18,8 +18,8 @@ return {
         init = function()
             require("oil").setup({
                 keymaps = {
-                    ["l"] = "actions.select",
-                    ["h"] = { "actions.parent", mode = "n" },
+                    -- ["l"] = "actions.select",
+                    -- ["h"] = { "actions.parent", mode = "n" },
                 },
                 view_options = {
                     show_hidden = true,

@@ -1,13 +1,12 @@
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 if command -v tmux >/dev/null 2>&1; then
   if [ -z "$TMUX" ]; then
     tmux attach-session -t main 2>/dev/null || tmux new-session -s main
   fi
 fi
-
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -69,47 +68,39 @@ setopt PROMPT_SUBST
 #
 KEYTIMEOUT=1
 
-LFCD="$DOTFILES/lf.config/lfcd.sh"
-if [ -f "$LFCD" ]; then
-    source "$LFCD"
-fi
-
-
 # Basic auto/tab complete:
 source $DOTFILES/config/zsh/completion.zsh
 
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-zvm_after_init() {
-  source <(fzf --zsh)
-  bindkey '^h' autosuggest-accept
-  autoload edit-command-line; zle -N edit-command-line
-  bindkey '^e' edit-command-line
-}
-#
-lfcd-widget() {
-  lfcd 
-  zle reset-prompt  # Refresh the prompt immediately
-}
-
-zle -N lfcd-widget
-zle -N lf-widget
-
-bindkey '^o' lfcd-widget
-bindkey -M vicmd '^o' lfcd-widget
-
 
 WORDCHARS=${WORDCHARS/\/}
 bindkey '^W' backward-kill-word
+
 
 cdir () {
     mkdir -p -- "$1" &&
        cd -P -- "$1"
 }
 
+lfcd() {
+  cd "$(command lf -print-last-dir "$@")"
+}
+
+zvm_after_init() {
+  bindkey -M viins -s '^o' $'lfcd\n'
+  bindkey -M vicmd -s '^o' $'ilfcd\n'
+
+  source <(fzf --zsh)
+  bindkey '^h' autosuggest-accept
+  autoload -Uz edit-command-line; zle -N edit-command-line
+  bindkey '^e' edit-command-line
+}
+
 
 # export GOPATH="$HOME/go"
 # export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 # export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -117,7 +108,6 @@ if [[ $OSTYPE =~ darwin ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
     export PATH=/opt/homebrew/bin/:$PATH
 fi
-
 
 export NVM_DIR=~/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm

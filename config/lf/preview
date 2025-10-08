@@ -1,13 +1,47 @@
-#!/bin/sh
-CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
-	-- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+#!/usr/bin/env bash
+
+# set -eu
+
+file="${1:-}"
+cols="${2:-80}"
+rows="${3:-24}"
+
+# IMV_PIDFILE="${XDG_RUNTIME_DIR}/lf-imv.pid"
+#
+# IMV_LAST_NAME_FILE="${XDG_RUNTIME_DIR}/lf-imv.index"
+# IMV_LAST_NAME=$(cat $IMV_LAST_NAME_FILE)
+#
+# Detect tmux
+if [ -n "${TMUX-}" ]; then
+    chafa_opts="--fill=block --symbols=block"
+else
+    chafa_opts=""
+fi
 
 image() {
-    # if command -v img2sixel >/dev/null; then
-    #     img2sixel "$1"
-    # else
-    chafa "$1" -s "${4}x"
+    # chafa --size="${cols}x${rows}" --animate=off --polite=on --fill=block  -- "$file"
+    chafa --size="${cols}x${rows}" --animate=off --polite=on $chafa_opts -- "$file"
+    exit 0
+    # if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+    #      imv-msg "$(cat $IMV_PIDFILE)" open "$1"
+    #      imv-msg $(cat $IMV_PIDFILE) next >/dev/null 2>&1
     # fi
+    #
+    # if [[ ! -f $IMV_PIDFILE ]] || ! kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+    #     echo "imv -w lf-preview $1 >/dev/null 2>&1 &"
+    #     imv -w lf-preview "$1" >/dev/null 2>&1 &
+    #     echo $! > "$IMV_PIDFILE"
+    #     echo "pid: $!"
+    # fi
+    #
+    # return 1
+}
+
+close_imv() {
+    if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+        imv-msg "$(cat $IMV_PIDFILE)" quit
+        rm $IMV_PIDFILE
+    fi
 }
 
 batorcat() {
@@ -19,7 +53,6 @@ batorcat() {
 		cat "$file"
 	fi
 }
-
 
 # Determine the MIME type of the file
 mime_type=$(file --mime-type -b "$1")
@@ -40,109 +73,13 @@ case "$mime_type" in
     application/x-rar)  # Handles .rar
         unrar l "$1" ;;
     application/json)  # Handles .rar
-        # echo "itt" ;;
         jq '.' "$1" ;;
     application/javascript)  # Handles .rar
-        bat "$1" ;;
-    text/markdown)  # Handles .md
-        glow"$1" ;;
-    application/x-7z-compressed)  # Handles .7z
-        7z l "$1" ;;
-    text/man)  # Handles .1 to .8 (manual pages)
-        man "$1" | col -b ;;
-    application/x-object)  # Handles .o
-        nm "$1" ;;
-    application/x-bittorrent)  # Handles .torrent
-        transmission-show "$1" ;;
-    application/x-iso9660-image)  # Handles .iso
-        iso-info --no-header -l "$1" ;;
-    application/vnd.oasis.opendocument.text|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.presentation|application/vnd.sun.xml.writer)  # Handles .odt, .ods, .odp, .sxw
-        odt2txt "$1" ;;
-    # application/msword)  # Handles .doc
-    #     catdoc "$1" ;;
-    # application/vnd.openxmlformats-officedocument.wordprocessingml.document)  # Handles .docx
-    #     docx2txt "$1" ;;
-    # text/xml|text/html)  # Handles .xml, .html
-    #     w3m -dump "$1" ;;
-    # application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)  # Handles .xls, .xlsx
-    #     ssconvert --export-type=Gnumeric_stf:stf_csv "$1" "fd://1" | batorcat --language=csv ;;
-    # audio/*)  # Handles various audio formats
-    #     exiftool "$1" ;;
-    application/pdf)  # Handles .pdf
-        [ ! -f "${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
-        image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
-    application/epub+zip)  # Handles .epub
-        [ ! -f "$CACHE" ] && epub-thumbnailer "$1" "$CACHE" 1024
-        image "$CACHE" "$2" "$3" "$4" "$5" ;;
-    application/x-cbr|application/x-cbz|application/x-cbt)  # Handles .cbz, .cbr, .cbt
-        [ ! -f "$CACHE" ] && comicthumb "$1" "$CACHE" 1024
-        image "$CACHE" "$2" "$3" "$4" "$5" ;;
-    video/*)  # Handles various video formats
-        [ ! -f "${CACHE}.jpg" ] && ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
-        image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
+        batorcat "$1" ;;
     image/*)  # Handles various image formats
         image "$1" "$2" "$3" "$4" "$5" ;;
-    application/x-font-ttf|image/svg+xml)  # Handles .svg
-        [ ! -f "${CACHE}.jpg" ] && convert "$1" "${CACHE}.jpg"
-        image "${CACHE}.jpg" "$2" "$3" "$4" "$5" ;;
     text/*|application/x-shellscript)  # Handles .ino, .txt
         batorcat "$1" ;;
-        # echo "itt" ;;
     *)  # Default case
         file -ibL "$1" | grep -q text && batorcat "$1" || file -Lb "$1" ;;
 esac
-
-
-# case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
-# 	*.tgz|*.tar.gz) tar tzf "$1" ;;
-# 	*.tar.bz2|*.tbz2) tar tjf "$1" ;;
-# 	*.tar.txz|*.txz) xz --list "$1" ;;
-# 	*.tar) tar tf "$1" ;;
-# 	*.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$1" ;;
-# 	*.gz) gzip -l "$1" ;;
-# 	*.rar) unrar l "$1" ;;
-# 	*.md) glowormdcat "$1";;
-# 	*.7z) 7z l "$1" ;;
-# 	*.[1-8]) man "$1" | col -b ;;
-# 	*.o) nm "$1";;
-# 	*.torrent) transmission-show "$1" ;;
-# 	*.iso) iso-info --no-header -l "$1" ;;
-# 	*.odt|*.ods|*.odp|*.sxw) odt2txt "$1" ;;
-# 	*.doc) catdoc "$1" ;;
-# 	*.docx) docx2txt "$1" ;;
-# 	*.xml|*.html) w3m -dump "$1";;
-# 	*.xls|*.xlsx)
-# 		ssconvert --export-type=Gnumeric_stf:stf_csv "$1" "fd://1" | batorcat --language=csv
-# 		;;
-# 	*.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
-# 		exiftool "$1"
-# 		;;
-# 	*.pdf)
-# 		[ ! -f "${CACHE}.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
-# 		image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.epub)
-# 		[ ! -f "$CACHE" ] && epub-thumbnailer "$1" "$CACHE" 1024
-# 		image "$CACHE" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.cbz|*.cbr|*.cbt)
-# 		[ ! -f "$CACHE" ] && comicthumb "$1" "$CACHE" 1024
-# 		image "$CACHE" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
-# 		[ ! -f "${CACHE}.jpg" ] && \
-# 			ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
-# 		image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.bmp|*.jpg|*.jpeg|*.png|*.xpm|*.webp|*.tiff|*.gif|*.jfif|*.ico)
-# 		image "$1" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.svg)
-# 		[ ! -f "${CACHE}.jpg" ] && convert "$1" "${CACHE}.jpg"
-# 		image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
-# 		;;
-# 	*.ino) batorcat --language=cpp "$1" ;;
-# 	*.txt) batorcat --language=cpp "$1" ;;
-# 	*) file -ibL "$1" | grep -q text && batorcat "$1" || file -Lb "$1" ;;
-# esac
-exit 0

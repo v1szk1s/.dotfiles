@@ -1,30 +1,23 @@
-# Change working dir in shell to last dir in lf on exit (adapted from ranger).
-#
-# You need to either copy the content of this file to your shell rc file
-# (e.g. ~/.bashrc) or source this file directly:
-#
-#     LFCD="/path/to/lfcd.sh"
-#     if [ -f "$LFCD" ]; then
-#         source "$LFCD"
-#     fi
-#
-# You may also like to assign a key (Ctrl-O) to this command:
-#
-#     bind '"\C-o":"lfcd\C-m"'  # bash
-#     bindkey -s '^o' 'lfcd\n'  # zsh
-#
-
 lfcd () {
-    tmp="$(mktemp)"
-    # `command` is needed in case `lfcd` is aliased to `lf`
+    emulate -L zsh
+    setopt localoptions no_aliases   # prevent alias expansion inside this function
+
+    local tmp dir
+    tmp="$(mktemp -t lfcd.XXXXXX)" || return
+
     command lfrun -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
+
+    if [[ -f $tmp ]]; then
+        dir="$(<"$tmp")"
+        \rm -f -- "$tmp" >/dev/null 2>&1   # use backslash to bypass any alias and stay quiet
+        if [[ -d $dir && $dir != $PWD ]]; then
+            cd -- "$dir"
         fi
+    fi
+
+    if [[ -n $ZLE ]]; then
+        zle -I
+        zle -R            # generic redisplay
+        zle reset-prompt       zle reset-prompt
     fi
 }

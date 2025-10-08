@@ -10,4 +10,5 @@ elephant-runner \
 elephant-symbols \
 elephant-todo \
 elephant-unicode \
-elephant-websearch
+elephant-websearch \
+onlyoffice

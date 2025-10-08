@@ -19,7 +19,7 @@ window#waybar {
 /* main background */
 
 window#waybar > box {
-	margin: 4px;
+	margin: 1px;
 	background-color: @main-bg;
 }
 
@@ -56,14 +56,14 @@ window#waybar > box {
 #custom-left_inv,
 #custom-right_div,
 #custom-right_inv {
-	font-size: 23.1px;
+	font-size: 26.1px;
 }
 
 /* buttons */
 
 button {
 	border-radius: 16px;
-	padding: 0 10px;
+	padding: 0 8px;
 }
 button:hover {
 	background-color: @hover-bg;
