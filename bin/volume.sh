@@ -2,6 +2,7 @@
 
 
 wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ $1
+wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
 
 
 VOL_PERCENTAGE=$(

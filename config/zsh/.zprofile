@@ -1,4 +1,4 @@
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-  exec Hyprland
+  exec dbus-run-session Hyprland
 fi
 

@@ -87,7 +87,12 @@ fi
 # DESKTOP STACK
 # ==========================================
 echo "==> Installing Hyprland & Wayland stack…"
+
 pacman -S --needed --noconfirm "${WAYLAND_PACKAGES[@]}"
+
+pacman -S --needed --noconfirm "${MUST_HAVE_AUX_PACKAGES[@]}"
+
+pacman -S --needed --noconfirm "${PROGRAMMING[@]}"
 
 # Bluetooth (common)
 pacman -S --needed --noconfirm bluez bluez-utils
@@ -135,6 +140,12 @@ if $INSTALL_PARU; then
     fi
   '
 fi
+
+mkdir -p /etc/systemd/system/getty@tty1.service.d                                                                                       ─╯
+echo "[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin $USERNAME --noclear %I $TERM
+" > /etc/systemd/system/getty@tty1.service.d/override.conf
 
 # ==========================================
 # WAYLAND SESSION QUALITY FIXES
