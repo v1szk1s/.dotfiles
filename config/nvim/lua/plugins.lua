@@ -17,6 +17,7 @@ return {
         'stevearc/oil.nvim',
         init = function()
             require("oil").setup({
+                skip_confirm_for_simple_edits = true,
                 keymaps = {
                     -- ["l"] = "actions.select",
                     -- ["h"] = { "actions.parent", mode = "n" },

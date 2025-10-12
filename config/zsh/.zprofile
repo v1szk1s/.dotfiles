@@ -1,4 +1,3 @@
-if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-  exec dbus-run-session Hyprland
+if [ "$(tty)" = "/dev/tty1" ]; then
+    exec uwsm start hyprland
 fi
-

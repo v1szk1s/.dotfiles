@@ -4,7 +4,7 @@ set -Eeuo pipefail
 # ==========================================
 # CONFIG — EDIT THESE
 # ==========================================
-USERNAME="mumu"                           # your new username
+USERNAME="$(whoami)"                           # your new username
 USER_FULLNAME="Attila Ambrus"                # optional full name
 USER_PASSWORD=""                         # leave empty to be prompted
 INSTALL_PARU=true                        # true/false
@@ -17,28 +17,28 @@ DEFAULT_SHELL="/bin/zsh"                 # /bin/zsh or /bin/bash
 
 # Hyprland + Wayland essentials (tweak freely)
 WAYLAND_PACKAGES=(
+  uwsm man-db man-pages texinfo
   hyprland hyprpaper hyprlock hypridle hyprpicker
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-user-dirs
   waybar alacritty nwg-displays
   alsa-firmware sof-firmware pipewire wireplumber pipewire-pulse pipewire-alsa pipewire-jack helvum
   grim slurp wl-clipboard satty qt5-wayland qt6-wayland mako
-  brightnessctl playerctl pavucontrol network-manager-applet blueman
-  polkit-gnome thunar thunar-archive-plugin file-roller gvfs gvfs-mtp udiskie udisks2
-  ttf-nerd-fonts-symbols ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-emoji
-  git curl wget unzip zip tar
+  brightnessctl playerctl pavucontrol blueman
+  polkit-gnome dolphin thunar-archive-plugin file-roller gvfs gvfs-mtp udiskie udisks2
+  ttf-nerd-fonts-symbols ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-0xproto-nerd
+  git curl wget unzip zip tar firefox plymouth ueberzugpp zathura zathura-pdf-mupdf
 )
 MUST_HAVE_AUX_PACKAGES=(
   audacity libreoffice-fresh libreoffice-fresh-hu
   vlc vlc-plugins-all imv
   keepassxc nextcloud-client gnome-keyring seahorse
-  gimp chromium
+  gimp chromium nmap yazi
+  sudo btop jq zsh fzf ripgrep kmonad
+  ttf-jetbrains-mono-nerd
 )
 PROGRAMMING=(
   go
 )
-
-# Optional quality-of-life
-#TRA_PACKAGES=(sudo vim htop jq zsh fzf ripgrep kmonad)
 
 # ==========================================
 # SANITY CHECKS
@@ -66,15 +66,15 @@ pacman -Syu --noconfirm
 echo "==> Installing base tooling…"
 pacman -S --needed --noconfirm base-devel ${EXTRA_PACKAGES[*]}
 
-# ==========================================
-# MICROCODE + GPU DRIVERS (autodetect)
-# ==========================================
-echo "==> Installing CPU microcode…"
-if lscpu | grep -qi AMD; then
-  pacman -S --needed --noconfirm amd-ucode
-elif lscpu | grep -qi Intel; then
-  pacman -S --needed --noconfirm intel-ucode
-fi
+# # ==========================================
+# # MICROCODE + GPU DRIVERS (autodetect)
+# # ==========================================
+# echo "==> Installing CPU microcode…"
+# if lscpu | grep -qi AMD; then
+#   pacman -S --needed --noconfirm amd-ucode
+# elif lscpu | grep -qi Intel; then
+#   pacman -S --needed --noconfirm intel-ucode
+# fi
 
 echo "==> Detecting GPU and installing drivers…"
 if lspci | grep -E "VGA|3D" | grep -qi nvidia; then
@@ -129,22 +129,20 @@ fi
 # ==========================================
 # OPTIONAL: PARU (AUR helper)
 # ==========================================
-if $INSTALL_PARU; then
-  echo "==> Installing paru (AUR helper)…"
-  sudo -u "$USERNAME" bash -lc '
-    if command -v paru >/dev/null 2>&1; then
-      echo "paru already installed."
-    else
-      git clone --depth=1 https://aur.archlinux.org/paru-bin.git /tmp/paru
-      cd /tmp/paru && makepkg -si --noconfirm
-    fi
-  '
+echo "==> Installing paru (AUR helper)…"
+sudo -u "$USERNAME" bash -lc '
+if command -v paru >/dev/null 2>&1; then
+  echo "paru already installed."
+else
+  git clone --depth=1 https://aur.archlinux.org/paru-bin.git /tmp/paru
+  cd /tmp/paru && makepkg -si --noconfirm
 fi
+'
 
-mkdir -p /etc/systemd/system/getty@tty1.service.d                                                                                       ─╯
+mkdir -p /etc/systemd/system/getty@tty1.service.d
 echo "[Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin $USERNAME --noclear %I $TERM
+ExecStart=-/usr/bin/agetty --noreset --noclear --autologin $USERNAME  %I \${TERM}
 " > /etc/systemd/system/getty@tty1.service.d/override.conf
 
 # ==========================================
@@ -160,13 +158,6 @@ org.freedesktop.impl.portal.Settings=hyprland
 org.freedesktop.impl.portal.Screencast=hyprland
 org.freedesktop.impl.portal.Screenshot=hyprland
 EOF
-
-# Create a minimal env file for Wayland apps (optional, safe defaults)
-echo "==> Writing /etc/environment Wayland hints (non-destructive append)…"
-{
-  grep -q '^XDG_CURRENT_DESKTOP=' /etc/environment || echo 'XDG_CURRENT_DESKTOP=Hyprland'
-  grep -q '^XDG_SESSION_TYPE=' /etc/environment || echo 'XDG_SESSION_TYPE=wayland'
-} || true
 
 # ==========================================
 # DONE
