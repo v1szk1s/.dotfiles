@@ -17,7 +17,7 @@ DEFAULT_SHELL="/bin/zsh"                 # /bin/zsh or /bin/bash
 
 # Hyprland + Wayland essentials (tweak freely)
 WAYLAND_PACKAGES=(
-  uwsm man-db man-pages texinfo
+  uwsm man-db man-pages texinfo swayosd
   hyprland hyprpaper hyprlock hypridle hyprpicker
   xdg-desktop-portal xdg-desktop-portal-hyprland xdg-user-dirs
   waybar alacritty nwg-displays
