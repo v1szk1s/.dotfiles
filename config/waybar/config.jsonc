@@ -12,7 +12,7 @@
 		"mpris",
 		"tray",
 		"network",
-		// "bluetooth",
+		"bluetooth",
 		"hyprland/language",
 		"group/pulseaudio",
 		"battery"
@@ -37,7 +37,7 @@
 		"events": {
 			"on-discharging-warning": "notify-send 'Low Battery' '{capacity}% battery remaining'",
 			"on-discharging-critical": "notify-send 'Low Battery' '{capacity}% battery remaining' -u critical",
-			"on-charging-100": "notify-send 'Battery full' 'Battery is at {capacity}%'"
+			"on-charging-100": "notify-send 'Battery full'"
 		}
 	},
 
@@ -49,8 +49,8 @@
 		"format-connected": "󰂱",
 		"min-length": 2,
 		"max-length": 2,
-		"on-click": "alacritty --class=TUI.float -e nmtui",
-		"on-click-right": "bluetoothctl power off && notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' -r 1925",
+		"on-click": "alacritty --class=TUI.float -e bluetui",
+		// "on-click-right": "bluetoothctl power off && notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' -r 1925",
 		"tooltip-format": "Device Addr: {device_address}",
 		"tooltip-format-disabled": "Bluetooth Disabled",
 		"tooltip-format-off": "Bluetooth Off",
@@ -63,16 +63,23 @@
 
 	"clock#time": {
 		"format": "{:%H:%M}",
-		"min-length": 5,
-		"max-length": 5,
-		"tooltip-format": "Standard Time: {:%I:%M %p}"
-	},
-
-	"hyprland/language": {
-		// "format": " {}",
-		"format": "{}",
-		"format-en": "EN",
-		"format-hu": "HU"
+		"min-length": 8,
+		"max-length": 8,
+		"tooltip-format": "{calendar}",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 6,
+			"format": {
+				"months": "<span alpha='100%'><b>{}</b></span>",
+				"days": "<span alpha='90%'>{}</span>",
+				"weekdays": "<span alpha='80%'><i>{}</i></span>",
+				// "today": "<span alpha='100%'><b><u>{}</u></b></span>"
+				"today": "<span background='white' foreground='black'><b>{}</b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "mode"
+		}
 	},
 
 	"clock#date": {
@@ -94,6 +101,7 @@
 			"on-click": "mode"
 		}
 	},
+
 
 	"cpu": {
 		"interval": 10,
