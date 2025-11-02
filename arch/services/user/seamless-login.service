@@ -1,0 +1,13 @@
+[Unit]
+Description=Hyprland Wayland Compositor
+After=graphical-session-pre.target
+Wants=graphical-session-pre.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/uwsm start hyprland
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
+

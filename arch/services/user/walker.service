@@ -1,0 +1,12 @@
+[Unit]
+Description=walker
+Wants=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/uwsm app -- /usr/bin/walker --gapplication-service
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

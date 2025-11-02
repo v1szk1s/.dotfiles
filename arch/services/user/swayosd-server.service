@@ -1,0 +1,12 @@
+[Unit]
+Description=swayosd-server
+Wants=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/uwsm app -- /usr/bin/swayosd-server
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
