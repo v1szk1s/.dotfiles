@@ -11,7 +11,7 @@ return {
 
 
         configs.setup({
-            ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "graphql", "html" },
+            ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "graphql", "html", "asm" },
             sync_install = false,
             auto_install = true;
             highlight = { enable = true },

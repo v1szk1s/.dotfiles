@@ -102,6 +102,12 @@
 		}
 	},
 
+	"hyprland/language": {
+		// "format": " {}",
+		"format": "{}",
+		"format-en": "EN",
+		"format-hu": "HU"
+	},
 
 	"cpu": {
 		"interval": 10,
