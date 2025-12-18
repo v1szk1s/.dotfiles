@@ -1,40 +1,50 @@
-return {
-  -- Autocompletion
-  'saghen/blink.cmp',
-  event = 'VimEnter',
-  version = '1.*',
-  dependencies = {
-    -- Snippet Engine
-    {
-      'L3MON4D3/LuaSnip',
-      version = '2.*',
-      build = (function()
-        -- Build Step is needed for regex support in snippets.
-        -- This step is not supported in many windows environments.
-        -- Remove the below condition to re-enable on windows.
-        if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-          return
-        end
-        return 'make install_jsregexp'
-      end)(),
-      dependencies = {
-        -- `friendly-snippets` contains a variety of premade snippets.
-        --    See the README about individual language/framework/plugin snippets:
-        --    https://github.com/rafamadriz/friendly-snippets
-        -- {
-        --   'rafamadriz/friendly-snippets',
-        --   config = function()
-        --     require('luasnip.loaders.from_vscode').lazy_load()
-        --   end,
-        -- },
-      },
-      opts = {},
-    },
-    'folke/lazydev.nvim',
-  },
-  --- @module 'blink.cmp'
-  --- @type blink.cmp.Config
-  opts = {
+vim.pack.add({
+    'https://www.github.com/L3MON4D3/LuaSnip',
+    'https://www.github.com/saghen/blink.cmp',
+})
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local spec = ev.data.spec
+    local name = spec and spec.name
+    local kind = ev.data.kind
+    local path = ev.data.path
+
+    if name == "LuaSnip" and (kind == "install" or kind == "update") then
+      if vim.fn.executable("make") ~= 1 then
+        vim.notify("LuaSnip: make not found; cannot install_jsregexp", vim.log.levels.WARN)
+        return
+      end
+
+      vim.notify("LuaSnip: running make install_jsregexp in " .. path)
+      vim.system({ "make", "install_jsregexp" }, { cwd = path }, function(res)
+        vim.schedule(function()
+          vim.notify(
+            ("LuaSnip: install_jsregexp exit=%d\n%s\n%s"):format(
+              res.code, res.stdout or "", res.stderr or ""
+            ),
+            res.code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+          )
+        end)
+      end)
+    end
+  end,
+})
+
+-- local function pack_hooks(ev)
+--   local name = ev.data.spec.name
+--   local kind = ev.data.kind
+--
+--   if name == "LuaSnip" and (kind == "install" or kind == "update") then
+--     if vim.fn.executable("make") == 1 then
+--       vim.system({ "make install_jsregexp" }, { cwd = ev.data.path })
+--     end
+--   end
+-- end
+--
+-- vim.api.nvim_create_autocmd("PackChanged", { callback = pack_hooks })
+
+require('blink-cmp').setup({
     keymap = {
       -- 'default' (recommended) for mappings similar to built-in completions
       --   <c-y> to accept ([y]es) the completion.
@@ -57,7 +67,7 @@ return {
       -- <c-k>: Toggle signature help
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      preset = 'enter',
+      preset = 'default',
 
       -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
       --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -84,16 +94,9 @@ return {
 
     snippets = { preset = 'luasnip' },
 
-    -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
-    -- which automatically downloads a prebuilt binary when enabled.
-    --
     -- By default, we use the Lua implementation instead, but you may enable
     -- the rust implementation via `'prefer_rust_with_warning'`
-    --
     -- See :h blink-cmp-config-fuzzy for more information
     fuzzy = { implementation = 'lua' },
-
-    -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true },
-  },
-}
+  })

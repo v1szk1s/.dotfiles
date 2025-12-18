@@ -1,37 +1,21 @@
-return {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+vim.pack.add({
+  {
+    src = "https://www.github.com/nvim-treesitter/nvim-treesitter",
+    version = "master",
+  },
+})
 
-    dependencies  =  {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-    },
+local function pack_hooks(ev)
+  local name = ev.data.spec.name
+  local kind = ev.data.kind
 
-    config = function ()
-        local configs = require("nvim-treesitter.configs")
+  if name == "LuaSnip" and (kind == "install" or kind == "update") then
+    vim.cmd("TSUpdate")
+  end
+end
 
+vim.api.nvim_create_autocmd("PackChanged", { callback = pack_hooks })
 
-        configs.setup({
-            ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "graphql", "html", "asm" },
-            sync_install = false,
-            auto_install = true;
-            highlight = { enable = true },
-            indent = { enable = true },
-            textobjects = {
-                select = {
-                    enable = true,
-                    -- Automatically jump forward to textobj, similar to targets.vim
-                    lookahead = true,
+vim.cmd("packadd nvim-treesitter")
 
-                    keymaps = {
-                        -- You can use the capture groups defined in textobjects.scm
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["ac"] = "@class.outer",
-                        ["ic"] = "@class.inner",
-                    },
-                },
-            },
-        })
-    end
-}
-
+require('nvim-treesitter').install({ 'go', 'javascript', 'typescript', 'html', 'lua' })
