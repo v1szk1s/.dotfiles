@@ -1,8 +1,6 @@
 require("opt")
 require("remap")
--- require("lsp")
 require("plugins")
--- require("hulu.status-line")
 
 local augroup = vim.api.nvim_create_augroup
 

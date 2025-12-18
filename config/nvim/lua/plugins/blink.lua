@@ -3,18 +3,46 @@ vim.pack.add({
     'https://www.github.com/saghen/blink.cmp',
 })
 
-local function pack_hooks(ev)
-  local name = ev.data.spec.name
-  local kind = ev.data.kind
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local spec = ev.data.spec
+    local name = spec and spec.name
+    local kind = ev.data.kind
+    local path = ev.data.path
 
-  if name == "LuaSnip" and (kind == "install" or kind == "update") then
-    if vim.fn.executable("make") == 1 then
-      vim.system({ "make install_jsregexp" }, { cwd = ev.data.path })
+    if name == "LuaSnip" and (kind == "install" or kind == "update") then
+      if vim.fn.executable("make") ~= 1 then
+        vim.notify("LuaSnip: make not found; cannot install_jsregexp", vim.log.levels.WARN)
+        return
+      end
+
+      vim.notify("LuaSnip: running make install_jsregexp in " .. path)
+      vim.system({ "make", "install_jsregexp" }, { cwd = path }, function(res)
+        vim.schedule(function()
+          vim.notify(
+            ("LuaSnip: install_jsregexp exit=%d\n%s\n%s"):format(
+              res.code, res.stdout or "", res.stderr or ""
+            ),
+            res.code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+          )
+        end)
+      end)
     end
-  end
-end
+  end,
+})
 
-vim.api.nvim_create_autocmd("PackChanged", { callback = pack_hooks })
+-- local function pack_hooks(ev)
+--   local name = ev.data.spec.name
+--   local kind = ev.data.kind
+--
+--   if name == "LuaSnip" and (kind == "install" or kind == "update") then
+--     if vim.fn.executable("make") == 1 then
+--       vim.system({ "make install_jsregexp" }, { cwd = ev.data.path })
+--     end
+--   end
+-- end
+--
+-- vim.api.nvim_create_autocmd("PackChanged", { callback = pack_hooks })
 
 require('blink-cmp').setup({
     keymap = {

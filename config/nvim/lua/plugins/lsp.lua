@@ -1,5 +1,6 @@
 vim.pack.add({
   'https://github.com/mason-org/mason.nvim',
+  'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/mason-org/mason-lspconfig.nvim',
   'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -52,10 +53,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-    ---@param client vim.lsp.Client
-    ---@param method vim.lsp.protocol.Method
-    ---@param bufnr? integer some lsp support methods only in specific files
-    ---@return boolean
     local function client_supports_method(client, method, bufnr)
       if vim.fn.has 'nvim-0.11' == 1 then
         return client:supports_method(method, bufnr)
@@ -136,5 +133,13 @@ vim.diagnostic.config {
 }
 
 require("mason").setup()
+require('mason-tool-installer').setup {
+  ensure_installed = {
+    'golangci-lint',
+    { 'gopls', condition = function() return vim.fn.executable('go') == 1  end },
+    'lua-language-server',
+    'stylua',
+  },
+}
 
 vim.lsp.enable({'clangd', 'lua_ls', 'tsserver', 'gopls'})

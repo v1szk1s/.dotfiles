@@ -1,8 +1,6 @@
 vim.pack.add({
-    -- 'https://www.github.com/tpope/vim-abolish', -- better replace
-    -- 'https://www.github.com/tpope/vim-eunuch',
+    'https://www.github.com/tpope/vim-abolish', -- better replace
     'https://www.github.com/tpope/vim-fugitive',  -- manage git
-    -- 'https://www.github.com/tpope/vim-unimpaired', -- Pairs of handy bracket mappings
     'https://www.github.com/tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
     'https://www.github.com/tpope/vim-surround',
     'https://www.github.com/tpope/vim-repeat', -- to be able to repeat surround
@@ -10,7 +8,7 @@ vim.pack.add({
     'https://www.github.com/mattn/emmet-vim',
     -- 'https://www.github.com/lervag/vimtex',
     'https://www.github.com/mbbill/undotree',
-    -- 'https://www.github.com/norcalli/nvim-colorizer.lua',
+    'https://www.github.com/norcalli/nvim-colorizer.lua',
     'https://www.github.com/nvim-lua/plenary.nvim',
     'https://www.github.com/folke/lazydev.nvim',
     {
@@ -44,6 +42,7 @@ vim.g.vimtex_view_method = 'zathura'
 -- undotree
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>");
 
+-- colorizer
 
 -- load plugins from plugins dir
 local plugins = vim.api.nvim_get_runtime_file("lua/plugins/*.lua", true)
