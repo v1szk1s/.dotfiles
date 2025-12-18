@@ -27,6 +27,7 @@ WAYLAND_PACKAGES=(
   polkit-gnome dolphin thunar-archive-plugin file-roller gvfs gvfs-mtp udiskie udisks2
   ttf-nerd-fonts-symbols ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-0xproto-nerd
   git curl wget unzip zip tar firefox plymouth ueberzugpp zathura zathura-pdf-mupdf
+  tree-sitter-cli
 )
 MUST_HAVE_AUX_PACKAGES=(
   audacity libreoffice-fresh libreoffice-fresh-hu
