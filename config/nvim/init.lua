@@ -1,1 +1,1 @@
-require('hulu')
+require('init')

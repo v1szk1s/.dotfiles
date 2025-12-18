@@ -1,105 +1,52 @@
-return {
-    -- 'tpope/vim-abolish', -- better replace
-    -- 'tpope/vim-eunuch',
-    -- 'vuciv/golf',
+vim.pack.add({
+    -- 'https://www.github.com/tpope/vim-abolish', -- better replace
+    -- 'https://www.github.com/tpope/vim-eunuch',
+    'https://www.github.com/tpope/vim-fugitive',  -- manage git
+    -- 'https://www.github.com/tpope/vim-unimpaired', -- Pairs of handy bracket mappings
+    'https://www.github.com/tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
+    'https://www.github.com/tpope/vim-surround',
+    'https://www.github.com/tpope/vim-repeat', -- to be able to repeat surround
+    'https://www.github.com/stevearc/oil.nvim',
+    'https://www.github.com/mattn/emmet-vim',
+    -- 'https://www.github.com/lervag/vimtex',
+    'https://www.github.com/mbbill/undotree',
+    -- 'https://www.github.com/norcalli/nvim-colorizer.lua',
+    'https://www.github.com/nvim-lua/plenary.nvim',
+    'https://www.github.com/folke/lazydev.nvim',
+    {
+      src = 'https://www.github.com/ThePrimeagen/harpoon',
+      version = 'harpoon2'
+    },
+})
 
-    {
-        'sbdchd/neoformat',
-        init = function ()
-            vim.g.neoformat_try_node_exe = 1
-        end
+-- oil
+require("oil").setup({
+    skip_confirm_for_simple_edits = true,
+    view_options = {
+        show_hidden = true,
     },
-    'tpope/vim-unimpaired', -- Pairs of handy bracket mappings
-    'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
-    'tpope/vim-surround',
-    'tpope/vim-repeat', -- to be able to repeat surround
-    {
-        'stevearc/oil.nvim',
-        init = function()
-            require("oil").setup({
-                skip_confirm_for_simple_edits = true,
-                keymaps = {
-                    -- ["l"] = "actions.select",
-                    -- ["h"] = { "actions.parent", mode = "n" },
-                },
-                view_options = {
-                    show_hidden = true,
-                },
-            })
-            vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
-        end,
-    },
+})
+vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
 
-    -- {
-    --     "NeogitOrg/neogit",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --         "sindrets/diffview.nvim",
-    --         "nvim-telescope/telescope.nvim",
-    --     },
-    -- },
+-- fugitive
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+vim.keymap.set({"n", "v"}, "<leader>gh", ":diffget //2<cr>");
+vim.keymap.set({"n", "v"}, "<leader>gl", ":diffget //3<cr>");
 
-    {
-        'tpope/vim-fugitive',
-        config = function()
-            vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
-            vim.keymap.set({"n", "v"}, "<leader>gh", ":diffget //2<cr>");
-            vim.keymap.set({"n", "v"}, "<leader>gl", ":diffget //3<cr>");
-        end
-    },
+-- emett
+vim.g.user_emmet_leader_key='<C-q>'
+vim.cmd("imap ,, <C-q>,")
+vim.cmd("vmap ,, <C-q>,")
 
-    {
-        'mattn/emmet-vim',
-        init = function ()
-            vim.g.user_emmet_leader_key='<C-q>'
+-- vimtex
+vim.g.vimtex_view_method = 'zathura'
 
-            vim.cmd("imap ,, <C-q>,")
-            vim.cmd("vmap ,, <C-q>,")
-         end
-    },
-    {
-        "lervag/vimtex",
-        init = function()
-            vim.g.vimtex_view_method = 'zathura'
-        end
-    },
-    -- {
-    --     "folke/zen-mode.nvim",
-    --     opts = {
-    --         plugins = {
-    --             tmux = { enabled = false },
-    --         }
-    --     },
-    --     keys = {
-    --         { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
-    --     },
-    -- },
-    {
-        'mbbill/undotree',
-        keys = {
-            { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree" },
-        },
-    },
-    {
-        'norcalli/nvim-colorizer.lua',
-        config = function()
-            require 'colorizer'.setup {
-                '*'; -- Highlight all files, but customize some others.
-                css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
-                html = { names = false; } -- Disable parsing "names" like Blue or Gray
-            }
-        end
-    },
-    -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    --     'lewis6991/gitsigns.nvim',
-    --     opts = {
-    --         signs = {
-    --             add = { text = '+' },
-    --             change = { text = '~' },
-    --             delete = { text = '_' },
-    --             topdelete = { text = '‾' },
-    --             changedelete = { text = '~' },
-    --         },
-    --     },
-    -- },
-}
+-- undotree
+vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>");
+
+
+-- load plugins from plugins dir
+local plugins = vim.api.nvim_get_runtime_file("lua/plugins/*.lua", true)
+for _, file in ipairs(plugins) do
+    pcall(require, file:match(".*/lua/(.+)%.lua$"):gsub('/', '.'))
+end
