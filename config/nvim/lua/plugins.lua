@@ -1,3 +1,5 @@
+require('plugin_hooks').setup()
+
 vim.pack.add({
     'https://www.github.com/tpope/vim-abolish', -- better replace
     'https://www.github.com/tpope/vim-fugitive',  -- manage git
@@ -12,8 +14,8 @@ vim.pack.add({
     'https://www.github.com/nvim-lua/plenary.nvim',
     'https://www.github.com/folke/lazydev.nvim',
     {
-      src = 'https://www.github.com/ThePrimeagen/harpoon',
-      version = 'harpoon2'
+        src = 'https://www.github.com/ThePrimeagen/harpoon',
+        version = 'harpoon2'
     },
 })
 

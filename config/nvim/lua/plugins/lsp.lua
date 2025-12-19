@@ -8,6 +8,12 @@ vim.pack.add({
   'https://www.github.com/pmizio/typescript-tools.nvim',
 })
 
+require('fidget').setup({
+  notification = {
+    override_vim_notify = true,
+  }
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('v1szk1s-lsp-attach', { clear = true }),
 
@@ -33,7 +39,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Jump to the definition of the word under your cursor.
     --  This is where a variable was first declared, or where a function is defined, etc.
     --  To jump back, press <C-t>.
-    map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+    map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
     -- WARN: This is not Goto Definition, this is Goto Declaration.
     --  For example, in C this would take you to the header.
@@ -54,11 +60,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
     local function client_supports_method(client, method, bufnr)
-      if vim.fn.has 'nvim-0.11' == 1 then
-        return client:supports_method(method, bufnr)
-      else
-        return client.supports_method(method, { bufnr = bufnr })
-      end
+      return client:supports_method(method, bufnr)
     end
 
     -- The following two autocommands are used to highlight references of the

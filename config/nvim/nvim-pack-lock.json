@@ -50,6 +50,10 @@
       "src": "https://www.github.com/nvim-treesitter/nvim-treesitter",
       "version": "'master'"
     },
+    "nvim-treesitter-textobjects": {
+      "rev": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef",
+      "src": "https://www.github.com/nvim-treesitter/nvim-treesitter-textobjects"
+    },
     "oil.nvim": {
       "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
       "src": "https://www.github.com/stevearc/oil.nvim"

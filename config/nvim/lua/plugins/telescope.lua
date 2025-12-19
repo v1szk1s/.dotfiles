@@ -3,19 +3,6 @@ vim.pack.add({
     'https://www.github.com/nvim-telescope/telescope.nvim',
 })
 
-local function pack_hooks(ev)
-  local name = ev.data.spec.name
-  local kind = ev.data.kind
-
-  if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
-    if vim.fn.executable("make") == 1 then
-      vim.system({ "make" }, { cwd = ev.data.path })
-    end
-  end
-end
-
-vim.api.nvim_create_autocmd("PackChanged", { callback = pack_hooks })
-
 require("telescope").setup({
   pickers = {
     find_files = {
@@ -52,9 +39,7 @@ local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
-vim.keymap.set("n", "<c-f>", builtin.find_files, { desc = "Search Files" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search Grep" })
-vim.keymap.set("n", "<c-g>", builtin.live_grep, { desc = "Search Grep" })
 vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[F]ind current [W]ord" })
