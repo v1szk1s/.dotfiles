@@ -48,3 +48,8 @@ window#waybar {
 #workspaces button.active {
     color: white;
 }
+
+#custom-wireguard.wg-on { color: #a6e3a1; }
+#custom-wireguard.wg-idle { color: #f9e2af; }
+#custom-wireguard.wg-off { color: #f38ba8; }
+

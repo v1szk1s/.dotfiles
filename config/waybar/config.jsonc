@@ -12,6 +12,7 @@
 		"mpris",
 		"tray",
 		"network",
+		"custom/wireguard",
 		"bluetooth",
 		"hyprland/language",
 		"group/pulseaudio",
@@ -245,5 +246,15 @@
 			"*": 5
 		},
 		"cursor": true
+	},
+	"custom/wireguard": {
+		"exec": "~/.dotfiles/config/waybar/scripts/wireguard.sh wg0",
+		"return-type": "json",
+		"interval": 3,
+		"format": "{text}",
+		// "on-click": "systemctl start wg-quick@wg0.service || systemctl stop wg-quick@wg0.service",
+		"on-click": "systemctl is-active --quiet wg-quick@wg0.service && systemctl stop wg-quick@wg0.service || systemctl start wg-quick@wg0.service",
+		// "on-click-right": "alacritty --class=TUI.float -e sudo wg show wg0",
+		"tooltip": true
 	},
 }
