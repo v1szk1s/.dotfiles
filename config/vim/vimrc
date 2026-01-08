@@ -1,9 +1,6 @@
 set history=5000
 let mapleader=" "
 
-
-" vimtex
-
 " Basic settings
 set nocompatible
 set noswapfile
@@ -55,76 +52,7 @@ let g:netrw_winsize=25
 let g:netrw_winsize=25
 let g:netrw_liststyle=0
 
-let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'Normal·Operator Pending',
-    \ 'v'  : 'Visual',
-    \ 'V'  : 'V·Line',
-    \ '^V' : 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '^S' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'Replace',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \ 't'  : 'Terminal'
-    \}
-
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-
-""""""""""""
-" Status line
-""""""""""""
-set laststatus=2
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
-  else
-    hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
-  endif
-endfunction
-
-hi Status1 guifg=#008080 guibg=#fabd2f
-hi Status2 guifg=#F6955B guibg=#38A89D
-
-" au InsertEnter * call InsertStatuslineColor(v:insertmode)
-" au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
-
-" default the statusline to green when entering Vim
-" hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
-
-" hi Normal guibg=NONE ctermbg=NONE
-" set noshowmode
-
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
-set statusline+=\ \ %f\ \                            " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%y      "filetype
-set statusline+=%h      "help file flag
-set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]
-"modified flag
-
-set statusline+=%r      "read only flag
-
-set statusline+=\ %=                        " align left
-set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ Col:%c                    " current column
-set statusline+=\ Buf:%n                    " Buffer number
-set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
-
-
-
-"
-"nerdtree
-" au vimenter * if !argc() | NERDTree | endif
 
 filetype plugin on
 
@@ -133,71 +61,19 @@ filetype plugin on
 """"""""""""
 " nnoremap <leader>f :GFiles<cr>
 nnoremap <leader>sf :Files<cr>
-nnoremap <leader><leader> :FZF<cr>
-
-nnoremap <leader>w :w<cr>
-nnoremap <leader>q :q<cr>
-
-nnoremap <leader>gs :G<cr
-
-" moving between splits
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
+nnoremap <leader>gs :G<cr>
 nmap Q <Nop>
-
 nnoremap <C-n> :let @z=expand('%:t') \| Ex<cr>/<c-r>z<cr>
-
-
-""""""""""
-"comments:
-" dictionaries
-"""""""""
-"autocmd FileType python nnoremap <buffer> <leader>c I#<esc>
-" au FileType * execute 'setlocal dict+=~/.vim/words/'.&filetype.'.txt'
-au BufRead,BufNewFile *.ejs setfiletype html
-au BufRead,BufNewFile *.mod setfiletype ampl
-au BufRead,BufNewFile *.dat setfiletype ampl
-au BufRead,BufNewFile *.run setfiletype ampl
-
-"autocmd FileType vim nnoremap <buffer> <leader>c I"<esc>
-
-
-
-" Plugins
-
 call plug#begin()
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    " Plug 'vim-scripts/AutoComplPop'
     Plug 'mattn/emmet-vim'
-    " Plug 'lervag/vimtex'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-repeat'
-
-    Plug 'jremmen/vim-ripgrep'
+    Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
+    Plug 'jremmen/vim-ripgrep'
 call plug#end()
-
-"""""""""""""
-" Functions"
-"""""""""""""
-:function ToggleList()
-:  if &list == 1
-:    set nolist
-:  else
-:    set list
-:  endif
-:endfunction
-
-:function ToggleWrap()
-:  if &wrap == 1
-:    set nowrap
-:  else
-:    set wrap
-:  endif
-:endfunction
