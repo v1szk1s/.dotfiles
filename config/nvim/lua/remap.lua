@@ -15,3 +15,8 @@ vim.keymap.set("n", "<leader>d", '[["_d]]')
 vim.keymap.set("n", "Q", "@q")
 
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("n", "<leader>o", function()
+    vim.diagnostic.open_float(nil, { focus = false })
+end, { desc = "Show line diagnostics" })
+
