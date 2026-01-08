@@ -106,6 +106,7 @@ zvm_after_init() {
 # export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 # export _JAVA_AWT_WM_NONREPARENTING=1
 

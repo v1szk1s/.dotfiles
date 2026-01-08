@@ -18,3 +18,4 @@ export PATH=$DOTFILES/bin:$HOME/.local/bin:$PATH
 if [[ $OSTYPE == 'darwin'* ]]; then
     export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 fi
+. "$HOME/.cargo/env"
