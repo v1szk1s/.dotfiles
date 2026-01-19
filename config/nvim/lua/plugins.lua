@@ -29,7 +29,11 @@ require("oil").setup({
 vim.keymap.set("n", "<c-n>", ":Oil<cr>", {silent = true})
 
 -- fugitive
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+
+vim.keymap.set("n", "<c-g>", function()
+    vim.cmd("Git | only")
+end
+);
 vim.keymap.set({"n", "v"}, "<leader>gh", ":diffget //2<cr>");
 vim.keymap.set({"n", "v"}, "<leader>gl", ":diffget //3<cr>");
 
