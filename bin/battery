@@ -5,9 +5,16 @@ case $BLOCK_BUTTON in
   1) notify-send "Battery Status" "$(acpi -b)" ;; # left click
 esac
 
-# Check battery info
-capacity=$(cat /sys/class/power_supply/BAT*/capacity)
-status=$(cat /sys/class/power_supply/BAT*/status)
+BATTERY_INFO="$(pmset -g batt)"
+
+if [[ $OSTYPE =~ darwin.* ]]; then
+    capacity=$(echo "$BATTERY_INFO" | grep -Eo "\d+%" | cut -d% -f1)
+    status=$(echo "$BATTERY_INFO" | grep 'AC Power')
+else
+    capacity=$(cat /sys/class/power_supply/BAT*/capacity)
+    status=$(cat /sys/class/power_supply/BAT*/status)
+fi
+
 
 # Icon based on status and charge
 if [[ "$status" == "Charging" ]]; then

@@ -11,17 +11,7 @@ shift + alt + cmd + ctrl - k : kmonad
 shift + alt + cmd + ctrl - l : kkmonad
 
 
-# swap windows
-# shift + alt - j : yabai -m window --swap south
-# shift + alt - k : yabai -m window --swap north
-# shift + alt - h : yabai -m window --swap west
-# shift + alt - l : yabai -m window --swap east
-
-
-# Float / Unfloat window: lalt - space
 lalt - space : yabai -m window --toggle float; sketchybar --trigger window_focus
-
-# Make window zoom to fullscreen: shift + lalt - f
 lalt - f : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
 
 # Make window zoom to parent node: lalt - f
@@ -33,13 +23,6 @@ shift + lalt - j : yabai -m window --warp south || $(yabai -m window --display s
 shift + lalt - k : yabai -m window --warp north || $(yabai -m window --display north && yabai -m display --focus north) || yabai -m window --move rel:0:-10
 shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
 
-
-
-## Stacks (shift + ctrl - ...)
-# Add the active window to the window or stack to the {direction}: shift + ctrl - {j, k, l, ö}
-# shift + ctrl - h    : yabai -m window  west --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
-# shift + ctrl - j    : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
-# shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
 # shift + ctrl - l : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id') # && sketchybar --trigger window_focus
 
 # Stack Navigation: shift + ctrl - {n, p}
@@ -92,6 +75,7 @@ shift + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7 # ; yabai 
 shift + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8 # ; yabai -m window --focus recent
 shift + alt - 9 : yabai -m window --space 9; yabai -m space --focus 9 # ; yabai -m window --focus recent
 
+
 # focus to space #
 alt - 1 : yabai -m space --focus 1;
 alt - 2 : yabai -m space --focus 2;
@@ -102,3 +86,6 @@ alt - 6 : yabai -m space --focus 6;
 alt - 7 : yabai -m space --focus 7;
 alt - 8 : yabai -m space --focus 8;
 alt - 9 : yabai -m space --focus 9;
+
+alt - right : yabai -m space --focus next
+alt - left  : yabai -m space --focus prev

@@ -3,7 +3,7 @@ Description=KMonad keyboard remapper
 After=multi-user.target
 
 [Service]
-ExecStart=kmonad /home/v1szk1s/.dotfiles/kmonad/layout.kbd
+ExecStart=kmonad /home/v1szk1s/.dotfiles/kmonad/layout_thinkpad.kbd
 Restart=always
 RestartSec=2
 StandardOutput=journal
