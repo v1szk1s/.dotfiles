@@ -1,0 +1,260 @@
+{
+	"modules-left": [
+		"hyprland/workspaces",
+		"hyprland/windowcount",
+		"hyprland/window",
+	],
+	"modules-center": [
+		// "temperature",
+		"clock#time"
+	],
+	"modules-right": [
+		"mpris",
+		"tray",
+		"network",
+		"custom/wireguard",
+		"bluetooth",
+		"hyprland/language",
+		"group/pulseaudio",
+		"battery"
+	],
+
+	"layer": "top",
+	"mode": "dock",
+
+	"battery": {
+		"states": {
+			"warning": 20,
+			"critical": 10
+		},
+		"format": "{icon}{capacity}%",
+		"format-time": "{H} hr {M} min",
+		"format-icons": [
+			"󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
+		],
+		"format-charging": "󰉁{capacity}%",
+		"tooltip-format": "Discharging: {time}",
+		"tooltip-format-charging": "Charging: {time}",
+		"events": {
+			"on-discharging-warning": "notify-send 'Low Battery' '{capacity}% battery remaining'",
+			"on-discharging-critical": "notify-send 'Low Battery' '{capacity}% battery remaining' -u critical",
+			"on-charging-100": "notify-send 'Battery full'"
+		}
+	},
+
+	"bluetooth": {
+		"format": "󰂯",
+		"format-disabled": "󰂲",
+		"format-off": "󰂲",
+		"format-on": "󰂰",
+		"format-connected": "󰂱",
+		"min-length": 2,
+		"max-length": 2,
+		"on-click": "alacritty --class=TUI.float -e bluetui",
+		// "on-click-right": "bluetoothctl power off && notify-send 'Bluetooth Off' -i 'network-bluetooth-inactive' -r 1925",
+		"tooltip-format": "Device Addr: {device_address}",
+		"tooltip-format-disabled": "Bluetooth Disabled",
+		"tooltip-format-off": "Bluetooth Off",
+		"tooltip-format-on": "Bluetooth Disconnected",
+		"tooltip-format-connected": "Device: {device_alias}",
+		"tooltip-format-enumerate-connected": "Device: {device_alias}",
+		"tooltip-format-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%",
+		"tooltip-format-enumerate-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%"
+	},
+
+	"clock#time": {
+		"format": "{:%H:%M}",
+		"min-length": 8,
+		"max-length": 8,
+		"tooltip-format": "{calendar}",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 6,
+			"format": {
+				"months": "<span alpha='100%'><b>{}</b></span>",
+				"days": "<span alpha='90%'>{}</span>",
+				"weekdays": "<span alpha='80%'><i>{}</i></span>",
+				// "today": "<span alpha='100%'><b><u>{}</u></b></span>"
+				"today": "<span background='white' foreground='black'><b>{}</b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "mode"
+		}
+	},
+
+	"clock#date": {
+		"format": "󰸗 {:%m-%d}",
+		"min-length": 8,
+		"max-length": 8,
+		"tooltip-format": "{calendar}",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 6,
+			"format": {
+				"months": "<span alpha='100%'><b>{}</b></span>",
+				"days": "<span alpha='90%'>{}</span>",
+				"weekdays": "<span alpha='80%'><i>{}</i></span>",
+				"today": "<span alpha='100%'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "mode"
+		}
+	},
+
+	"hyprland/language": {
+		// "format": " {}",
+		"format": "{}",
+		"format-en": "EN",
+		"format-hu": "HU"
+	},
+
+	"cpu": {
+		"interval": 10,
+		"format": "󰍛 {usage}%",
+		"format-warning": "󰀨 {usage}%",
+		"format-critical": "󰀨 {usage}%",
+		"min-length": 7,
+		"max-length": 7,
+		"states": {
+			"warning": 75,
+			"critical": 90
+		},
+		"tooltip": false
+	},
+
+	"memory": {
+		"interval": 10,
+		"format": "󰘚 {percentage}%",
+		"format-warning": "󰀧 {percentage}%",
+		"format-critical": "󰀧 {percentage}%",
+		// "rotate":
+		"states": {
+			"warning": 75,
+			"critical": 90
+		},
+		"min-length": 7,
+		"max-length": 7,
+		"tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB"
+	},
+
+	"tray": {
+		"spacing": 7
+	},
+
+	"mpris": {
+		"format": "{player_icon} {title} - {artist}",
+		"player-icons": {
+			"default": "󰐊"
+		},
+		"status-icons": {
+			"paused": "󰏤"
+		},
+		"max-length": 40
+	},
+
+	"network": {
+		"interval": 10,
+		"format": "󰤨",
+		"format-ethernet": "󰈀",
+		"format-wifi": "{icon}",
+		"format-disconnected": "󰤯",
+		"format-disabled": "󰤮",
+		"format-icons": [
+			"󰤟", "󰤢", "󰤥", "󰤨"
+		],
+		"min-length": 2,
+		"max-length": 2,
+		"on-click": "alacritty --class=TUI.float -e impala",
+		"on-click-right": "nmcli radio wifi off && notify-send 'Wi-Fi Disabled' -i 'network-wireless-off' -r 1125",
+		"tooltip-format": "Gateway: {gwaddr}",
+		"tooltip-format-ethernet": "Interface: {ifname}",
+		"tooltip-format-wifi": "Network: {essid}\nIP Addr: {ipaddr}/{cidr}\nStrength: {signalStrength}%\nFrequency: {frequency} GHz",
+		"tooltip-format-disconnected": "Wi-Fi Disconnected",
+		"tooltip-format-disabled": "Wi-Fi Disabled"
+	},
+
+	"group/pulseaudio": {
+		"orientation": "horizontal",
+		"modules": [
+			"pulseaudio#output"
+		],
+		"drawer": {
+			"transition-left-to-right": false
+		}
+	},
+
+	"pulseaudio#output": {
+		"format": "{icon} {volume}%",
+		"format-muted": "{icon} {volume}%",
+		"format-icons": {
+			"default": [ "󰕿", "󰖀", "󰕾" ],
+			"default-muted": "󰝟",
+			"headphone": "󰋋",
+			"headphone-muted": "󰟎",
+			"headset": "󰋎",
+			"headset-muted": "󰋐"
+		},
+	},
+
+	"pulseaudio#input": {
+		"format": "{format_source}",
+		"format-source": "󰍬 {volume}%",
+		"format-source-muted": "󰍭 {volume}%",
+		"min-length": 7,
+		"max-length": 7,
+	},
+
+	"temperature": {
+		"thermal-zone": 1,
+		"critical-threshold": 90,
+		"interval": 10,
+		"format-critical": "󰀦 {temperatureC}°C",
+		"format": "{icon} {temperatureC}°C",
+		"format-icons": [
+			"󱃃", "󰔏", "󱃂"
+		],
+		"min-length": 8,
+		"max-length": 8,
+		"tooltip-format": "Temp in Fahrenheit: {temperatureF}°F"
+	},
+
+	"hyprland/window": {
+		"format": "{}",
+		"rewrite": {
+			"": "Desktop",
+			"alacritty": "Terminal",
+			"zsh": "Terminal",
+			"~": "Terminal"
+		},
+		"swap-icon-label": false
+	},
+
+	"hyprland/windowcount": {
+		"format": "[{}]",
+		"swap-icon-label": false
+	},
+
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"format-icons": {
+			"active": "",
+			"default": ""
+		},
+		"persistent-workspaces": {
+			"*": 5
+		},
+		"cursor": true
+	},
+	"custom/wireguard": {
+		"exec": "~/.dotfiles/config/waybar/scripts/wireguard.sh wg0",
+		"return-type": "json",
+		"interval": 3,
+		"format": "{text}",
+		// "on-click": "systemctl start wg-quick@wg0.service || systemctl stop wg-quick@wg0.service",
+		"on-click": "systemctl is-active --quiet wg-quick@wg0.service && systemctl stop wg-quick@wg0.service || systemctl start wg-quick@wg0.service",
+		// "on-click-right": "alacritty --class=TUI.float -e sudo wg show wg0",
+		"tooltip": true
+	},
+}

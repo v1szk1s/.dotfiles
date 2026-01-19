@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-case $(setxkbmap -query | grep layout | awk '{ print $2 }') in
-           us) setxkbmap hu ;;
-           hu) setxkbmap us ;;
-           *) setxkbmap us ;;
-esac
-
-pkill -RTMIN+10 dwmblocks

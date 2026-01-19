@@ -1,0 +1,42 @@
+width=300
+height=80
+
+font=Monospace 12
+
+# Colors (RGBA hex or named colors)
+background-color=#282828cc
+
+# Border color and thickness
+border-color=#458588ff
+border-size=2
+
+# Corner radius (for rounded corners)
+border-radius=6
+
+# Duration before notification disappears (milliseconds)
+default-timeout=5000
+
+# Margin from screen edges in pixels
+margin=10
+
+# Icon size in pixels
+max-icon-size=32
+
+[app-name=sys]
+width=200
+height=300
+font=Monospace 12
+text-alignment=center
+outer-margin=150,0
+anchor=top-center
+margin=6
+font=JetBrainsMono Nerd Font 12
+background-color=#1e1e2e
+text-color=#cdd6f4
+#border-color=#89b4fa
+border-size=0
+default-timeout=1400
+ignore-timeout=false
+markup=1
+icons=1
+max-icon-size=32

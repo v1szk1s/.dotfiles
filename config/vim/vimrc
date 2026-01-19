@@ -1,0 +1,79 @@
+set history=5000
+let mapleader=" "
+
+" Basic settings
+set nocompatible
+set noswapfile
+set ruler
+set number
+set relativenumber
+set numberwidth=4
+set nowrap
+
+filetype plugin indent on
+syntax enable
+
+" set incsearch
+
+set noerrorbells
+set novisualbell
+
+" fuzzy find vagy mi
+set path+=**
+set wildmenu
+
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set softtabstop=4
+set smartindent
+set linebreak
+set nobackup
+" set undodir= "HOME") .. "/.vim/undodir"
+set undofile
+" set nohlsearch
+" set incsearch
+set autoread
+set noshowmode
+set termguicolors
+set scrolloff=8
+set cursorline
+set ignorecase
+set smartcase
+set updatetime=250
+set timeoutlen=300
+colo habamax
+
+
+let g:netrw_browse_split=0
+let g:netrw_banner=0
+let g:netrw_winsize=25
+let g:netrw_winsize=25
+let g:netrw_liststyle=0
+
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
+filetype plugin on
+
+""""""""""""
+" Mappings:
+""""""""""""
+" nnoremap <leader>f :GFiles<cr>
+nnoremap <leader>sf :Files<cr>
+nnoremap <leader>gs :G<cr>
+nmap Q <Nop>
+nnoremap <C-n> :let @z=expand('%:t') \| Ex<cr>/<c-r>z<cr>
+call plug#begin()
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'mattn/emmet-vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-surround'
+    Plug 'jremmen/vim-ripgrep'
+call plug#end()

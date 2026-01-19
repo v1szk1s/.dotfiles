@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+# set -eu
+
+file="${1:-}"
+cols="${2:-80}"
+rows="${3:-24}"
+
+# IMV_PIDFILE="${XDG_RUNTIME_DIR}/lf-imv.pid"
+#
+# IMV_LAST_NAME_FILE="${XDG_RUNTIME_DIR}/lf-imv.index"
+# IMV_LAST_NAME=$(cat $IMV_LAST_NAME_FILE)
+#
+# Detect tmux
+if [ -n "${TMUX-}" ]; then
+    chafa_opts="--fill=block --symbols=block"
+else
+    chafa_opts=""
+fi
+
+image() {
+    # chafa --size="${cols}x${rows}" --animate=off --polite=on --fill=block  -- "$file"
+    chafa --size="${cols}x${rows}" --animate=off --polite=on $chafa_opts -- "$file"
+    exit 0
+    # if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+    #      imv-msg "$(cat $IMV_PIDFILE)" open "$1"
+    #      imv-msg $(cat $IMV_PIDFILE) next >/dev/null 2>&1
+    # fi
+    #
+    # if [[ ! -f $IMV_PIDFILE ]] || ! kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+    #     echo "imv -w lf-preview $1 >/dev/null 2>&1 &"
+    #     imv -w lf-preview "$1" >/dev/null 2>&1 &
+    #     echo $! > "$IMV_PIDFILE"
+    #     echo "pid: $!"
+    # fi
+    #
+    # return 1
+}
+
+close_imv() {
+    if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+        imv-msg "$(cat $IMV_PIDFILE)" quit
+        rm $IMV_PIDFILE
+    fi
+}
+
+batorcat() {
+	file="$1"
+	# shift
+	if command -v bat > /dev/null 2>&1; then
+		bat --color=always --style=plain --pager=never "$file"
+	else
+		cat "$file"
+	fi
+}
+
+# Determine the MIME type of the file
+mime_type=$(file --mime-type -b "$1")
+
+case "$mime_type" in
+    application/x-tar)  # Handles .tar, .tgz, .tar.gz
+        case "$(basename "$1")" in
+            *.tgz|*.tar.gz) tar tzf "$1" ;;
+            *.tar.bz2|*.tbz2) tar tjf "$1" ;;
+            *.tar.txz|*.txz) xz --list "$1" ;;
+            *.tar) tar tf "$1" ;;
+        esac
+        ;;
+    application/zip|application/x-zip-compressed)  # Handles .zip, .jar, .war, .ear, .oxt
+        unzip -l "$1" ;;
+    application/gzip)  # Handles .gz
+        gzip -l "$1" ;;
+    application/x-rar)  # Handles .rar
+        unrar l "$1" ;;
+    application/json)  # Handles .rar
+        jq '.' "$1" ;;
+    application/javascript)  # Handles .rar
+        batorcat "$1" ;;
+    image/*)  # Handles various image formats
+        image "$1" "$2" "$3" "$4" "$5" ;;
+    text/*|application/x-shellscript)  # Handles .ino, .txt
+        batorcat "$1" ;;
+    *)  # Default case
+        file -ibL "$1" | grep -q text && batorcat "$1" || file -Lb "$1" ;;
+esac

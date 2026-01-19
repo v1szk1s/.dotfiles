@@ -3,8 +3,16 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$( { find ~/playground ~/work ~/work/repos ~/work/graphql-training  ~ $DOTFILES -mindepth 1 -maxdepth 1 -type d ! -name "\.*"; \
-        echo -e "$HOME/.dotfiles\n$HOME/.local\n$HOME/.config"; } | fzf )
+    selected=$( { find ~/playground \
+        ~/work \
+        ~/projects/ \
+        ~/work/repos \
+        ~/work/graphql-training \
+        ~ $DOTFILES \
+        $DOTFILES/config  \
+        -mindepth 1 -maxdepth 1 -type d ! -name "\.*"; \
+        echo -e "$HOME\n$HOME/.dotfiles\n$HOME/.config\n$HOME/.local"; } | fzf )
+
 #; find ~ -mindepth 1 -maxdepth 1 -type d ! -name "\.*" )| fzf)
 fi
 

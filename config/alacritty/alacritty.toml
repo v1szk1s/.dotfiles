@@ -1,0 +1,28 @@
+[general]
+
+import = ["~/.dotfiles/alacritty.config/themes/argonaut.toml"]
+
+[window]
+
+padding = { x = 3, y = 3}
+decorations = "None"
+opacity = 1
+startup_mode = "Maximized"
+title = "Terminal"
+dynamic_title = true
+
+[font]
+size = 14
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[colors.cursor]
+# cursor = "#19ecff"
+cursor = "#bd93f9"
+
+
+[cursor.style]
+shape = "Block"
+

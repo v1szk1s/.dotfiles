@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# IMV_PIDFILE="${XDG_RUNTIME_DIR}/lf-imv.pid"
+#
+# if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
+# 	imv-msg "$(cat $IMV_PIDFILE)" quit
+# fi
+exit 0
