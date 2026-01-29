@@ -8,6 +8,8 @@ vim.pack.add({
   'https://www.github.com/pmizio/typescript-tools.nvim',
 })
 
+require("typescript-tools").setup {}
+
 require('fidget').setup({
   notification = {
     override_vim_notify = true,
