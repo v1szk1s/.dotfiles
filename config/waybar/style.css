@@ -49,7 +49,10 @@ window#waybar {
     color: white;
 }
 
-#custom-wireguard.wg-on { color: #a6e3a1; }
-#custom-wireguard.wg-idle { color: #f9e2af; }
-#custom-wireguard.wg-off { color: #f38ba8; }
+#custom-wireguard.connected {
+    color: #a6e3a1; /* Green */
+}
+#custom-wireguard.disconnected {
+    color: #f38ba8; /* Red */
+}
 
