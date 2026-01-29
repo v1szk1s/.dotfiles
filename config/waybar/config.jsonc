@@ -21,6 +21,7 @@
 
 	"layer": "top",
 	"mode": "dock",
+	"spacing": 7,
 
 	"battery": {
 		"states": {
@@ -106,8 +107,9 @@
 	"hyprland/language": {
 		// "format": " {}",
 		"format": "{}",
-		"format-en": "EN",
-		"format-hu": "HU"
+		"format-en": "en",
+		"format-hu": "hu",
+		"on-click": "hyprctl switchxkblayout kmonad-output next"
 	},
 
 	"cpu": {
@@ -188,6 +190,7 @@
 	"pulseaudio#output": {
 		"format": "{icon} {volume}%",
 		"format-muted": "{icon} {volume}%",
+		"on-click": "~/.dotfiles/bin/select-sound-output.sh",
 		"format-icons": {
 			"default": [ "󰕿", "󰖀", "󰕾" ],
 			"default-muted": "󰝟",
@@ -248,12 +251,12 @@
 		"cursor": true
 	},
 	"custom/wireguard": {
-		"exec": "~/.dotfiles/config/waybar/scripts/wireguard.sh wg0",
+		"exec": "~/.dotfiles/config/waybar/scripts/wg-status.sh wg0",
 		"return-type": "json",
 		"interval": 3,
 		"format": "{text}",
 		// "on-click": "systemctl start wg-quick@wg0.service || systemctl stop wg-quick@wg0.service",
-		"on-click": "systemctl is-active --quiet wg-quick@wg0.service && systemctl stop wg-quick@wg0.service || systemctl start wg-quick@wg0.service",
+		"on-click": "~/.dotfiles/bin/wg-menu.sh",
 		// "on-click-right": "alacritty --class=TUI.float -e sudo wg show wg0",
 		"tooltip": true
 	},
