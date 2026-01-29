@@ -9,6 +9,7 @@ require("telescope").setup({
       hidden = true,
       find_command = {
         "fd", "--type", "f", "--strip-cwd-prefix",
+        "-I",
         "--hidden",
         "--exclude", ".git",
         "--exclude", "node_modules",
