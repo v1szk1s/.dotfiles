@@ -19,6 +19,9 @@ vim.pack.add({
     },
 })
 
+-- colorizer
+require("colorizer").setup()
+
 -- oil
 require("oil").setup({
     skip_confirm_for_simple_edits = true,
@@ -47,8 +50,6 @@ vim.g.vimtex_view_method = 'zathura'
 
 -- undotree
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>");
-
--- colorizer
 
 -- load plugins from plugins dir
 local plugins = vim.api.nvim_get_runtime_file("lua/plugins/*.lua", true)
