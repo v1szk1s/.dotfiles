@@ -13,7 +13,7 @@
 
 # Load more completions
 # fpath=($DOTFILES/zsh.config/plugins/zsh-completions/src $fpath)
-# fpath=(~/.dotfiles/zsh.config/completions $fpath)
+fpath=($DOTFILES/config/zsh/completions $fpath)
 
 
 # Should be called before compinit

@@ -22,3 +22,10 @@ vim.keymap.set("n", "<leader>o", function()
     vim.diagnostic.open_float(nil, { focus = false })
 end, { desc = "Show line diagnostics" })
 
+vim.keymap.set("n", "\\", "za", {silent = true}) -- fold with \
+
+vim.keymap.set("n", "<leader>cp", function()
+  local path = vim.fn.expand("%")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to clipboard')
+end, { desc = "Copy relative file path to clipboard" })
