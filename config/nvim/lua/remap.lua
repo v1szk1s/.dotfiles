@@ -3,6 +3,8 @@ vim.g.maplocalleader = ","
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+vim.keymap.set('n', '\\', 'za', { silent = true })
+
 vim.keymap.set('i', '{<CR>', '{<CR>}<C-o>O')
 
 vim.keymap.set("n", "<leader>gh", ":diffget //2<CR>", {silent = true})

@@ -5,6 +5,7 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$( { find ~/playground \
         ~/work \
+        /opt \
         ~/projects/ \
         ~/work/repos \
         ~/work/graphql-training \

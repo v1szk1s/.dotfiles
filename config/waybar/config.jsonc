@@ -3,6 +3,7 @@
 		"hyprland/workspaces",
 		"hyprland/windowcount",
 		"hyprland/window",
+		"hyprland/submap"
 	],
 	"modules-center": [
 		// "temperature",
@@ -240,16 +241,34 @@
 	},
 
 	"hyprland/workspaces": {
-		"format": "{icon}",
-		"format-icons": {
-			"active": "",
-			"default": ""
-		},
-		"persistent-workspaces": {
-			"*": 5
-		},
-		"cursor": true
+    "format": "{icon}",
+    "format-icons": {
+      "urgent": " ",
+      "active": " ", //  focused workspace on current monitor 
+      "visible": " ", // focused workspace on other monitors
+      "default": " ", //
+      "empty": " " // persistent (created by this plugin)
+    },
+    // "on-scroll-up": "hyprctl dispatch split-cycleworkspaces -1",
+    // "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
+    "all-outputs": false // recommended
+  },
+	// "hyprland/workspaces": {
+	// 	"format": "{icon}",
+	// 	"format-icons": {
+	// 		"active": "",
+	// 		"default": ""
+	// 	},
+	// 	"persistent-workspaces": {
+	// 		"*": 5
+	// 	},
+	// 	"cursor": true
+	// },
+
+	"hyprland/submap": {
+		"format": "<span style=\"italic\">{}</span>"
 	},
+
 	"custom/wireguard": {
 		"exec": "~/.dotfiles/config/waybar/scripts/wg-status.sh wg0",
 		"return-type": "json",

@@ -19,22 +19,14 @@ else
 fi
 
 image() {
-    # chafa --size="${cols}x${rows}" --animate=off --polite=on --fill=block  -- "$file"
-    chafa --size="${cols}x${rows}" --animate=off --polite=on $chafa_opts -- "$file"
+    # -f sixel: Output SIXEL graphics
+    # -s: Size in cells (lf provides cols x rows)
+    # --polite=on: Prevent cursor movements that break lf's detection
+    chafa -f sixel -s "${cols}x${rows}" --animate=off --polite=on -- "$file"
+    
+    # Some users find 'exit 1' helps prevent lf from caching this as text, 
+    # but strictly speaking exit 0 is fine if lf detects the SIXEL header.
     exit 0
-    # if [[ -f $IMV_PIDFILE ]] && kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
-    #      imv-msg "$(cat $IMV_PIDFILE)" open "$1"
-    #      imv-msg $(cat $IMV_PIDFILE) next >/dev/null 2>&1
-    # fi
-    #
-    # if [[ ! -f $IMV_PIDFILE ]] || ! kill -0 "$(cat $IMV_PIDFILE)" 2>/dev/null; then
-    #     echo "imv -w lf-preview $1 >/dev/null 2>&1 &"
-    #     imv -w lf-preview "$1" >/dev/null 2>&1 &
-    #     echo $! > "$IMV_PIDFILE"
-    #     echo "pid: $!"
-    # fi
-    #
-    # return 1
 }
 
 close_imv() {

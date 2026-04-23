@@ -12,8 +12,9 @@ vim.opt.list = false
 -- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
 
-vim.o.foldmethod = "indent"
-vim.o.foldlevel = 20
+vim.o.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevel = 99
 
 vim.opt.fillchars = { eob = "-", fold = " " }
 

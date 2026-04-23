@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+hyprctl dispatch workspace 1
+hyprctl dispatch togglegroup
+firefox --new-instance -P development &
+sleep 0.5
+hyprctl dispatch movetoworkspace 1
+hyprctl dispatch moveintogroup right
+

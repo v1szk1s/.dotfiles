@@ -1,6 +1,7 @@
 require('plugin_hooks').setup()
 
 vim.pack.add({
+    'https://github.com/tpope/vim-unimpaired',
     'https://www.github.com/tpope/vim-abolish', -- better replace
     'https://www.github.com/tpope/vim-fugitive',  -- manage git
     'https://www.github.com/tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
