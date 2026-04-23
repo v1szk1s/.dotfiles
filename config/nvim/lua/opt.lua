@@ -12,8 +12,16 @@ vim.opt.list = false
 -- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
 vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
 
-vim.o.foldmethod = "indent"
-vim.o.foldlevel = 20
+-- Use Tree-sitter for folds
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- Quality-of-life defaults
+vim.opt.foldlevel = 99      -- open most folds by default
+vim.opt.foldlevelstart = 99 -- keep them open when opening a file
+
+-- vim.o.foldmethod = "indent"
+-- vim.o.foldlevel = 20
 
 vim.opt.fillchars = { eob = "-", fold = " " }
 
@@ -23,11 +31,11 @@ vim.o.nu = true
 vim.o.relativenumber = true
 vim.o.numberwidth = 3
 
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 
-vim.o.expandtab = false
+vim.o.expandtab = true
 vim.o.smartindent = true
 
 vim.o.wrap = false

@@ -8,6 +8,10 @@
       "rev": "37ce860d8eeeee92d60b9a72db21e369d97e6a75",
       "src": "https://www.github.com/saghen/blink.cmp"
     },
+    "conform.nvim": {
+      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "emmet-vim": {
       "rev": "e98397144982d1e75b20d94d55a82de3ec8f648d",
       "src": "https://www.github.com/mattn/emmet-vim"
@@ -48,7 +52,7 @@
     "nvim-treesitter": {
       "rev": "42fc28ba918343ebfd5565147a42a26580579482",
       "src": "https://www.github.com/nvim-treesitter/nvim-treesitter",
-      "version": "'master'"
+      "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
       "rev": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef",
@@ -101,6 +105,10 @@
     "vim-surround": {
       "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
       "src": "https://www.github.com/tpope/vim-surround"
+    },
+    "zen-mode.nvim": {
+      "rev": "8564ce6d29ec7554eb9df578efa882d33b3c23a7",
+      "src": "https://www.github.com/folke/zen-mode.nvim"
     }
   }
 }

@@ -1,9 +1,10 @@
 require('plugin_hooks').setup()
 
 vim.pack.add({
+    'https://www.github.com/folke/zen-mode.nvim',
     'https://www.github.com/tpope/vim-abolish', -- better replace
     'https://www.github.com/tpope/vim-fugitive',  -- manage git
-    'https://www.github.com/tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
+    -- 'https://www.github.com/tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file...
     'https://www.github.com/tpope/vim-surround',
     'https://www.github.com/tpope/vim-repeat', -- to be able to repeat surround
     'https://www.github.com/stevearc/oil.nvim',

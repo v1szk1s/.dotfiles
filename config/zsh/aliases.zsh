@@ -4,10 +4,10 @@ alias rm="rm -vI"
 
 alias lf="lfrun"
 
-alias ll='ls -al --color=auto'
-alias l='ls -l --color=auto'
-alias ls='ls --color=auto'
-alias lt='ls -aT --color=auto'
+alias ll='ls -alh --color=auto'
+alias l='ls -lh --color=auto'
+alias ls='ls -h --color=auto'
+alias lt='ls -aTh --color=auto'
 
 alias grep="grep --color=auto"
 alias gs="git status"

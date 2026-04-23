@@ -59,10 +59,6 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 
 setopt PROMPT_SUBST
 
-# source $DOTFILES/zsh.config/plugins/bd.zsh
-# # Enable colors and change prompt:
-# autoload -U colors && colors
-#
 [ -f "$DOTFILES/config/zsh/aliases.zsh" ] && source "$DOTFILES/config/zsh/aliases.zsh" || echo "Could not source aliases"
 #
 # # [ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh" || echo "Could not source .variables.sh\nSome script may not work!"
@@ -103,8 +99,8 @@ zvm_after_init() {
 }
 
 
-# export GOPATH="$HOME/go"
-# export PATH="$GOPATH/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
