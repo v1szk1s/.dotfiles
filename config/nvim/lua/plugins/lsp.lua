@@ -4,13 +4,6 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	"https://github.com/j-hui/fidget.nvim",
-})
-
-require("fidget").setup({
-	notification = {
-		override_vim_notify = true,
-	},
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -95,6 +88,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.opt.foldlevel = 99
 			vim.opt.foldlevelstart = 99
 		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("LspProgress", {
+	callback = function(ev)
+		local data = ev.data
+		local value = data.params.value
+		local token = data.params.token
+
+		local msg = value.message or (value.kind == "end" and "done") or "working..."
+
+		vim.api.nvim_echo({ { msg } }, false, {
+			id = "lsp." .. token,
+			kind = "progress",
+			source = "vim.lsp",
+			title = value.title,
+			status = value.kind ~= "end" and "running" or "success",
+			percent = value.percentage or (value.kind == "end" and 100 or nil),
+		})
 	end,
 })
 
