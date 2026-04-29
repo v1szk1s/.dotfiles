@@ -19,6 +19,7 @@ vim.pack.add({
 		version = "harpoon2",
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
+	"https://github.com/sindrets/diffview.nvim",
 })
 
 require("treesitter-context").setup({
