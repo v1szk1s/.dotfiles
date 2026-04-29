@@ -157,4 +157,4 @@ require("mason-tool-installer").setup({
 	},
 })
 
-vim.lsp.enable({ "clangd", "lua_ls", "ts_ls", "gopls", "rust_analyzer" })
+vim.lsp.enable({ "clangd", "lua_ls", "ts_ls", "gopls", "rust_analyzer", "graphql" })
