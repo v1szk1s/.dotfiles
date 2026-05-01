@@ -6,18 +6,6 @@ vim.pack.add({
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "rust",
-	callback = function(ev)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = ev.buf,
-			callback = function()
-				vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-			end,
-		})
-	end,
-})
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("v1szk1s-lsp-attach", { clear = true }),
 
