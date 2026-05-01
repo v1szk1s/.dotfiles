@@ -1,5 +1,14 @@
 vim.cmd("filetype plugin indent on")
 
+-- Keep signcolumn on by default
+vim.o.signcolumn = "yes"
+
+-- Decrease update time
+vim.o.updatetime = 250
+
+-- Decrease mapped sequence wait time
+vim.o.timeoutlen = 300
+
 vim.opt.breakindent = true
 
 vim.opt.lz = false
@@ -9,15 +18,15 @@ vim.opt.splitbelow = false
 
 vim.opt.list = false
 
--- vim.opt.listchars= {tab = "> ",trail = " ",multispace = ". ", lead = " ", extends="▶",precedes="◀",nbsp= "‿" }
-vim.opt.listchars= {tab = "> ",trail = ".",multispace = ".", lead = " ", extends=">",precedes="<",nbsp= "_" }
+vim.o.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Use Tree-sitter for folds
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Quality-of-life defaults
-vim.opt.foldlevel = 99      -- open most folds by default
+vim.opt.foldlevel = 99 -- open most folds by default
 vim.opt.foldlevelstart = 99 -- keep them open when opening a file
 
 -- vim.o.foldmethod = "indent"
@@ -46,7 +55,7 @@ vim.o.backup = false
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
 
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 vim.o.incsearch = true
 
 vim.o.autoread = true
@@ -64,10 +73,18 @@ vim.o.smartcase = true
 vim.o.signcolumn = "yes"
 --vim.o.isfname:append("@-@")
 
-vim.o.updatetime = 350
-vim.o.timeoutlen = 500
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+
+-- Show which line your cursor is on
+vim.o.cursorline = true
 
 -- vim.opt.completeopt:append({ "menuone", "noselect", "popup" })
 vim.opt.completeopt = { "menuone", "noinsert" }
 
 -- vim.o.colorcolumn = "180"
+vim.o.inccommand = "split"
+
+vim.o.confirm = true
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")

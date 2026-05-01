@@ -24,8 +24,6 @@ end, { desc = "Show line diagnostics" })
 
 vim.keymap.set("n", "\\", "za", { silent = true }) -- fold with \
 
-vim.keymap.set("n", "<c-n>", ":Ex<cr>", { silent = true }) -- fold with \
-
 vim.keymap.set("n", "<leader>cp", function()
 	local path = vim.fn.expand("%")
 	vim.fn.setreg("+", path)

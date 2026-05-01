@@ -112,6 +112,8 @@ if [[ $OSTYPE =~ darwin ]]; then
     export PATH=/opt/homebrew/bin/:$PATH
 fi
 
+eval "$(zoxide init zsh)"
+
 # export NVM_DIR=~/.nvm
 # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 # alias node='unalias node ; unalias npm ; nvm use default ; node $@'
