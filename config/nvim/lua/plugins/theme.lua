@@ -1,8 +1,7 @@
 vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
 	-- 	"catppuccin/nvim",
-	-- 	"rose-pine/neovim", name = "rose-pine",
+	"https://github.com/rose-pine/neovim",
 })
 --
--- vim.cmd('colo tokyonight')
--- vim.cmd('colo tokyonight')
+vim.cmd("colo rose-pine")
