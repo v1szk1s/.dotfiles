@@ -98,35 +98,63 @@ vim.api.nvim_create_autocmd("LspProgress", {
 	end,
 })
 
--- Diagnostic Config
--- See :help vim.diagnostic.Opts
-vim.diagnostic.config({
-	severity_sort = true,
-	-- update_in_insert = false,
-	float = { border = "rounded", source = "if_many" },
-	underline = { severity = vim.diagnostic.severity.ERROR },
-	signs = vim.g.have_nerd_font and {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰀪 ",
-			[vim.diagnostic.severity.INFO] = "󰋽 ",
-			[vim.diagnostic.severity.HINT] = "󰌶 ",
-		},
-	} or {},
-	virtual_text = {
-		source = "if_many",
-		spacing = 2,
-		format = function(diagnostic)
-			local diagnostic_message = {
-				[vim.diagnostic.severity.ERROR] = diagnostic.message,
-				[vim.diagnostic.severity.WARN] = diagnostic.message,
-				[vim.diagnostic.severity.INFO] = diagnostic.message,
-				[vim.diagnostic.severity.HINT] = diagnostic.message,
-			}
-			return diagnostic_message[diagnostic.severity]
-		end,
-	},
-})
+local diagnostics_virtual_text = true
+
+vim.keymap.set("n", "<leader>tw", function()
+	diagnostics_virtual_text = not diagnostics_virtual_text
+	vim.notify("LSP warnings turned " .. (diagnostics_virtual_text and "on" or "off"))
+
+	vim.diagnostic.config({
+		severity_sort = true,
+		float = { border = "rounded", source = "if_many" },
+		underline = { severity = vim.diagnostic.severity.ERROR },
+		signs = vim.g.have_nerd_font and {
+			text = {
+				[vim.diagnostic.severity.ERROR] = "󰅚 ",
+				[vim.diagnostic.severity.WARN] = "󰀪 ",
+				[vim.diagnostic.severity.INFO] = "󰋽 ",
+				[vim.diagnostic.severity.HINT] = "󰌶 ",
+			},
+		} or {},
+		virtual_text = diagnostics_virtual_text and {
+			source = "if_many",
+			spacing = 2,
+			format = function(diagnostic)
+				return diagnostic.message
+			end,
+		} or false,
+	})
+end, { desc = "Toggle diagnostic virtual text" })
+
+-- -- Diagnostic Config
+-- -- See :help vim.diagnostic.Opts
+-- vim.diagnostic.config({
+-- 	severity_sort = true,
+-- 	-- update_in_insert = false,
+-- 	float = { border = "rounded", source = "if_many" },
+-- 	underline = { severity = vim.diagnostic.severity.ERROR },
+-- 	signs = vim.g.have_nerd_font and {
+-- 		text = {
+-- 			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+-- 			[vim.diagnostic.severity.WARN] = "󰀪 ",
+-- 			[vim.diagnostic.severity.INFO] = "󰋽 ",
+-- 			[vim.diagnostic.severity.HINT] = "󰌶 ",
+-- 		},
+-- 	} or {},
+-- 	virtual_text = {
+-- 		source = "if_many",
+-- 		spacing = 2,
+-- 		format = function(diagnostic)
+-- 			local diagnostic_message = {
+-- 				[vim.diagnostic.severity.ERROR] = diagnostic.message,
+-- 				[vim.diagnostic.severity.WARN] = diagnostic.message,
+-- 				[vim.diagnostic.severity.INFO] = diagnostic.message,
+-- 				[vim.diagnostic.severity.HINT] = diagnostic.message,
+-- 			}
+-- 			return diagnostic_message[diagnostic.severity]
+-- 		end,
+-- 	},
+-- })
 
 require("mason").setup()
 require("mason-tool-installer").setup({
@@ -142,7 +170,10 @@ require("mason-tool-installer").setup({
 		"stylua",
 		"typescript-language-server",
 		"oxfmt",
+		"rust-analyzer",
+		"tinymist",
+		"typstyle",
 	},
 })
 
-vim.lsp.enable({ "clangd", "lua_ls", "ts_ls", "gopls", "rust_analyzer", "graphql" })
+vim.lsp.enable({ "clangd", "lua_ls", "ts_ls", "gopls", "rust_analyzer", "graphql", "tinymist" })

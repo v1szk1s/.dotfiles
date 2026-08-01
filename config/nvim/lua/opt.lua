@@ -16,9 +16,7 @@ vim.opt.lz = false
 vim.opt.splitright = true
 vim.opt.splitbelow = false
 
-vim.opt.list = false
-
-vim.o.list = true
+vim.o.list = false
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Use Tree-sitter for folds
