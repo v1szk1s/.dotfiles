@@ -6,6 +6,7 @@ alias kc="kubectl"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
+alias lsblk="lsblk -o NAME,SIZE,FSTYPE,UUID,MOUNTPOINT,RO"
 
 alias lf="lfrun"
 
