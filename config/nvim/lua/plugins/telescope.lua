@@ -9,6 +9,7 @@ require("telescope").setup({
       hidden = true,
       find_command = {
         "fd", "--type", "f", "--strip-cwd-prefix",
+        -- "--no-hidden",
         "--hidden",
         "--exclude", ".git",
         "--exclude", "node_modules",
@@ -21,7 +22,8 @@ require("telescope").setup({
     vimgrep_arguments = {
       "rg", "--color=never", "--no-heading", "--with-filename",
       "--line-number", "--column", "--smart-case",
-      "--hidden", "--no-follow",
+      "--no-follow",
+      "--hidden",
       "--glob", "!**/.git/*",
       "--glob", "!**/node_modules/*",
       "--glob", "!**/dist/*",
@@ -37,9 +39,25 @@ pcall(require("telescope").load_extension, "fzf")
 -- 5) Keymaps (unchanged)
 local builtin = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search Grep" })
+
+vim.keymap.set("n", "<leader>sF", function()
+  builtin.find_files({
+    no_ignore = true,  -- include .gitignore/git excludes
+    hidden    = true,  -- include dotfiles
+  })
+end, { desc = "Search Files" })
+
+vim.keymap.set("n", "<leader>sG", function()
+  builtin.live_grep({
+    additional_args = function()
+      return { "--no-ignore" }
+    end,
+  })
+end, { desc = "Search Grep" })
+
+vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "[F]ind [G]it" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[F]ind current [W]ord" })

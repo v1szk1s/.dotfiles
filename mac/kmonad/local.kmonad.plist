@@ -9,7 +9,7 @@
     <key>ProgramArguments</key>
     <array>
       <string>/Users/v1szk1s/.local/bin/kmonad</string>
-      <string> /Users/v1szk1s/.dotfiles/kmonad/layout.kbd</string>
+      <string>/Users/v1szk1s/.dotfiles/kmonad/layout_mac.kbd</string>
     </array>
     <key>RunAtLoad</key>
     <true />

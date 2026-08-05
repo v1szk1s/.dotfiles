@@ -3,6 +3,7 @@
 		"hyprland/workspaces",
 		"hyprland/windowcount",
 		"hyprland/window",
+		"hyprland/submap"
 	],
 	"modules-center": [
 		// "temperature",
@@ -21,6 +22,7 @@
 
 	"layer": "top",
 	"mode": "dock",
+	"spacing": 7,
 
 	"battery": {
 		"states": {
@@ -106,8 +108,9 @@
 	"hyprland/language": {
 		// "format": " {}",
 		"format": "{}",
-		"format-en": "EN",
-		"format-hu": "HU"
+		"format-en": "en",
+		"format-hu": "hu",
+		"on-click": "hyprctl switchxkblayout kmonad-output next"
 	},
 
 	"cpu": {
@@ -188,6 +191,7 @@
 	"pulseaudio#output": {
 		"format": "{icon} {volume}%",
 		"format-muted": "{icon} {volume}%",
+		"on-click": "~/.dotfiles/bin/select-sound-output.sh",
 		"format-icons": {
 			"default": [ "󰕿", "󰖀", "󰕾" ],
 			"default-muted": "󰝟",
@@ -237,23 +241,40 @@
 	},
 
 	"hyprland/workspaces": {
-		"format": "{icon}",
-		"format-icons": {
-			"active": "",
-			"default": ""
-		},
-		"persistent-workspaces": {
-			"*": 5
-		},
-		"cursor": true
+    "format": "{icon}",
+    "format-icons": {
+      "urgent": "",
+      "active": "", // focused workspace on current monitor
+      "visible": "", // focused workspace on other monitors
+      "default": "",
+      "empty": "" // persistent (created by this plugin)
+    },
+    "on-scroll-up": "hyprctl dispatch split-cycleworkspaces -1",
+    "on-scroll-down": "hyprctl dispatch split-cycleworkspaces +1",
+    "all-outputs": false // recommended
+  },// "hyprland/workspaces": {
+	// 	"format": "{icon}",
+	// 	"format-icons": {
+	// 		"active": "",
+	// 		"default": ""
+	// 	},
+	// 	"persistent-workspaces": {
+	// 		"*": 5
+	// 	},
+	// 	"cursor": true
+	// },
+
+	"hyprland/submap": {
+		"format": "<span style=\"italic\">{}</span>"
 	},
+
 	"custom/wireguard": {
-		"exec": "~/.dotfiles/config/waybar/scripts/wireguard.sh wg0",
+		"exec": "~/.dotfiles/config/waybar/scripts/wg-status.sh wg0",
 		"return-type": "json",
 		"interval": 3,
 		"format": "{text}",
 		// "on-click": "systemctl start wg-quick@wg0.service || systemctl stop wg-quick@wg0.service",
-		"on-click": "systemctl is-active --quiet wg-quick@wg0.service && systemctl stop wg-quick@wg0.service || systemctl start wg-quick@wg0.service",
+		"on-click": "~/.dotfiles/bin/wg-menu.sh",
 		// "on-click-right": "alacritty --class=TUI.float -e sudo wg show wg0",
 		"tooltip": true
 	},

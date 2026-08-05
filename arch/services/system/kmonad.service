@@ -3,8 +3,8 @@ Description=KMonad keyboard remapper
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/kmonad $DOTFILES/kmonad/layout.kbd
-Restart=always
+ExecStart=/usr/bin/kmonad /etc/kmonad/layout.kbd
+Restart=never
 RestartSec=2
 StandardOutput=journal
 StandardError=journal

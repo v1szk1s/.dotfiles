@@ -1,0 +1,12 @@
+hl.on("hyprland.start", function()
+	hl.exec_cmd("elephant")
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("walker --gapplication-service")
+	hl.exec_cmd("swayosd-server")
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("firefox")
+	hl.exec_cmd("foot")
+	hl.exec_cmd("keepassxc")
+	-- hl.exec_cmd("waybar & hyprpaper & firefox") -- Execute waybar, hyprpaper, firefox
+end)

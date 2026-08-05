@@ -6,7 +6,7 @@ done
 
 systemctl --user daemon-reload
 
-for f in $(find $DOTFILES/arch/services/user -mindepth 1); do 
-  systemctl --user enable $(basename $f)
-done
+# for f in $(find $DOTFILES/arch/services/user -mindepth 1); do 
+#   systemctl --user enable $(basename $f)
+# done
 

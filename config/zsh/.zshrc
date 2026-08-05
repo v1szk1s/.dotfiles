@@ -1,12 +1,13 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 if command -v tmux >/dev/null 2>&1; then
   if [ -z "$TMUX" ]; then
     tmux attach-session -t main 2>/dev/null || tmux new-session -s main
   fi
 fi
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -58,10 +59,6 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 
 setopt PROMPT_SUBST
 
-# source $DOTFILES/zsh.config/plugins/bd.zsh
-# # Enable colors and change prompt:
-# autoload -U colors && colors
-#
 [ -f "$DOTFILES/config/zsh/aliases.zsh" ] && source "$DOTFILES/config/zsh/aliases.zsh" || echo "Could not source aliases"
 #
 # # [ -f "$DOTFILES/zsh.config/.variables.sh" ] && source "$DOTFILES/zsh.config/.variables.sh" || echo "Could not source .variables.sh\nSome script may not work!"
@@ -73,7 +70,7 @@ source $DOTFILES/config/zsh/completion.zsh
 
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
-WORDCHARS=${WORDCHARS/\/}
+WORDCHARS=${}
 bindkey '^W' backward-kill-word
 
 
@@ -102,21 +99,21 @@ zvm_after_init() {
 }
 
 
-# export GOPATH="$HOME/go"
-# export PATH="$GOPATH/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 # export _JAVA_AWT_WM_NONREPARENTING=1
 
-if [[ $OSTYPE =~ darwin ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    export PATH=/opt/homebrew/bin/:$PATH
+
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
 fi
 
-export NVM_DIR=~/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-alias node='unalias node ; unalias npm ; nvm use default ; node $@'
-alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -f "$DOTFILES/config/zsh/mac_only.zsh" ] && source "$DOTFILES/config/zsh/mac_only.zsh" || echo "Could not source mac only"
+[ -f "$DOTFILES/config/zsh/pc_login" ] && source "$DOTFILES/config/zsh/pc_login" || echo "Could not source pc loging"

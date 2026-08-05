@@ -1,6 +1,7 @@
 [general]
 
-import = ["~/.dotfiles/alacritty.config/themes/argonaut.toml"]
+live_config_reload = true
+import = ["~/.dotfiles/config/alacritty/themes/argonaut.toml"]
 
 [window]
 
@@ -12,7 +13,7 @@ title = "Terminal"
 dynamic_title = true
 
 [font]
-size = 14
+size = 16
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
