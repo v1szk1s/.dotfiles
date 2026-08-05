@@ -74,7 +74,7 @@ vim.o.signcolumn = "yes"
 --vim.o.isfname:append("@-@")
 
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 -- Show which line your cursor is on
 vim.o.cursorline = true
@@ -86,5 +86,7 @@ vim.opt.completeopt = { "menuone", "noinsert" }
 vim.o.inccommand = "split"
 
 vim.o.confirm = true
+
+vim.o.maxmempattern = 5000
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")

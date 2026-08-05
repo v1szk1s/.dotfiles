@@ -70,7 +70,7 @@ source $DOTFILES/config/zsh/completion.zsh
 
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
-WORDCHARS=${WORDCHARS/\/}
+WORDCHARS=${}
 bindkey '^W' backward-kill-word
 
 
@@ -107,14 +107,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 # export _JAVA_AWT_WM_NONREPARENTING=1
 
-if [[ $OSTYPE =~ darwin ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    export PATH=/opt/homebrew/bin/:$PATH
-fi
 
 eval "$(zoxide init zsh)"
 
-# export NVM_DIR=~/.nvm
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-# alias node='unalias node ; unalias npm ; nvm use default ; node $@'
-# alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
+[ -f "$DOTFILES/config/zsh/mac_only.zsh" ] && source "$DOTFILES/config/zsh/mac_only.zsh" || echo "Could not source mac only"
+[ -f "$DOTFILES/config/zsh/pc_login" ] && source "$DOTFILES/config/zsh/pc_login" || echo "Could not source pc loging"
