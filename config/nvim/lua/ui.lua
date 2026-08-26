@@ -16,7 +16,7 @@ autocmd("TextYankPost", {
 
 -- require("vim._extui").enable({})
 -- require("vim._core.ui2").enable()
-vim.o.cmdheight = 0
+-- vim.o.cmdheight = 0
 require("vim._core.ui2").enable({
 	enable = true,
 	msg = { -- Options related to the message module.
@@ -24,7 +24,7 @@ require("vim._core.ui2").enable({
 		---cmdline or in a separate ephemeral message window.
 		---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
 		---or table mapping |ui-messages| kinds and triggers to a target.
-		targets = "msg",
+		targets = "cmd",
 		cmd = { -- Options related to messages in the cmdline window.
 			height = 0.5, -- Maximum height while expanded for messages beyond 'cmdheight'.
 		},
@@ -33,7 +33,7 @@ require("vim._core.ui2").enable({
 		},
 		msg = { -- Options related to msg window.
 			height = 0.5, -- Maximum height.
-			timeout = 4000, -- Time a message is visible in the message window.
+			timeout = 6000, -- Time a message is visible in the message window.
 		},
 		pager = { -- Options related to message window.
 			height = 0.5, -- Maximum height.

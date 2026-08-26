@@ -3,6 +3,8 @@ vim.cmd("filetype plugin indent on")
 -- Keep signcolumn on by default
 vim.o.signcolumn = "yes"
 
+vim.o.wrapscan = false
+
 -- Decrease update time
 vim.o.updatetime = 250
 
