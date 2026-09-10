@@ -1,15 +1,86 @@
 pc_login() {
-  export TOKEN=$(curl --request POST -s \
-      --url https://iam.test.cloud.ibm.com/identity/token \
+  # 1. Verify dependencies are installed
+  if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed. Please install it first."
+    return 1
+  fi
+
+  if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed. Please install it first."
+    return 1
+  fi
+
+  local apikeys_dir="$HOME/work/apikeys"
+  if [[ ! -d "$apikeys_dir" ]]; then
+    echo "Error: Directory $apikeys_dir does not exist."
+    return 1
+  fi
+
+  # 2. Parse optional arguments to pre-filter fzf selection
+  local initial_query=""
+  if [[ "$1" == "--prod" ]]; then
+    initial_query="PROD"
+  elif [[ "$1" == "--stage" ]]; then
+    initial_query="STAGING"
+  elif [[ -n "$1" ]]; then
+    echo "Usage: pc_login [--prod | --stage]"
+    return 2
+  fi
+
+  # 3. Use fzf to select the API key file
+  # --select-1: Automatically selects if only one option matches the filter
+  # --exit-0: Exits gracefully if no files are found matching the query
+  local api_key_file
+  api_key_file=$(find "$apikeys_dir" -maxdepth 1 -name "*.json" 2>/dev/null | \
+    fzf --prompt="Select API Key: " \
+        --height=15 \
+        --layout=reverse \
+        --query="$initial_query" \
+        --select-1 \
+        --exit-0)
+
+  # Check if user cancelled selection or no files were matched
+  if [[ -z "$api_key_file" ]]; then
+    echo "No API key selected."
+    return 1
+  fi
+
+  # 4. Automatically identify the environment and the target URL
+  local environment="stage"
+  local iam_url="https://iam.test.cloud.ibm.com/identity/token"
+  local filename
+  filename=$(basename "$api_key_file")
+
+  if [[ "$filename" =~ (PROD|prod) ]]; then
+    environment="prod"
+    iam_url="https://iam.cloud.ibm.com/identity/token"
+  fi
+
+  echo "Selected key: $filename ($environment)"
+
+  # 5. Extract API key and perform login
+  export IBM_CLOUD_API_KEY
+  IBM_CLOUD_API_KEY="$(jq -r '.apikey' "$api_key_file")"
+
+  if [[ -z "$IBM_CLOUD_API_KEY" || "$IBM_CLOUD_API_KEY" == "null" ]]; then
+    echo "Error: Failed to extract 'apikey' from $filename"
+    return 1
+  fi
+
+  export TOKEN
+  TOKEN="$(
+    curl --request POST --silent \
+      --url "$iam_url" \
       -H 'content-type: application/x-www-form-urlencoded' \
       -d 'grant_type=urn:ibm:params:oauth:grant-type:apikey' \
-      -d apikey="$(cat ~/work/repos/ProviderPortal/.env | grep -e "^APIKey" | cut -d"=" -f 2)" | jq '.access_token' -r)
+      -d "apikey=$IBM_CLOUD_API_KEY" |
+      jq -r '.access_token'
+  )"
 
-     if [ -z "$TOKEN" ]; then
-       echo "Login failed"
-         return 1
-     else 
-       echo "Login successful"
-         return 0
-     fi
+  if [[ -z "$TOKEN" || "$TOKEN" == "null" ]]; then
+    echo "Login failed ($environment)"
+    return 1
+  fi
+
+  echo "Login successful ($environment)"
 }

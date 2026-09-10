@@ -3,6 +3,11 @@ vim.g.maplocalleader = ","
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+vim.keymap.set("n", "zh", "10zh")
+vim.keymap.set("n", "zl", "10zl")
+
+vim.keymap.set("v", "<leader>jq", "!jq<cr>")
+
 vim.keymap.set("n", "\\", "za", { silent = true })
 
 vim.keymap.set("i", "{<CR>", "{<CR>}<C-o>O")
@@ -13,8 +18,6 @@ vim.keymap.set("n", "<leader>gl", ":diffget //3<CR>", { silent = true })
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>d", '[["_d]]')
-
-vim.keymap.set("n", "Q", "@q")
 
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
@@ -29,3 +32,11 @@ vim.keymap.set("n", "<leader>cp", function()
 	vim.fn.setreg("+", path)
 	vim.notify('Copied "' .. path .. '" to clipboard')
 end, { desc = "Copy relative file path to clipboard" })
+
+vim.keymap.set("n", "<leader>ca", function()
+	local path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", path)
+	vim.notify('Copied "' .. path .. '" to clipboard')
+end, { desc = "Copy relative file path to clipboard" })
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")

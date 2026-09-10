@@ -5,6 +5,7 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$( { find ~/playground \
         ~/work \
+        ~/work/repos/ProviderPortal/packages/openapi/sdk-build/ \
         ~/nextcloud/ \
         ~/nextcloud/egyetem/ \
         ~/personal \

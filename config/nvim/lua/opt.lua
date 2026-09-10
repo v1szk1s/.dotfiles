@@ -3,6 +3,8 @@ vim.cmd("filetype plugin indent on")
 -- Keep signcolumn on by default
 vim.o.signcolumn = "yes"
 
+vim.o.wrapscan = false
+
 -- Decrease update time
 vim.o.updatetime = 250
 
@@ -87,4 +89,4 @@ vim.o.confirm = true
 
 vim.o.maxmempattern = 5000
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.o.mouse = ""

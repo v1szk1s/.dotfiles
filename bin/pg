@@ -1,0 +1,1 @@
+eval $(cat $(find ~/work/apikeys/pg -maxdepth 1 -mindepth 1 -name "*.json" | fzf) | jq -r '.connection.cli.composed.[]')
