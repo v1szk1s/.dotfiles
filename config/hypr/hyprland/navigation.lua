@@ -23,12 +23,12 @@ hl.bind(mainMod .. " + SHIFT + 7", hl.dsp.window.move({ workspace = "7" }))
 hl.bind(mainMod .. " + SHIFT + 8", hl.dsp.window.move({ workspace = "8" }))
 hl.bind(mainMod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = "9" }))
 
-hl.bind(mainMod .. " + SHIFT + comma", hl.dsp.window.move({ monitor = "relative:-1" }))
-hl.bind(mainMod .. " + SHIFT + period", hl.dsp.window.move({ monitor = "relative:+1" }))
+hl.bind(mainMod .. " + SHIFT + comma", hl.dsp.window.move({ monitor = "mon:-1" }))
+hl.bind(mainMod .. " + SHIFT + period", hl.dsp.window.move({ monitor = "mon:+1" }))
 
 -- ========= Focus monitor =========
-hl.bind(mainMod .. " + comma", hl.dsp.focus({ monitor = "relative:-1" }))
-hl.bind(mainMod .. " + period", hl.dsp.focus({ monitor = "relative:+1" }))
+hl.bind(mainMod .. " + comma", hl.dsp.focus({ monitor = "mon:-1" }))
+hl.bind(mainMod .. " + period", hl.dsp.focus({ monitor = "mon:+1" }))
 
 -- ========= Layout / master controls =========
 hl.bind(mainMod .. " + m", hl.dsp.layout("resize 0.05"))

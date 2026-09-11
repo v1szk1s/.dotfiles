@@ -1,3 +1,5 @@
+package.path = package.path .. ";./?.lua;./?/init.lua"
+
 require("hyprland/autostart")
 require("hyprland/keybinds")
 require("hyprland/navigation")
