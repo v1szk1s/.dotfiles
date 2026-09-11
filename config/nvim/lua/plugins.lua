@@ -2,7 +2,7 @@ require("plugin_hooks").setup()
 
 vim.pack.add({
 	"https://github.com/tpope/vim-unimpaired",
-	"https://www.github.com/folke/zen-mode.nvim",
+	-- "https://www.github.com/folke/zen-mode.nvim",
 
 	-- snake_case (crs)
 	-- MixedCase (crm)
