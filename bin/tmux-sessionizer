@@ -6,6 +6,7 @@ else
     selected=$( { find ~/playground \
         ~/work \
         ~/uni \
+        ~/work/repos/ProviderPortal/packages/openapi/sdk-build/ \
         ~/nextcloud/ \
         ~/personal \
         /opt \

@@ -4,4 +4,4 @@ vim.pack.add({
 	"https://github.com/rose-pine/neovim",
 })
 --
--- vim.cmd("colo rose-pine")
+vim.cmd("colo tokyonight")

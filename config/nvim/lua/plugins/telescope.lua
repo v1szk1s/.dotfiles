@@ -1,36 +1,53 @@
 vim.pack.add({
-    'https://www.github.com/nvim-telescope/telescope-fzf-native.nvim',
-    'https://www.github.com/nvim-telescope/telescope.nvim',
+	"https://www.github.com/nvim-telescope/telescope-fzf-native.nvim",
+	"https://www.github.com/nvim-telescope/telescope.nvim",
 })
 
 require("telescope").setup({
-  pickers = {
-    find_files = {
-      hidden = true,
-      find_command = {
-        "fd", "--type", "f", "--strip-cwd-prefix",
-        -- "--no-hidden",
-        "--hidden",
-        "--exclude", ".git",
-        "--exclude", "node_modules",
-        "--exclude", "dist",
-        "--exclude", "build",
-      },
-    },
-  },
-  defaults = {
-    vimgrep_arguments = {
-      "rg", "--color=never", "--no-heading", "--with-filename",
-      "--line-number", "--column", "--smart-case",
-      "--no-follow",
-      "--hidden",
-      "--glob", "!**/.git/*",
-      "--glob", "!**/node_modules/*",
-      "--glob", "!**/dist/*",
-      "--glob", "!**/build/*",
-      "--glob", "!*.lock",
-    },
-  },
+	pickers = {
+		find_files = {
+			hidden = true,
+			find_command = {
+				"fd",
+				"--type",
+				"f",
+				"--strip-cwd-prefix",
+				-- "--no-hidden",
+				"--hidden",
+				"--exclude",
+				".git",
+				"--exclude",
+				"node_modules",
+				"--exclude",
+				"dist",
+				"--exclude",
+				"build",
+			},
+		},
+	},
+	defaults = {
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--no-follow",
+			"--hidden",
+			"--glob",
+			"!**/.git/*",
+			"--glob",
+			"!**/node_modules/*",
+			"--glob",
+			"!**/dist/*",
+			"--glob",
+			"!**/build/*",
+			"--glob",
+			"!*.lock",
+		},
+	},
 })
 
 -- 4) Load extension safely (will work once built)
@@ -42,19 +59,23 @@ local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
 vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search Grep" })
 
-vim.keymap.set("n", "<leader>sF", function()
-  builtin.find_files({
-    no_ignore = true,  -- include .gitignore/git excludes
-    hidden    = true,  -- include dotfiles
-  })
+vim.keymap.set("n", "<leader>si", function()
+	builtin.find_files({
+		no_ignore = true, -- include .gitignore/git excludes
+		hidden = true, -- include dotfiles
+		file_ignore_patterns = {
+			"node_modules/",
+			"%.git/",
+		},
+	})
 end, { desc = "Search Files" })
 
 vim.keymap.set("n", "<leader>sG", function()
-  builtin.live_grep({
-    additional_args = function()
-      return { "--no-ignore" }
-    end,
-  })
+	builtin.live_grep({
+		additional_args = function()
+			return { "--no-ignore" }
+		end,
+	})
 end, { desc = "Search Grep" })
 
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
@@ -69,15 +90,15 @@ vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "[D]ocu
 vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
 
 vim.keymap.set("n", "<leader>/", function()
-  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-    winblend = 10,
-    previewer = false,
-  }))
+	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
 end, { desc = "[/] Fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<leader>s/", function()
-  builtin.live_grep({
-    grep_open_files = true,
-    prompt_title = "Live Grep in Open Files",
-  })
+	builtin.live_grep({
+		grep_open_files = true,
+		prompt_title = "Live Grep in Open Files",
+	})
 end, { desc = "[S]earch [/] in Open Files" })

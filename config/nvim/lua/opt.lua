@@ -89,4 +89,4 @@ vim.o.confirm = true
 
 vim.o.maxmempattern = 5000
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.o.mouse = ""
