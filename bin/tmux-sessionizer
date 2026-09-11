@@ -5,8 +5,8 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$( { find ~/playground \
         ~/work \
+        ~/uni \
         ~/nextcloud/ \
-        ~/nextcloud/egyetem/ \
         ~/personal \
         /opt \
         ~/projects/ \
@@ -16,6 +16,7 @@ else
         $DOTFILES/config  \
         -mindepth 1 -maxdepth 1 -type d ! -name "\.*"; \
         echo -e "$HOME\n$HOME/.dotfiles\n$HOME/.config\n$HOME/.local"; } | fzf )
+        # ~/nextcloud/egyetem/ \
 
 #; find ~ -mindepth 1 -maxdepth 1 -type d ! -name "\.*" )| fzf)
 fi
