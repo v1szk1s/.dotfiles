@@ -80,12 +80,12 @@ cdir () {
 }
 
 lfcd() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd < "$tmp"
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-  \rm -f -- "$tmp"
-  # cd "$(command lf -print-last-dir "$@")"
+  # local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  # yazi "$@" --cwd-file="$tmp"
+  # IFS= read -r -d '' cwd < "$tmp"
+  # [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  # \rm -f -- "$tmp"
+  cd "$(command lf -print-last-dir "$@")"
 }
 
 zvm_after_init() {
@@ -104,6 +104,8 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/home/v1szk1s/.fzf/bin:$PATH"
+export LIBVIRT_DEFAULT_URI=qemu:///system
 # export PATH="/opt/idea-IU-242.21829.142/bin:$PATH"
 # export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -117,3 +119,5 @@ fi
 
 [ -f "$DOTFILES/config/zsh/mac_only.zsh" ] && source "$DOTFILES/config/zsh/mac_only.zsh" || echo "Could not source mac only"
 [ -f "$DOTFILES/config/zsh/pc_login" ] && source "$DOTFILES/config/zsh/pc_login" || echo "Could not source pc loging"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
