@@ -1,11 +1,9 @@
-package.path = package.path .. ";./?.lua;./?/init.lua"
-
 require("hyprland/autostart")
 require("hyprland/keybinds")
 require("hyprland/navigation")
-require("hyprland/plugins")
 require("hyprland/settings")
 require("hyprland/permissions")
 require("hyprland/env")
 require("hyprland/window_rules")
 require("hyprland/monitor")
+require("hyprland/split-monitor-workspaces")
