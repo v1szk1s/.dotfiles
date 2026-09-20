@@ -8,7 +8,7 @@ if smw_ok then
 	smw.setup({
 		workspace_count = 9,
 		enable_wrapping = false,
-		-- link_monitors = true,
+		link_monitors = true,
 		-- enable_persistent_workspaces = true,
 		monitor_priority = { "eDP-1", "HDMI-A-1", "DP-1" },
 	})
