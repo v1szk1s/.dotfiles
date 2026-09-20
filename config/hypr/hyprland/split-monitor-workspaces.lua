@@ -10,7 +10,7 @@ if smw_ok then
 		enable_wrapping = false,
 		-- link_monitors = true,
 		-- enable_persistent_workspaces = true,
-		monitor_priority = { "HDMI-A-1", "DP-1", "eDP-1" },
+		monitor_priority = { "eDP-1", "HDMI-A-1", "DP-1" },
 	})
 
 	for i = 1, smw.get_amount_of_workspaces() do
