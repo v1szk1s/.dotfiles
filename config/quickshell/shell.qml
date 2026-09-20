@@ -16,13 +16,27 @@ ShellRoot {
   property string bluetoothTui: "bluetui"
   property string mixer: "pavucontrol"
 
-  property color background: "#11111b"
-  property color surface: "#313244"
-  property color active: "#89b4fa"
-  property color text: "#cdd6f4"
-  property color mutedColor: "#a6adc8"
-  property color warning: "#f9e2af"
-  property color critical: "#f38ba8"
+  // Root
+property color background:   "#11111b"  // base
+property color surface:      "#1e1e2e"  // surface / elevated bg (slightly lighter than background)
+property color surfaceBright:"#313244"  // bright surface / input bg
+
+property color active:       "#89b4fa"  // primary accent (blue)
+property color activeDim:    "#5876a8"  // dimmed version of active for tracks/borders
+property color text:         "#cdd6f4"  // main text
+property color mutedColor:   "#9399b2"  // secondary text / subtle UI
+property color border:       "#45475a"  // generic border / divider
+
+property color warning:      "#f9e2af"  // yellow
+property color critical:     "#f38ba8"  // red
+
+  // property color background: "#11111b"
+  // property color surface: "#313244"
+  // property color active: "#89b4fa"
+  // property color text: "#cdd6f4"
+  // property color mutedColor: "#a6adc8"
+  // property color warning: "#f9e2af"
+  // property color critical: "#f38ba8"
 
   property string batteryPercent: ""
   property string batteryState: ""
