@@ -77,6 +77,19 @@ Item {
     font.pixelSize: 12
   }
 
+  // Auto-close timer
+  Timer {
+    id: autoCloseTimer
+    interval: 3000  // 3000 ms = 3 seconds; adjust as you like
+    running: false
+    repeat: false
+
+    onTriggered: {
+      audioWidget.popupVisible = false
+    }
+  }
+
+  // In your MouseArea, start/restart the timer when opening:
   MouseArea {
     anchors.fill: parent
     cursorShape: Qt.PointingHandCursor
@@ -85,117 +98,118 @@ Item {
       if (mouse.button === Qt.RightButton) {
         toggleMuteProcess.running = true
       } else {
-        audioWidget.popupVisible = !audioWidget.popupVisible
-        if (audioWidget.popupVisible) audioWidget.refresh()
+        if(audioWidget.popupVisible === true) {
+          audioWidget.popupVisible = false;
+        }else {
+
+          audioWidget.popupVisible = true
+          audioWidget.refresh()
+
+          autoCloseTimer.restart()  // start if stopped, or restart if already running
+        }
       }
     }
   }
 
   PopupWindow {
-  id: popup
-  visible: audioWidget.popupVisible
-  anchor.window: audioWidget.bar
-  anchor.rect.x: audioWidget.bar ? audioWidget.bar.width - implicitWidth - 120 : 0
-  anchor.rect.y: audioWidget.bar ? audioWidget.bar.height + 6 : 0
+    id: popup
+    visible: audioWidget.popupVisible
+    anchor.window: audioWidget.bar
+    anchor.rect.x: audioWidget.bar ? audioWidget.bar.width - implicitWidth - 120 : 0
+    anchor.rect.y: audioWidget.bar ? audioWidget.bar.height + 6 : 0
 
-  implicitWidth: 240
-  implicitHeight: 42
-  color: "transparent"
-  grabFocus: true
+    implicitWidth: 240
+    implicitHeight: 42
+    color: "transparent"
+    // grabFocus: true
 
-  // Outer shadow layer
-  Rectangle {
-    anchors.fill: card
-    anchors.margins: -8
-    radius: card.radius + 8
-    color: "#10000000" // very subtle shadow
-    z: -1
-  }
 
-  // Main card
-  Rectangle {
-    id: card
-    anchors.fill: parent
-    radius: 14
-    color: root.surface
-    border.width: 1
-    border.color: root.border
-
-    Column {
+    // Main card
+    Rectangle {
+      id: card
       anchors.fill: parent
-      anchors.margins: 12
-      spacing: 10
+      radius: 14
+      color: root.surface
+      border.width: 1
+      border.color: root.border
+
+      Column {
+        anchors.fill: parent
+        anchors.margins: 12
+        spacing: 10
 
 
-      // Slider
-      Slider {
-        id: slider
-        width: parent.width
-        from: 0
-        to: 100
-        value: audioWidget.volume
+        // Slider
+        Slider {
+          id: slider
+          width: parent.width
+          from: 0
+          to: 100
+          value: audioWidget.volume
 
-        onPressedChanged: {
-          if (!slider.pressed) {
-            audioWidget.setVolume(value)
+          onPressedChanged: {
+            if (!slider.pressed) {
+              audioWidget.setVolume(value)
+            }
           }
-        }
 
-        // Handle
-        handle: Rectangle {
-          implicitWidth: 18
-          implicitHeight: 18
-          x: slider.leftPadding + slider.visualPosition * (slider.availableWidth - implicitWidth)
-          y: slider.topPadding + slider.availableHeight / 2 - implicitHeight / 2
-          radius: 9
+          // Handle
+          handle: Rectangle {
+            implicitWidth: 18
+            implicitHeight: 18
+            x: slider.leftPadding + slider.visualPosition * (slider.availableWidth - implicitWidth)
+            y: slider.topPadding + slider.availableHeight / 2 - implicitHeight / 2
+            radius: 9
 
-          color: root.active
-          border.width: 2
-          border.color: root.surface
-
-          Rectangle {
-            anchors.fill: parent
-            anchors.margins: 5
-            radius: 5
-            color: Qt.lighter(root.active, 1.15)
-            opacity: 0.4
-          }
-        }
-
-        // Track
-        background: Rectangle {
-          x: slider.leftPadding
-          y: slider.topPadding + slider.availableHeight / 2 - height / 2
-          implicitWidth: 160
-          implicitHeight: 6
-          width: slider.availableWidth
-          radius: 3
-
-          color: root.surfaceBright
-          border.width: 1
-          border.color: root.border
-
-          // Filled portion
-          Rectangle {
-            width: slider.visualPosition * parent.width
-            height: parent.height
-            radius: 3
             color: root.active
+            border.width: 2
+            border.color: root.surface
+
+            Rectangle {
+              anchors.fill: parent
+              anchors.margins: 5
+              radius: 5
+              color: Qt.lighter(root.active, 1.15)
+              opacity: 0.4
+            }
           }
 
-          // Empty portion overlay
-          Rectangle {
-            anchors.fill: parent
-            anchors.leftMargin: slider.visualPosition * parent.width
+          // Track
+          background: Rectangle {
+            x: slider.leftPadding
+            y: slider.topPadding + slider.availableHeight / 2 - height / 2
+            implicitWidth: 160
+            implicitHeight: 6
+            width: slider.availableWidth
             radius: 3
-            color: root.activeDim
-            opacity: 0.25
+
+            color: root.surfaceBright
+            border.width: 1
+            border.color: root.border
+
+            // Filled portion
+            Rectangle {
+              width: slider.visualPosition * parent.width
+              height: parent.height
+              radius: 3
+              color: root.active
+            }
+
+            // Empty portion overlay
+            Rectangle {
+              anchors.fill: parent
+              anchors.leftMargin: slider.visualPosition * parent.width
+              radius: 3
+              color: root.activeDim
+              opacity: 0.25
+            }
           }
         }
       }
     }
   }
-}
+
+
 
   Component.onCompleted: audioWidget.refresh()
 }
