@@ -71,10 +71,11 @@ Item {
   Text {
     id: audioText
     anchors.centerIn: parent
+    anchors.verticalCenterOffset: 3
     text: audioWidget.icon() + " " + audioWidget.volume + "%"
-    color: root.mutedColor
+    color: root.text
     font.family: "JetBrainsMono Nerd Font"
-    font.pixelSize: 12
+    font.pixelSize: px(12)
   }
 
   // Auto-close timer

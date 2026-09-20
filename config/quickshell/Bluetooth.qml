@@ -27,7 +27,7 @@ Item {
 
     color: bluetoothWidget.bluetoothEnabled ? root.text : root.mutedColor
     font.family: "JetBrainsMono Nerd Font"
-    font.pixelSize: px(12)
+    font.pixelSize: px(13)
   }
 
   MouseArea {

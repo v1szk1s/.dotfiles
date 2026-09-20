@@ -8,62 +8,6 @@ import Quickshell.Io
 Rectangle {
   id: workspaceIsland
 
-  function switchWorkspace(number) {
-    if (smwAvailable) {
-      Hyprland.dispatch(
-        `require("plugins.split-monitor-workspaces").workspace("${number}")`
-      )
-    } else if (Hyprland.usingLua) {
-      Hyprland.dispatch(
-        `hl.dsp.focus({ workspace = "${number}" })`
-      )
-    } else {
-      Hyprland.dispatch(`workspace ${number}`)
-    }
-  }
-
-  function moveToWorkspace(number, silent) {
-    if (smwAvailable) {
-      const method = silent
-      ? "move_to_workspace_silent"
-      : "move_to_workspace"
-
-      Hyprland.dispatch(
-        `require("plugins.split-monitor-workspaces").${method}("${number}")`
-      )
-    } else if (Hyprland.usingLua) {
-      Hyprland.dispatch(
-        `hl.dsp.window.move({ workspace = "${number}", follow = ${silent ? "false" : "true"} })`
-      )
-    } else {
-      Hyprland.dispatch(
-        `${silent ? "movetoworkspacesilent" : "movetoworkspace"} ${number}`
-      )
-    }
-  }
-
-  function globalWorkspaceIdFor(number) {
-    if (!Hyprland.focusedMonitor)
-    return number
-
-    const mon = Hyprland.focusedMonitor
-
-    const isSecondary =
-    mon.name !== "eDP-1"
-
-    return isSecondary ? (number + 9) : number
-  }
-
-  function workspaceActive(number) {
-    if (!Hyprland.focusedWorkspace)
-    return false
-
-    const expectedId = workspaceIsland.globalWorkspaceIdFor(number)
-    const actualId   = Hyprland.focusedWorkspace.id
-
-    return actualId === expectedId
-  }
-
   anchors.left: parent.left
   anchors.leftMargin: px(8)
   anchors.verticalCenter: parent.verticalCenter
@@ -138,11 +82,13 @@ Rectangle {
 
           Rectangle {
             anchors.centerIn: parent
+            anchors.verticalCenterOffset: -0.1
+            anchors.horizontalCenterOffset: 0.5
             visible: parent.parent.activeWorkspace
 
-            width: px(3)
-            height: px(3)
-            radius: 2
+            width: px(5.5)
+            height: px(5.5)
+            radius: 999
 
             color: Qt.rgba(
               root.background.r,
@@ -176,5 +122,60 @@ Rectangle {
         }
       }
     }
+  }
+  function switchWorkspace(number) {
+    if (smwAvailable) {
+      Hyprland.dispatch(
+        `require("plugins.split-monitor-workspaces").workspace("${number}")`
+      )
+    } else if (Hyprland.usingLua) {
+      Hyprland.dispatch(
+        `hl.dsp.focus({ workspace = "${number}" })`
+      )
+    } else {
+      Hyprland.dispatch(`workspace ${number}`)
+    }
+  }
+
+  function moveToWorkspace(number, silent) {
+    if (smwAvailable) {
+      const method = silent
+      ? "move_to_workspace_silent"
+      : "move_to_workspace"
+
+      Hyprland.dispatch(
+        `require("plugins.split-monitor-workspaces").${method}("${number}")`
+      )
+    } else if (Hyprland.usingLua) {
+      Hyprland.dispatch(
+        `hl.dsp.window.move({ workspace = "${number}", follow = ${silent ? "false" : "true"} })`
+      )
+    } else {
+      Hyprland.dispatch(
+        `${silent ? "movetoworkspacesilent" : "movetoworkspace"} ${number}`
+      )
+    }
+  }
+
+  function globalWorkspaceIdFor(number) {
+    if (!Hyprland.focusedMonitor)
+    return number
+
+    const mon = Hyprland.focusedMonitor
+
+    const isSecondary =
+    mon.name !== "eDP-1"
+
+    return isSecondary ? (number + 9) : number
+  }
+
+  function workspaceActive(number) {
+    if (!Hyprland.focusedWorkspace)
+    return false
+
+    const expectedId = workspaceIsland.globalWorkspaceIdFor(number)
+    const actualId   = Hyprland.focusedWorkspace.id
+
+    return actualId === expectedId
   }
 }

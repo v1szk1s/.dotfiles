@@ -30,76 +30,10 @@ ShellRoot {
   property color warning:      "#f9e2af"  // yellow
   property color critical:     "#f38ba8"  // red
 
-  // property color background: "#11111b"
-  // property color surface: "#313244"
-  // property color active: "#89b4fa"
-  // property color text: "#cdd6f4"
-  // property color mutedColor: "#a6adc8"
-  // property color warning: "#f9e2af"
-  // property color critical: "#f38ba8"
-
   property string batteryPercent: ""
   property string batteryState: ""
   property string keyboardLayout: ""
 
-  function exec(command) {
-    Quickshell.execDetached(["sh", "-lc", command])
-  }
-
-  function batteryColor() {
-    if (batteryPercent >= 0 && batteryPercent <= 10)
-    return critical
-    if (batteryPercent >= 0 && batteryPercent <= 25)
-    return warning
-    return text
-  }
-
-  // UPower DisplayDevice works on most laptops. It harmlessly results in
-  // no shown battery widget on a desktop without a battery.
-  Process {
-    id: batteryProcess
-    command: [
-      "sh", "-lc",
-      "/home/mumu/.dotfiles/bin/battery"
-    ]
-
-    stdout: SplitParser {
-      onRead: data => {
-        root.batteryPercent = data
-      }
-    }
-  }
-
-  // Gets the active keymap from Hyprland JSON output.
-  Process {
-    id: keyboardProcess
-    command: [
-      "sh", "-lc",
-      "hyprctl devices -j 2>/dev/null | jq -r "
-      + "'[.keyboards[] | select(.main == true)][0].active_keymap "
-      + "// .keyboards[0].active_keymap // \"\"'"
-    ]
-
-    stdout: SplitParser {
-      onRead: data => {
-        root.keyboardLayout = data.trim()
-      }
-    }
-  }
-
-  Timer {
-    interval: 3000
-    running: true
-    repeat: true
-    triggeredOnStart: true
-
-    onTriggered: {
-      // bluetoothProcess.running = true
-      // volumeProcess.running = true
-      batteryProcess.running = true
-      keyboardProcess.running = true
-    }
-  }
 
   Variants {
     model: Quickshell.screens
@@ -113,7 +47,7 @@ ShellRoot {
       // 1.0 on ordinary displays; at least 1.25 on high-DPI panels.
       readonly property real displayScale: Math.max(
         1.0,
-        Math.min(1.20, screen.devicePixelRatio)
+        Math.min(1.25, screen.devicePixelRatio)
       )
 
       function px(value) {
@@ -128,7 +62,7 @@ ShellRoot {
 
       // The actual panel is transparent. Widgets float in compact islands.
       implicitHeight: px(28)
-      exclusiveZone: px(23)
+      exclusiveZone: px(25)
       color: "transparent"
       exclusionMode: ExclusionMode.Normal
 
@@ -320,6 +254,63 @@ ShellRoot {
 
         onTriggered: date = new Date()
       }
+    }
+  }
+
+  function exec(command) {
+    Quickshell.execDetached(["sh", "-lc", command])
+  }
+
+  function batteryColor() {
+    if (batteryPercent >= 0 && batteryPercent <= 10)
+    return critical
+    if (batteryPercent >= 0 && batteryPercent <= 25)
+    return warning
+    return text
+  }
+
+  // UPower DisplayDevice works on most laptops. It harmlessly results in
+  // no shown battery widget on a desktop without a battery.
+  Process {
+    id: batteryProcess
+    command: [
+      "sh", "-lc",
+      "/home/mumu/.dotfiles/bin/battery"
+    ]
+
+    stdout: SplitParser {
+      onRead: data => {
+        root.batteryPercent = data
+      }
+    }
+  }
+
+  // Gets the active keymap from Hyprland JSON output.
+  Process {
+    id: keyboardProcess
+    command: [
+      "sh", "-lc",
+      "hyprctl devices -j 2>/dev/null | jq -r "
+      + "'[.keyboards[] | select(.main == true)][0].active_keymap "
+      + "// .keyboards[0].active_keymap // \"\"'"
+    ]
+
+    stdout: SplitParser {
+      onRead: data => {
+        root.keyboardLayout = data.trim()
+      }
+    }
+  }
+
+  Timer {
+    interval: 3000
+    running: true
+    repeat: true
+    triggeredOnStart: true
+
+    onTriggered: {
+      batteryProcess.running = true
+      keyboardProcess.running = true
     }
   }
 }
