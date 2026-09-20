@@ -89,4 +89,4 @@ vim.o.confirm = true
 
 vim.o.maxmempattern = 5000
 
-vim.o.mouse = ""
+-- vim.o.mouse = ""
