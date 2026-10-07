@@ -72,7 +72,7 @@ _G.search_first_operator = function(kind)
 	vim.fn.search(pattern, "cW")
 end
 
-vim.keymap.set("n", "gf", function()
+vim.keymap.set("n", "<leader>f", function()
 	vim.go.operatorfunc = "v:lua.search_first_operator"
 	return "g@"
 end, { expr = true, desc = "Find first occurrence of text object" })
