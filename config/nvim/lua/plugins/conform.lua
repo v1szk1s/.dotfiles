@@ -14,6 +14,14 @@ require("conform").setup({
 		lua = { "stylua" },
 		rust = { "rustfmt" },
 		typst = { "typstyle" },
+		xml = { "xmllint" },
+	},
+	formatters = {
+		xmllint = {
+			env = {
+				XMLLINT_INDENT = "    ",
+			},
+		},
 	},
 	format_on_save = {
 		async = false,

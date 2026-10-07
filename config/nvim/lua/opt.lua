@@ -44,7 +44,7 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 
-vim.o.expandtab = true
+vim.o.expandtab = false
 vim.o.smartindent = true
 
 vim.o.wrap = false
@@ -64,7 +64,7 @@ vim.o.showmode = false
 
 vim.o.termguicolors = true
 
-vim.o.scrolloff = 8
+-- vim.o.scrolloff = 8
 
 vim.o.cursorline = false
 
@@ -89,4 +89,4 @@ vim.o.confirm = true
 
 vim.o.maxmempattern = 5000
 
-vim.o.mouse = ""
+-- vim.o.mouse = ""

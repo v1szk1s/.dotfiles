@@ -40,3 +40,39 @@ vim.keymap.set("n", "<leader>ca", function()
 end, { desc = "Copy relative file path to clipboard" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+_G.search_first_operator = function(kind)
+	-- Yank the region selected by the motion/text object.
+	local selection = ({
+		char = "`[v`]",
+		line = "'[V']",
+		block = "`[\22`]", -- Ctrl-V
+	})[kind]
+
+	local saved_register = vim.fn.getreginfo('"')
+	local saved_selection = vim.o.selection
+
+	vim.o.selection = "inclusive"
+	vim.cmd.normal({ args = { selection .. "y" }, bang = true })
+	local text = vim.fn.getreg('"')
+
+	vim.fn.setreg('"', saved_register)
+	vim.o.selection = saved_selection
+
+	if text == "" then
+		return
+	end
+
+	-- Search literally, including regex-special characters.
+	local pattern = "\\V" .. vim.fn.escape(text, "\\")
+	pattern = pattern:gsub("\n", "\\n")
+	vim.fn.setreg("/", pattern)
+
+	vim.api.nvim_win_set_cursor(0, { 1, 0 })
+	vim.fn.search(pattern, "cW")
+end
+
+vim.keymap.set("n", "gf", function()
+	vim.go.operatorfunc = "v:lua.search_first_operator"
+	return "g@"
+end, { expr = true, desc = "Find first occurrence of text object" })
