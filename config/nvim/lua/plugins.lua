@@ -28,6 +28,7 @@ vim.pack.add({
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 	"https://github.com/sindrets/diffview.nvim",
+	"https://github.com/brenoprata10/nvim-highlight-colors",
 })
 
 -- oil
@@ -59,6 +60,7 @@ vim.g.vimtex_view_method = "zathura"
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>")
 
 -- colorizer
+require("nvim-highlight-colors").setup({})
 
 -- load plugins from plugins dir
 local plugins = vim.api.nvim_get_runtime_file("lua/plugins/*.lua", true)

@@ -90,7 +90,7 @@ hl.config({
 	},
 
 	xwayland = {
-		force_zero_scaling = true,
+		force_zero_scaling = false,
 	},
 
 	input = {

@@ -1,18 +1,27 @@
 hl.monitor({
-	output = "eDP-1",
+	output = "",
 	mode = "preferred",
-	position = "auto",
+	position = "auto-left",
+	scale = 1,
+})
+
+hl.monitor({
+	output = "eDP-1",
+	mode = "3840x2160@60",
+	position = "0x0",
 	scale = 2,
 })
 
 hl.monitor({
-	output = "",
-	mode = "preferred",
-	position = "auto",
+	output = "DP-1",
+	mode = "1920x1080@144",
+	position = "auto-up",
 	scale = 1,
 })
 
--- # # monitor=eDP-1,1920x1080@60,auto,1
--- # monitor=eDP-1,preferred,auto,2
--- # # monitor=DP-1, 1920x1200@60, 0x0, 1, transform, 1
--- # monitor = , preferred, auto, 1
+hl.monitor({
+	output = "HDMI-A-1",
+	mode = "1920x1080@144",
+	position = "auto-up",
+	scale = 1,
+})
