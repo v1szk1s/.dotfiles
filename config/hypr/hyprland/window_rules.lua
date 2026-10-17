@@ -2,37 +2,37 @@
 
 hl.window_rule({
 	match = { class = "^(firefox)$" },
-	workspace = "2",
+	workspace = "2 silent",
 })
 
 -- hl.window_rule({
 --     match = { class = "^(rdesktop)$" },
---     workspace = "3",
+--     workspace = "3 silent",
 -- })
 
 -- hl.window_rule({
 --     match = { class = "^(Zathura)$" },
---     workspace = "5",
+--     workspace = "5 silent",
 -- })
 
 hl.window_rule({
 	match = { class = "^(gimp)$" },
-	workspace = "7",
+	workspace = "7 silent",
 })
 
 hl.window_rule({
 	match = { class = "^(discord)$" },
-	workspace = "8",
+	workspace = "8 silent",
 })
 
 hl.window_rule({
 	match = { class = "^(org.keepassxc.KeePassXC)$" },
-	workspace = "9",
+	workspace = "9 silent",
 })
 
 hl.window_rule({
 	match = { class = "^(alacritty)$" },
-	workspace = "1",
+	workspace = "1 silent",
 })
 
 hl.window_rule({

@@ -8,7 +8,7 @@ if smw_ok then
 	smw.setup({
 		workspace_count = 9,
 		enable_wrapping = false,
-		link_monitors = true,
+		link_monitors = false,
 		-- enable_persistent_workspaces = true,
 		monitor_priority = { "eDP-1", "HDMI-A-1", "DP-1" },
 	})
@@ -31,6 +31,8 @@ if smw_ok then
 		direction = "left",
 		action = smw.workspace("+1"),
 	})
+
+	hl.bind(mainMod .. " + SHIFT + G", smw.grab_rogue_windows())
 else
 	for i = 1, 9 do
 		local key = tostring(i)

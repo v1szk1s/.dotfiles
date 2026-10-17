@@ -1,39 +1,83 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-# Change these to match `hyprctl monitors`
-INTERNAL="eDP-1"
-EXTERNAL="HDMI-A-1"
+INTERNAL_MONITOR=$(hyprctl monitors all -j | jq -r '.[] | select(.id == 0) | .name')
+EXTERNAL_MONITOR=$(hyprctl monitors all -j | jq -r '.[] | select(.id == 1) | .name')
+# EXTERNAL_MONITOR="DP-1"
 
-# Optionally set your preferred modes
-INTERNAL_MODE="preferred"
-EXTERNAL_MODE="preferred"
+printf 'INTERNAL_MONITOR=%q\n' "$INTERNAL_MONITOR"
+printf 'EXTERNAL_MONITOR=%q\n' "$EXTERNAL_MONITOR"
 
-# Walker dmenu: read newline-separated items from stdin, output selection. [web:60]
-MENU=$'Primary only\nSecondary only\nExtend right\nExtend left'
+MENU=$'Internal only\nExternal only\nExtend up\nExtend left\nExtend right'
 
-choice="$(printf '%s\n' "$MENU" | walker --dmenu -p 'Displays:' )"  # -p sets placeholder text. [web:60]
-# If you run walker as a service, consider adding: --exit (only when using service). [web:60]
+choice="$(printf '%s\n' "$MENU" | walker --dmenu -p 'Displays:' )"
 
 case "$choice" in
-  "Primary only")
-    hyprctl keyword monitor "$INTERNAL,$INTERNAL_MODE,0x0,2"
-    hyprctl keyword monitor "$EXTERNAL,disable"
+  "Internal only")
+    echo "Internal only"
+    hyprctl eval "hl.monitor({
+      output = \"$INTERNAL_MONITOR\",
+      disabled = false,
+    })" && \
+    hyprctl eval "hl.monitor({
+      output = \"$EXTERNAL_MONITOR\",
+      disabled = true,
+    })"
+
+    # sleep 2
+    # hyprctl dispatch 'require("plugins.split-monitor-workspaces").grab_rogue_windows()'
     ;;
-  "Secondary only")
-    hyprctl keyword monitor "$INTERNAL,disable"
-    hyprctl keyword monitor "$EXTERNAL,$EXTERNAL_MODE,0x0,1"
+  "External only")
+    echo "External only"
+    killall qs
+
+    hyprctl eval "hl.monitor({
+      output = \"$EXTERNAL_MONITOR\",
+      disabled = false,
+    })" && \
+    hyprctl eval "hl.monitor({
+      output = \"$INTERNAL_MONITOR\",
+      disabled = true,
+    })"
+
     ;;
-  "Extend right")
-    hyprctl keyword monitor "$INTERNAL,$INTERNAL_MODE,0x0,2"
-    hyprctl keyword monitor "$EXTERNAL,$EXTERNAL_MODE,auto-right,1"
+  "Extend up")
+    hyprctl eval "hl.monitor({
+      output = \"$INTERNAL_MONITOR\",
+      disabled = false,
+    })"
+
+    hyprctl eval "hl.monitor({
+      output = \"$EXTERNAL_MONITOR\",
+      mode = \"preferred\",
+      position = \"auto-up\",
+      disabled = false,
+    })"
     ;;
   "Extend left")
-    hyprctl keyword monitor "$INTERNAL,$INTERNAL_MODE,0x0,2"
-    hyprctl keyword monitor "$EXTERNAL,$EXTERNAL_MODE,auto-left,1"
+    hyprctl eval "hl.monitor({
+      output = \"$INTERNAL_MONITOR\",
+      disabled = false,
+    })"
+    hyprctl eval "hl.monitor({
+      output = \"$EXTERNAL_MONITOR\",
+      position = \"auto-left\",
+      disabled = false,
+    })"
+    ;;
+  "Extend right")
+    hyprctl eval "hl.monitor({
+      output = \"$INTERNAL_MONITOR\",
+      disabled = false,
+    })"
+    hyprctl eval "hl.monitor({
+      output = \"$EXTERNAL_MONITOR\",
+      position = \"auto-right\",
+      disabled = false,
+    })"
     ;;
   "" )
-    # cancelled / ESC
     exit 0
     ;;
   * )
@@ -41,3 +85,6 @@ case "$choice" in
     exit 1
     ;;
 esac
+
+sleep 1
+hyprctl dispatch 'require("plugins.split-monitor-workspaces").grab_rogue_windows()'
