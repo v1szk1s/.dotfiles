@@ -1,0 +1,12 @@
+[Unit]
+Description=KMonad keyboard remapping
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/kmonad %h/.config/kmonad/main.kbd
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

@@ -117,6 +117,24 @@ echo "==> Initializing XDG user directories…"
 sudo -u "$USERNAME" xdg-user-dirs-update || true
 
 
+
+echo "Setup kmonad permissions"
+
+sudo groupadd -f uinput
+sudo usermod -aG input,uinput "$USER"
+
+sudo tee /etc/udev/rules.d/99-uinput.rules >/dev/null <<'EOF'
+KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+EOF
+
+sudo udevadm control --reload-rules
+sudo modprobe uinput
+sudo udevadm trigger --subsystem-match=misc
+
+echo uinput | sudo tee /etc/modules-load.d/uinput.conf
+
+
+
 # ==========================================
 # SHELL
 # ==========================================
