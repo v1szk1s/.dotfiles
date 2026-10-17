@@ -81,7 +81,7 @@ Item {
   // Auto-close timer
   Timer {
     id: autoCloseTimer
-    interval: 3000  // 3000 ms = 3 seconds; adjust as you like
+    interval: 5000
     running: false
     repeat: false
 
@@ -151,6 +151,7 @@ Item {
           onPressedChanged: {
             if (!slider.pressed) {
               audioWidget.setVolume(value)
+              // autoCloseTimer.restart()
             }
           }
 
