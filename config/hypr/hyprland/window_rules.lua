@@ -71,3 +71,12 @@ hl.window_rule({
 -- 	match = { class = "^(org%.kde%.kdenlive)$" },
 -- 	center = true,
 -- })
+
+hl.window_rule({
+	match = {
+		class = "foot",
+		title = ".*[float].*",
+	},
+	size = "monitor_w*0.8 monitor_h*0.8",
+	float = true,
+})

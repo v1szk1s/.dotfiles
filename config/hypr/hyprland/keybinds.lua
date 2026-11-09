@@ -29,14 +29,16 @@ hl.bind(
 hl.bind("SUPER + SHIFT + c", hl.dsp.exec_cmd("hyprpicker -a"))
 
 hl.bind(
-	"CTRL + SUPER + ALT + SHIFT + s",
+	"SUPER + ALT + SHIFT + s",
 	hl.dsp.exec_cmd(
 		"grim -t ppm - | satty --filename - --output-filename ~/Pictures/screenshots/$(date '+%Y%m%d-%H:%M:%S').png"
 	)
 )
 
 -- Waybar toggle
-hl.bind("SUPER + b", hl.dsp.exec_cmd("pkill qs || qs"))
+hl.bind("ALT + SHIFT + b", hl.dsp.exec_cmd("pkill qs || qs"))
+
+hl.bind("SUPER + b", hl.dsp.exec_cmd('foot -T "[float] Bluetooth"  -e bluetui'))
 
 -- Lockscreen / displays
 -- hl.bind("", "XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"))
