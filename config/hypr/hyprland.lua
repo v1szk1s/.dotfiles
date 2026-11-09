@@ -1,7 +1,7 @@
 require("hyprland/autostart")
 require("hyprland/keybinds")
 require("hyprland/navigation")
-require("hyprland/settings")
+require("hyprland/general")
 require("hyprland/permissions")
 require("hyprland/env")
 require("hyprland/window_rules")

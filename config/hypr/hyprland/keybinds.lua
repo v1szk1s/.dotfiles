@@ -6,7 +6,7 @@ hl.bind("SUPER + SHIFT + q", hl.dsp.window.kill())
 hl.bind("ALT + SHIFT + q", hl.dsp.exec_cmd("loginctl terminate-user " .. os.getenv("USER"))) -- or use "hyprctl dispatch exit" if you prefer
 
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("foot"))
-hl.bind("SUPER + space", hl.dsp.exec_cmd("ncat -U /run/user/1000/walker/walker.sock"))
+hl.bind("SUPER + space", hl.dsp.exec_cmd("fuzzel"))
 -- hl.bind("SUPER + space", hl.dsp.exec_cmd("hyprlauncher"))
 
 hl.bind("SUPER + l", hl.dsp.exec_cmd("hyprlock"))
@@ -36,7 +36,7 @@ hl.bind(
 )
 
 -- Waybar toggle
-hl.bind("SUPER + b", hl.dsp.exec_cmd("pkill waybar || waybar"))
+hl.bind("SUPER + b", hl.dsp.exec_cmd("pkill qs || qs"))
 
 -- Lockscreen / displays
 -- hl.bind("", "XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"))
