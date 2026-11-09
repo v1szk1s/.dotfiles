@@ -72,7 +72,7 @@ Item {
     id: audioText
     anchors.centerIn: parent
     anchors.verticalCenterOffset: 3
-    text: audioWidget.icon() + " " + audioWidget.volume + "%"
+    text: audioWidget.icon()// + " " + audioWidget.volume + "%"
     color: root.text
     font.family: "JetBrainsMono Nerd Font"
     font.pixelSize: px(12)

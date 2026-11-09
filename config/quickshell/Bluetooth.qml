@@ -18,10 +18,10 @@ Item {
     anchors.centerIn: parent
 
     text: bluetoothWidget.bluetoothEnabled
-    ? `󰂯${
+    ? `${
       bluetoothWidget.bluetoothConnected > 0
-      ? " " + bluetoothWidget.bluetoothConnected
-      : ""
+      ? "󰂱 "
+      : "󰂯"
     }`
     : "󰂲"
 

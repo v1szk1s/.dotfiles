@@ -70,6 +70,24 @@ ShellRoot {
         id: workspaceIsland
       }
 
+			Text {
+
+				anchors.left: parent.left
+				anchors.leftMargin: px(140)
+				anchors.verticalCenter: parent.verticalCenter
+				// Active/focused Hyprland window title
+				text: {
+					const win = Hyprland.toplevels.values.find(t => t.activated);
+					const title = win?.title ?? "";
+					return title.length > 60 ? title.slice(0, 47) + " … " + title.slice(title.length - 20) : title;
+				}
+
+				color: "#cdd6f4"
+				font.pixelSize: 13
+				elide: Text.ElideRight
+				maximumLineCount: 1
+			}
+
       Clock {
         id: clockIsland
       }
